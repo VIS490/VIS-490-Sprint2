@@ -1,0 +1,52 @@
+{
+  "name": "project3-mvp-vis",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.0",
+    "socket.io-client": "^2.3.1",
+    "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "css-loader": "^5.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.2.1",
+    "postcss": "^8.1.4",
+    "postcss-cli": "^8.2.0",
+    "postcss-loader": "^4.0.4",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"python app.py\" \"webpack-dev-server --mode development --open --hot\"",
+    "build": "webpack --mode production"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
