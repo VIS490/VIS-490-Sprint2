@@ -2,7 +2,7 @@ import React from 'react'
 
 const Login = () => {
     return (
-        <div className="App">
+        <div className="Login">
             Login.js
         </div>
     );

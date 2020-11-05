@@ -6,6 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.min.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -15,14 +16,14 @@ module.exports = {
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
                 options: {
-                     presets: [
+                    presets: [
                         '@babel/preset-react',
                         [
                             '@babel/preset-env',
                             {
-                              targets: {
-                                esmodules: false
-                              }
+                                targets: {
+                                    esmodules: false
+                                }
                             }
                         ]
                     ]
@@ -30,16 +31,15 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './templates/index.html'
-        }),
-        new MiniCssExtractPlugin({
-        filename: "styles.css",
-        chunkFilename: "styles.css"
-        }),
+        })
     ],
     resolve: {
-    extensions: ['.js', '.jsx'],
-  }
+        extensions: ['.js', '.jsx'],
+    }
 };
