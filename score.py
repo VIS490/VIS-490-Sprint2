@@ -1,5 +1,3 @@
-import json
-import os
 from os.path import dirname, join
 import sys
 
@@ -11,6 +9,7 @@ KEY_LEADER_SUPPORT = "Leader Support"
 KEY_PEER_RELATIONSHIPS = "Peer Relationships"
 KEY_CONTRIBUTION_IMPACT = "Contribution and Impact"
 KEY_DEVELOPMENT = "Development"
+KEY_TOTAL = "Wellness Score"
 
 WORK_LOAD_QUESTIONS = ["q2", "q6", "q10", "q14"]
 INDEPENDENCE_QUESTIONS = ["q8", "q12", "q16", "q19"]
@@ -20,8 +19,6 @@ CONTRIBUTION_IMPACT_QUESTIONS = ["q5", "q11", "q15"]
 DEVELOPMENT_QUESTIONS = ["q1", "q4", "q9"]
 
 SCALE_MULTIPLIER = 10
-
-TEST = {"q1": 5, "q2": 4, "q3": 1}
 
 SCORES = {
     KEY_WORK_LOAD: 0,
@@ -33,12 +30,13 @@ SCORES = {
 }
 
 SCALED_SCORES = {
-    KEY_WORK_LOAD: 0,
-    KEY_INDEPENDENCE: 0,
-    KEY_LEADER_SUPPORT: 0,
-    KEY_PEER_RELATIONSHIPS: 0,
-    KEY_CONTRIBUTION_IMPACT: 0,
-    KEY_DEVELOPMENT: 0
+    KEY_WORK_LOAD: 0.0,
+    KEY_INDEPENDENCE: 0.0,
+    KEY_LEADER_SUPPORT: 0.0,
+    KEY_PEER_RELATIONSHIPS: 0.0,
+    KEY_CONTRIBUTION_IMPACT: 0.0,
+    KEY_DEVELOPMENT: 0.0,
+    KEY_TOTAL: 0.0
 }
 
 
@@ -63,18 +61,24 @@ def get_category_raw_score(category):
 
 
 def get_category_scaled_score(category):
-    scaled_res = 0
     if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
         scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 24
+        SCALED_SCORES[category] = scaled_res
+
     scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 18
-    return scaled_res
+    SCALED_SCORES[category] = scaled_res
+    # return scaled_res
 
 
 def get_total_scaled_score():
-    print("")
+    for v in SCALED_SCORES.values():
+        SCALED_SCORES[KEY_TOTAL] += v
+    # return SCALED_SCORES[KEY_TOTAL]
 
 
-split_data(TEST)
-print(get_category_raw_score(KEY_WORK_LOAD))
-print(get_category_scaled_score(KEY_WORK_LOAD))
-print(SCORES)
+def get_all_scaled_scores(data):
+    split_data(data)
+    for k in SCORES.keys():
+        get_category_scaled_score(k)
+    get_total_scaled_score()
+    return SCALED_SCORES
