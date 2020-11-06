@@ -19,9 +19,20 @@ PEER_RELATIONSHIPS_QUESTIONS = ["q7", "q13", "q18"]
 CONTRIBUTION_IMPACT_QUESTIONS = ["q5", "q11", "q15"]
 DEVELOPMENT_QUESTIONS = ["q1", "q4", "q9"]
 
+SCALE_MULTIPLIER = 10
+
 TEST = {"q1": 5, "q2": 4, "q3": 1}
 
-RESPONSES = {
+SCORES = {
+    KEY_WORK_LOAD: 0,
+    KEY_INDEPENDENCE: 0,
+    KEY_LEADER_SUPPORT: 0,
+    KEY_PEER_RELATIONSHIPS: 0,
+    KEY_CONTRIBUTION_IMPACT: 0,
+    KEY_DEVELOPMENT: 0
+}
+
+SCALED_SCORES = {
     KEY_WORK_LOAD: 0,
     KEY_INDEPENDENCE: 0,
     KEY_LEADER_SUPPORT: 0,
@@ -34,25 +45,29 @@ RESPONSES = {
 def split_data(data):
     for k, v in data.items():
         if k in WORK_LOAD_QUESTIONS:
-            RESPONSES[KEY_WORK_LOAD] += v
+            SCORES[KEY_WORK_LOAD] += v
         if k in INDEPENDENCE_QUESTIONS:
-            RESPONSES[KEY_INDEPENDENCE] += v
+            SCORES[KEY_INDEPENDENCE] += v
         if k in LEADER_SUPPORT_QUESTIONS:
-            RESPONSES[KEY_LEADER_SUPPORT] += v
+            SCORES[KEY_LEADER_SUPPORT] += v
         if k in PEER_RELATIONSHIPS_QUESTIONS:
-            RESPONSES[KEY_PEER_RELATIONSHIPS] += v
+            SCORES[KEY_PEER_RELATIONSHIPS] += v
         if k in CONTRIBUTION_IMPACT_QUESTIONS:
-            RESPONSES[KEY_CONTRIBUTION_IMPACT] += v
+            SCORES[KEY_CONTRIBUTION_IMPACT] += v
         if k in DEVELOPMENT_QUESTIONS:
-            RESPONSES[KEY_DEVELOPMENT] += v
+            SCORES[KEY_DEVELOPMENT] += v
 
 
 def get_category_raw_score(category):
-    return RESPONSES[category]
+    return SCORES[category]
 
 
 def get_category_scaled_score(category):
-    print("")
+    scaled_res = 0
+    if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
+        scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 24
+    scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 18
+    return scaled_res
 
 
 def get_total_scaled_score():
@@ -60,4 +75,6 @@ def get_total_scaled_score():
 
 
 split_data(TEST)
-print(RESPONSES)
+print(get_category_raw_score(KEY_WORK_LOAD))
+print(get_category_scaled_score(KEY_WORK_LOAD))
+print(SCORES)
