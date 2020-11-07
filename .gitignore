@@ -28,3 +28,9 @@ yarn-error.log*
 
 venv/
 
+dist/
+
+package-lock.json
+
+__pycache__/
+
