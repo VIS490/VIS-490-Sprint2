@@ -21,13 +21,10 @@ TEST_COMPLETE_USER_RESPONSE = {
     "q11": 1, "q12": 1, "q13": 1, "q14": 1, "q15": 1, "q16": 1, "q17": 1, "q18": 1, "q19": 1, "q20": 1
 }
 
-TEST_INCOMPLETE_USER_RESPONSE = {
-    "q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1, "q6": 1, "q7": 1, "q8": 1, "q9": 1, "q10": 1
-}
-
 
 class ScoresTest(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.success_split_data_test_params = [
             {
                 KEY_INPUT: TEST_COMPLETE_USER_RESPONSE,
@@ -57,18 +54,20 @@ class ScoresTest(unittest.TestCase):
 
     def test_split_data_success(self):
         for test in self.success_split_data_test_params:
-            score.split_data(test[KEY_INPUT])
-            self.assertDictEqual(score.SCORES, test[KEY_EXPECTED])
+            score_test = score.ScoresGenerator()
+            score_test.split_data(test[KEY_INPUT])
+            self.assertDictEqual(score_test.SCORES, test[KEY_EXPECTED])
 
     def test_split_data_failure(self):
         for test in self.failure_split_data_test_params:
-            score.split_data(test[KEY_INPUT])
-            self.assertNotEqual(score.SCORES[KEY_WORK_LOAD], test[KEY_EXPECTED][KEY_WORK_LOAD])
-            self.assertNotEqual(score.SCORES[KEY_INDEPENDENCE], test[KEY_EXPECTED][KEY_INDEPENDENCE])
-            self.assertNotEqual(score.SCORES[KEY_LEADER_SUPPORT], test[KEY_EXPECTED][KEY_LEADER_SUPPORT])
-            self.assertNotEqual(score.SCORES[KEY_PEER_RELATIONSHIPS], test[KEY_EXPECTED][KEY_PEER_RELATIONSHIPS])
-            self.assertNotEqual(score.SCORES[KEY_CONTRIBUTION_IMPACT], test[KEY_EXPECTED][KEY_CONTRIBUTION_IMPACT])
-            self.assertNotEqual(score.SCORES[KEY_DEVELOPMENT], test[KEY_EXPECTED][KEY_DEVELOPMENT])
+            score_test = score.ScoresGenerator()
+            score_test.split_data(test[KEY_INPUT])
+            self.assertNotEqual(score_test.SCORES[KEY_WORK_LOAD], test[KEY_EXPECTED][KEY_WORK_LOAD])
+            self.assertNotEqual(score_test.SCORES[KEY_INDEPENDENCE], test[KEY_EXPECTED][KEY_INDEPENDENCE])
+            self.assertNotEqual(score_test.SCORES[KEY_LEADER_SUPPORT], test[KEY_EXPECTED][KEY_LEADER_SUPPORT])
+            self.assertNotEqual(score_test.SCORES[KEY_PEER_RELATIONSHIPS], test[KEY_EXPECTED][KEY_PEER_RELATIONSHIPS])
+            self.assertNotEqual(score_test.SCORES[KEY_CONTRIBUTION_IMPACT], test[KEY_EXPECTED][KEY_CONTRIBUTION_IMPACT])
+            self.assertNotEqual(score_test.SCORES[KEY_DEVELOPMENT], test[KEY_EXPECTED][KEY_DEVELOPMENT])
 
 
 if __name__ == '__main__':

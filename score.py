@@ -3,8 +3,6 @@ import sys
 
 sys.path.insert(1, join(dirname(__file__), '../'))
 
-# TODO: Reformat as a Class file
-
 KEY_WORK_LOAD = "Work Load"
 KEY_INDEPENDENCE = "Independence"
 KEY_LEADER_SUPPORT = "Leader Support"
@@ -20,67 +18,67 @@ PEER_RELATIONSHIPS_QUESTIONS = ["q7", "q13", "q18"]
 CONTRIBUTION_IMPACT_QUESTIONS = ["q5", "q11", "q15"]
 DEVELOPMENT_QUESTIONS = ["q1", "q4", "q9"]
 
-SCALE_MULTIPLIER = 10
 
-SCORES = {
-    KEY_WORK_LOAD: 0,
-    KEY_INDEPENDENCE: 0,
-    KEY_LEADER_SUPPORT: 0,
-    KEY_PEER_RELATIONSHIPS: 0,
-    KEY_CONTRIBUTION_IMPACT: 0,
-    KEY_DEVELOPMENT: 0
-}
+class ScoresGenerator:
+    SCALE_MULTIPLIER = 10
+    SCORES = {}
+    SCALED_SCORES = {}
 
-SCALED_SCORES = {
-    KEY_WORK_LOAD: 0.0,
-    KEY_INDEPENDENCE: 0.0,
-    KEY_LEADER_SUPPORT: 0.0,
-    KEY_PEER_RELATIONSHIPS: 0.0,
-    KEY_CONTRIBUTION_IMPACT: 0.0,
-    KEY_DEVELOPMENT: 0.0,
-    KEY_TOTAL: 0.0
-}
+    def __init__(self):
+        self.SCORES = {
+            KEY_WORK_LOAD: 0,
+            KEY_INDEPENDENCE: 0,
+            KEY_LEADER_SUPPORT: 0,
+            KEY_PEER_RELATIONSHIPS: 0,
+            KEY_CONTRIBUTION_IMPACT: 0,
+            KEY_DEVELOPMENT: 0
+        }
 
+        self.SCALED_SCORES = {
+            KEY_WORK_LOAD: 0.0,
+            KEY_INDEPENDENCE: 0.0,
+            KEY_LEADER_SUPPORT: 0.0,
+            KEY_PEER_RELATIONSHIPS: 0.0,
+            KEY_CONTRIBUTION_IMPACT: 0.0,
+            KEY_DEVELOPMENT: 0.0,
+            KEY_TOTAL: 0.0
+        }
 
-def split_data(data):
-    for k, v in data.items():
-        if k in WORK_LOAD_QUESTIONS:
-            SCORES[KEY_WORK_LOAD] += v
-        if k in INDEPENDENCE_QUESTIONS:
-            SCORES[KEY_INDEPENDENCE] += v
-        if k in LEADER_SUPPORT_QUESTIONS:
-            SCORES[KEY_LEADER_SUPPORT] += v
-        if k in PEER_RELATIONSHIPS_QUESTIONS:
-            SCORES[KEY_PEER_RELATIONSHIPS] += v
-        if k in CONTRIBUTION_IMPACT_QUESTIONS:
-            SCORES[KEY_CONTRIBUTION_IMPACT] += v
-        if k in DEVELOPMENT_QUESTIONS:
-            SCORES[KEY_DEVELOPMENT] += v
+    def split_data(self, data):
+        for k, v in data.items():
+            if k in WORK_LOAD_QUESTIONS:
+                self.SCORES[KEY_WORK_LOAD] += v
+            if k in INDEPENDENCE_QUESTIONS:
+                self.SCORES[KEY_INDEPENDENCE] += v
+            if k in LEADER_SUPPORT_QUESTIONS:
+                self.SCORES[KEY_LEADER_SUPPORT] += v
+            if k in PEER_RELATIONSHIPS_QUESTIONS:
+                self.SCORES[KEY_PEER_RELATIONSHIPS] += v
+            if k in CONTRIBUTION_IMPACT_QUESTIONS:
+                self.SCORES[KEY_CONTRIBUTION_IMPACT] += v
+            if k in DEVELOPMENT_QUESTIONS:
+                self.SCORES[KEY_DEVELOPMENT] += v
 
+    def get_category_raw_score(self, category):
+        return self.SCORES[category]
 
-def get_category_raw_score(category):
-    return SCORES[category]
+    def get_category_scaled_score(self, category):
+        if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
+            scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 24
+            self.SCALED_SCORES[category] = scaled_res
 
+        scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 18
+        self.SCALED_SCORES[category] = scaled_res
+        # return scaled_res
 
-def get_category_scaled_score(category):
-    if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
-        scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 24
-        SCALED_SCORES[category] = scaled_res
+    def get_total_scaled_score(self):
+        for v in self.SCALED_SCORES.values():
+            self.SCALED_SCORES[KEY_TOTAL] += v
+        # return SCALED_SCORES[KEY_TOTAL]
 
-    scaled_res = (SCORES[category] * SCALE_MULTIPLIER) / 18
-    SCALED_SCORES[category] = scaled_res
-    # return scaled_res
-
-
-def get_total_scaled_score():
-    for v in SCALED_SCORES.values():
-        SCALED_SCORES[KEY_TOTAL] += v
-    # return SCALED_SCORES[KEY_TOTAL]
-
-
-def get_all_scaled_scores(data):
-    split_data(data)
-    for k in SCORES.keys():
-        get_category_scaled_score(k)
-    get_total_scaled_score()
-    return SCALED_SCORES
+    def get_all_scaled_scores(self, data):
+        self.split_data(data)
+        for k in self.SCORES.keys():
+            self.get_category_scaled_score(k)
+        self.get_total_scaled_score()
+        return self.SCALED_SCORES
