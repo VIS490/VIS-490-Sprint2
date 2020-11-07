@@ -59,26 +59,21 @@ class ScoresGenerator:
             if k in DEVELOPMENT_QUESTIONS:
                 self.SCORES[KEY_DEVELOPMENT] += v
 
-    def get_category_raw_score(self, category):
-        return self.SCORES[category]
-
-    def get_category_scaled_score(self, category):
+    def create_category_scaled_score(self, category):
         if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
             scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 24
             self.SCALED_SCORES[category] = scaled_res
 
         scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 18
         self.SCALED_SCORES[category] = scaled_res
-        # return scaled_res
 
-    def get_total_scaled_score(self):
+    def create_total_scaled_score(self):
         for v in self.SCALED_SCORES.values():
             self.SCALED_SCORES[KEY_TOTAL] += v
-        # return SCALED_SCORES[KEY_TOTAL]
 
     def get_all_scaled_scores(self, data):
         self.split_data(data)
         for k in self.SCORES.keys():
-            self.get_category_scaled_score(k)
-        self.get_total_scaled_score()
+            self.create_category_scaled_score(k)
+        self.create_total_scaled_score()
         return self.SCALED_SCORES
