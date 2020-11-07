@@ -3,6 +3,8 @@ import sys
 
 sys.path.insert(1, join(dirname(__file__), '../'))
 
+# TODO: Reformat as a Class file
+
 KEY_WORK_LOAD = "Work Load"
 KEY_INDEPENDENCE = "Independence"
 KEY_LEADER_SUPPORT = "Leader Support"
