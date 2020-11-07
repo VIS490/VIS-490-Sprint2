@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from "@material-ui/styles";
-import { Typography, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
+import {makeStyles} from "@material-ui/styles";
+import {Typography, Button} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -45,14 +45,11 @@ const Sidebar = () => {
     useEffect(() => {
         if (window.location.pathname === '/' && value !== 0) {
             setValue(0)
-        }
-        else if (window.location.pathname === '/dashboard' && value !== 1) {
+        } else if (window.location.pathname === '/dashboard' && value !== 1) {
             setValue(1)
-        }
-        else if (window.location.pathname === '/profile' && value !== 2) {
+        } else if (window.location.pathname === '/profile' && value !== 2) {
             setValue(2)
-        }
-        else if (window.location.pathname === '/quiz' && value !== 3) {
+        } else if (window.location.pathname === '/quiz' && value !== 3) {
             setValue(3)
         }
     }, [])
@@ -65,17 +62,28 @@ const Sidebar = () => {
     return (
         <div className={classes.sidebar}>
             <div className={classes.header}>
-                <Typography selected={value === 0} className={classes.name} onChange={handleChange} onClick={() => { setValue(0) }} variant="h4" component={Link} to='/' label="Home" >Vis</Typography>
+                <Typography selected={value === 0} className={classes.name} onChange={handleChange} onClick={() => {
+                    setValue(0)
+                }} variant="h4" component={Link} to='/' label="Home">Vis</Typography>
             </div>
             <div className={classes.sidebarBody}>
                 <List onChange={handleChange} className={classes.sidebarBody} disablePadding>
-                    <ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to='/profile' label="Profile" onClick={() => { setValue(2) }}>
+                    <ListItem selected={value === 2} className={classes.listItem} divider button component={Link}
+                              to='/profile' label="Profile" onClick={() => {
+                        setValue(2)
+                    }}>
                         <ListItemText disableTypography>Profile</ListItemText>
                     </ListItem>
-                    <ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to='/dashboard' label="Dashboard" onClick={() => { setValue(1) }}>
+                    <ListItem selected={value === 1} className={classes.listItem} divider button component={Link}
+                              to='/dashboard' label="Dashboard" onClick={() => {
+                        setValue(1)
+                    }}>
                         <ListItemText disableTypography>Dashboard</ListItemText>
                     </ListItem>
-                    <ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to='/quiz' label="Quiz" onClick={() => { setValue(3) }} >
+                    <ListItem selected={value === 3} className={classes.listItem} divider button component={Link}
+                              to='/quiz' label="Quiz" onClick={() => {
+                        setValue(3)
+                    }}>
                         <ListItemText disableTypography>Quiz</ListItemText>
                     </ListItem>
                 </List>

@@ -2,7 +2,6 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/styles";
 import theme from "./components/ui/Theme";
-import { Button } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
