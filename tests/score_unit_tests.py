@@ -27,9 +27,6 @@ TEST_INCOMPLETE_USER_RESPONSE = {
 }
 
 
-# TODO: write success and failure tests for:
-#  get all scaled scores
-
 class ScoresTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
