@@ -63,13 +63,14 @@ class ScoresGenerator:
         if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
             scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 24
             self.SCALED_SCORES[category] = scaled_res
-
-        scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 18
-        self.SCALED_SCORES[category] = scaled_res
+        else:
+            scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 18
+            self.SCALED_SCORES[category] = scaled_res
 
     def create_total_scaled_score(self):
-        for v in self.SCALED_SCORES.values():
-            self.SCALED_SCORES[KEY_TOTAL] += v
+        for k, v in self.SCALED_SCORES.items():
+            if k != KEY_TOTAL:
+                self.SCALED_SCORES[KEY_TOTAL] += v
 
     def get_all_scaled_scores(self, data):
         self.split_data(data)
