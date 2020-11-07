@@ -1,4 +1,3 @@
-import './App.css';
 import React, { Route, BrowserRouter as Router, useState } from 'react';
 import { Link } from "react-router-dom";
 import login from "./login"
