@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# Fire base config 
+/src/components/config.js
+
 # production
 /build
 
