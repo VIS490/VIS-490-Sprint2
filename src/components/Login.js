@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SignUp from './Signup';
+import fire from './Authentication';
+import Dashboard from './Dashboard';
 
 <Router>
   <Route path="/Signup.js" component={SignUp} />
@@ -37,10 +39,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const [email ,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [loggedIn , setLoggin] = useState(false);
   const classes = useStyles();
 
+
+  function emailChange (event){
+    setEmail(event.target.value);
+  }
+
+  function passwordChange (event){
+    setPassword(event.target.value);
+  }
+
+  function logIn (){
+    try{
+      fire.auth().signInWithEmailAndPassword(email, password);
+      console.log("success");
+      setLoggin(true);
+    }
+    catch(error){
+      const errorMessage = error.message;
+      alert(errorMessage);
+    }
+  }
+
   return (
-    <Container component="main" maxWidth="xs">
+    <div class = 'container'>
+      {loggedIn ? <Dashboard/> :
+      
+      <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <img src="/companyLogo.png" alt=""/>
@@ -58,6 +87,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange = {emailChange}
           />
           <TextField
             variant="outlined"
@@ -69,6 +99,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange = {passwordChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -80,6 +111,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick ={logIn}
           >
             Sign In
           </Button>
@@ -100,5 +132,9 @@ export default function SignIn() {
       <Box mt={8}>
       </Box>
     </Container>
+
+      }
+    
+    </div>
   );
 }
