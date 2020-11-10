@@ -9,7 +9,6 @@
 /coverage
 
 # Fire base config 
-/src/components/config.js
 /firebase.env
 
 # production

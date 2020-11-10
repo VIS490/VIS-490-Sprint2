@@ -4,15 +4,15 @@ import login from "./login"
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-//import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SignIn from './login';
-import fire from './Authentication';
 import Dashboard from './Dashboard';
+import {Socket} from '../Socket';
+import {useEffect} from 'react';
 
 <Router>
   <Route path="/Login.js" component={SignIn} />
@@ -49,6 +49,18 @@ export default function SignUp() {
   const [firstName , setFirstName] =useState("");
   const [lastName , setLastName] = useState("");
 
+  
+  useEffect(() => {
+    Socket.on("connect", () => {
+      console.log('connected');
+    });
+
+    Socket.on("loggin", (result) => {
+      setLoggin(result['response']);
+      
+    });
+
+  }, []);
 
   function firstNameChange (event){
     setFirstName(event.target.value);
@@ -67,18 +79,10 @@ export default function SignUp() {
     setPassword(event.target.value);
   }
   function signup (){
-
-    try {
-      fire.auth().createUserWithEmailAndPassword(email, password);
-      setLoggin(true);
-    }
-   catch(error) {
-      const errorMessage = error.message;
-      alert(errorMessage);
-    }
-
+    Socket.emit("signup",{user_email:email,user_password:password});
    
   }
+
  
   return (
     <div class = "container">

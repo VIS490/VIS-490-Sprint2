@@ -11,7 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SignUp from './Signup';
-import fire from './Authentication';
+import {Socket} from '../Socket';
+import {useEffect} from 'react';
+
 import Dashboard from './Dashboard';
 
 <Router>
@@ -44,6 +46,17 @@ export default function SignIn() {
   const [loggedIn , setLoggin] = useState(false);
   const classes = useStyles();
 
+  useEffect(() => {
+    Socket.on("connect", () => {
+      console.log('connected');
+    });
+
+    Socket.on("loggin", (result) => {
+      setLoggin(result['response']);
+      
+    });
+
+  }, []);
 
   function emailChange (event){
     setEmail(event.target.value);
@@ -54,15 +67,7 @@ export default function SignIn() {
   }
 
   function logIn (){
-    try{
-      fire.auth().signInWithEmailAndPassword(email, password);
-      console.log("success");
-      setLoggin(true);
-    }
-    catch(error){
-      const errorMessage = error.message;
-      alert(errorMessage);
-    }
+    Socket.emit("signin",{user_email:email,user_password:password});
   }
 
   return (
