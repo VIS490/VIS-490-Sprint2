@@ -1,5 +1,4 @@
-import React, { Route, BrowserRouter as Router, useState } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,15 +9,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import SignUp from './Signup';
-import {Socket} from '../Socket';
-import {useEffect} from 'react';
-
-import Dashboard from './Dashboard';
-
-<Router>
-  <Route path="/Signup.js" component={SignUp} />
-</Router>
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,106 +31,85 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
-  const [email ,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [loggedIn , setLoggin] = useState(false);
+const Login = ({ userlogin, setUserEmail, setUserPass }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    Socket.on("connect", () => {
-      console.log('connected');
-    });
-
-    Socket.on("loggin", (result) => {
-      setLoggin(result['response']);
-      
-    });
-
-  }, []);
-
-  function emailChange (event){
-    setEmail(event.target.value);
+  const emailChange = (event) => {
+    setUserEmail(event.target.value);
   }
 
-  function passwordChange (event){
-    setPassword(event.target.value);
+  const passwordChange = (event) => {
+    setUserPass(event.target.value);
   }
-
-  function logIn (){
-    Socket.emit("signin",{user_email:email,user_password:password});
+  const handleLogin = (event) => {
+    event.preventDefault()
+    userlogin()
   }
-
   return (
-    <div class = 'container'>
-      {loggedIn ? <Dashboard/> :
-      
+    <div className='container'>
       <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img src="/companyLogo.png" alt=""/>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange = {emailChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange = {passwordChange}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick ={logIn}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+        <CssBaseline />
+        <div className={classes.paper}>
+          {/* <img src={'../../static/companyLogo.png'} alt="" /> */}
+          <Typography component="h1" variant="h5">
+            Sign in
+                    </Typography>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={emailChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={passwordChange}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+                        </Button>
+            <Grid container>
+              <Grid item xs>
+                <div href="#" variant="body2">
+                  Forgot password?
+                                </div>
+              </Grid>
+              <Grid item>
+                <Button to="/signup" component={Link}>
+                  {"Don't have an account? Sign Up"}
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link to="/Login" className="">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-      </Box>
-    </Container>
-
-      }
-    
+          </form>
+        </div>
+        <Box mt={8}>
+        </Box>
+      </Container>
     </div>
   );
 }
+export default Login;
