@@ -8,15 +8,14 @@ load_dotenv(dotenv_path)
  
 firebaseConfig  = {
     "apiKey": os.getenv("apiKey"),
-    "authDomain": "vis490.firebaseapp.com",
-    "databaseURL": "https://vis490.firebaseio.com",
-    "projectId": "vis490",
-    "storageBucket": "vis490.appspot.com",
-    "messagingSenderId": "225314937764",
-    "appId": "1:225314937764:web:51a38c6c16c831c0293f31",
-    "measurementId": "G-LDXDP4RP75"
+    "authDomain": os.getenv("authDomain"),
+    "databaseURL": os.getenv( "databaseURL"),
+    "projectId": os.getenv("projectId"),
+    "storageBucket": os.getenv("storageBucket"),
+    "messagingSenderId": os.getenv("messagingSenderId"),
+    "appId": os.getenv("appId"),
+    "measurementId": os.getenv("measurementId"),
   }
- 
  
 firebase = pyrebase.initialize_app(firebaseConfig)
  
