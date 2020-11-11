@@ -5,7 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-const Question = () => {
+const Question = (props) => {
   const [value, setValue] = React.useState("0");
 
   const handleChange = (event) => {
@@ -14,10 +14,10 @@ const Question = () => {
 
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend"> Question </FormLabel>
+      <FormLabel component="legend"> {props.questionName} </FormLabel>
       <RadioGroup
         aria-label="question"
-        name="single-question"
+        name={props.questionName}
         value={value}
         onChange={handleChange}
       >
