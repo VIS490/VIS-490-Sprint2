@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -6,19 +6,23 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
 const Question = (props) => {
-  const [value, setValue] = React.useState("0");
+  const [questionValue, setQuestionValue] = useState("0");
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    event.preventDefault();
+    setQuestionValue(event.target.value);
+    let newQID = props.questionID + 1;
+    props.onUpdate(newQID, event.target.value, event);
   };
 
+  // TODO: try and have radio button in horizontal order
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend"> {props.questionName} </FormLabel>
       <RadioGroup
         aria-label="question"
         name={props.questionName}
-        value={value}
+        value={questionValue}
         onChange={handleChange}
       >
         <FormControlLabel
