@@ -1,11 +1,9 @@
 import React from 'react'
 
-const Home = () => {
-    return (
-        <div className="Home">
-            Home.js
-        </div>
-    );
-}
+const Home = () => (
+	<div className="Home">
+		Home.js
+	</div>
+)
 
-export default Home;
+export default Home

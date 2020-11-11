@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -29,7 +29,7 @@ const Profile = () => {
                 </Typography>
 
                 <img alt=" logo" height="175px"
-                     src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png"/>
+                    src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png" />
                 <Card className={classes.card}>
 
 
@@ -38,10 +38,10 @@ const Profile = () => {
                             Profile Information
                         </Typography>
                         <Typography component="h1">
-                            full name: <strong> Please fetch from database</strong> <br/> <br/>
-                            Profile Name: <strong> Please fetch from database</strong> <br/> <br/>
-                            Email: <strong> Please fetch from database</strong> <br/> <br/>
-                            Date Joined: <strong> Please fetch from database</strong> <br/> <br/>
+                            full name: <strong> Please fetch from database</strong> <br /> <br />
+                            Profile Name: <strong> Please fetch from database</strong> <br /> <br />
+                            Email: <strong> Please fetch from database</strong> <br /> <br />
+                            Date Joined: <strong> Please fetch from database</strong> <br /> <br />
                         </Typography>
                     </CardContent>
                 </Card>;
