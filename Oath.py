@@ -32,5 +32,5 @@ class Oauth:
             user = self.auth.create_user_with_email_and_password(email, password)
             return True
         except:
-            return False   
+            return False  
     

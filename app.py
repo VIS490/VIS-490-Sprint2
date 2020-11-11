@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 import flask_socketio
+from Oath import Oauth
 
 load_dotenv()
 
@@ -18,15 +19,12 @@ def hello():
 def on_connect():
     print("Someone Connected")
 
-@socketio.on('message')
-def onLogin(msg):
-    print(msg)
-    socketio.emit('new message', 'hello')
 
 @socketio.on('new login')
 def onLogin(msg):
-    print(msg)
-    socketio.emit('new user', msg)
+    oath = Oauth()
+    res = oath.login_user(msg['email'], msg['password'])
+    socketio.emit('new user', res)
 
 @socketio.on('disconnect')
 def on_disconnect():
