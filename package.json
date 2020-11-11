@@ -1,54 +1,37 @@
 {
-  "name": "project3-mvp-vis",
+  "name": "tabledeals",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --open --hot --port 8080",
+    "build": "webpack --mode production",
+    "lint": "./node_modules/.bin/eslint --fix ."
+  },
   "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "socket.io-client": "2.3.0",
     "@material-ui/core": "^4.11.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
-    "socket.io-client": "^3.0.1",
-    "web-vitals": "^0.2.4"
+    "react-router-dom": "5.2.0"
   },
   "devDependencies": {
     "@material-ui/styles": "^4.10.0",
-    "concurrently": "^5.3.0",
-    "css-loader": "^5.0.0",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^4.5.0",
-    "mini-css-extract-plugin": "^1.2.1",
-    "postcss": "^8.1.4",
-    "postcss-cli": "^8.2.0",
-    "postcss-loader": "^4.0.4",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  },
-  "scripts": {
-    "dev": "concurrently \"python app.py\" \"webpack-dev-server --mode development --open --hot\"",
-    "build": "webpack --mode production"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }

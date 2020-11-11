@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/styles";
 import theme from "./components/ui/Theme";
@@ -9,7 +9,6 @@ import Quiz from './components/Quiz';
 import Home from './components/Home';
 import Sidebar from './components/ui/Sidebar';
 import Login from "./components/Login"
-import io from 'socket.io-client'
 import Socket from './components/Socket'
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +26,18 @@ const App = () => {
     const [lastName, setLastName] = useState("");
     const classes = useStyles();
     // const socket = useRef()
-    const [auth, setAuth] = useState(false)
+    // const [auth, setAuth] = useState(false)
+
+    useEffect(() => {
+        Socket.emit('message', 'bye')
+        Socket.on('new message', (msg) => {
+            console.log("Server " + msg)
+        })
+        Socket.on('new user', (msg) => {
+            console.log("Server " + msg)
+        })
+    }, [])
+
 
     // useEffect(() => {
     //     socket.current = io.connect('http://localhost:5000')
@@ -70,10 +80,9 @@ const App = () => {
 
 
 
-    return (
-        <ThemeProvider theme={theme} >
-            {Authenticated}
-        </ThemeProvider>
-    )
+    return <ThemeProvider theme={theme} >
+        {Authenticated}
+    </ThemeProvider>
+
 }
-export default App;
+export default App
