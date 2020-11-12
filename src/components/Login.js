@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -9,7 +9,10 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useAuth } from "../contexts/AuthContext"
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -31,30 +34,53 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const Login = ({ userlogin, setUserEmail, setUserPass }) => {
+const Login = ({ }) => {
+	const [email, setEmail] = useState("")
+	const [pass, setPass] = useState("")
+	const { login, currentUser } = useAuth()
 	const classes = useStyles()
+	const [error, setError] = useState("")
+	const [loading, setLoading] = useState(false)
+	const history = useHistory()
+
+	async function handleSubmit(e) {
+		e.preventDefault()
+
+		try {
+			setError("")
+			setLoading(true)
+			await login(email, pass)
+			history.push("/dashboard")
+		} catch {
+			setError("Failed to Login")
+		}
+
+		setLoading(false)
+	}
 
 	const emailChange = (event) => {
-		setUserEmail(event.target.value)
+		setEmail(event.target.value)
 	}
 
 	const passwordChange = (event) => {
-		setUserPass(event.target.value)
-	}
-	const handleLogin = (event) => {
-		event.preventDefault()
-		userlogin()
+		setPass(event.target.value)
 	}
 	return (
 		<div className="container">
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<div className={classes.paper}>
+					{error &&
+						<Alert variant="filled" severity="error">
+							<AlertTitle>Error</AlertTitle>
+							{error}
+						</Alert>
+					}
 					{/* <img src={'../../static/companyLogo.png'} alt="" /> */}
 					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
-					<form className={classes.form} noValidate onSubmit={handleLogin}>
+					<form className={classes.form} noValidate onSubmit={handleSubmit}>
 						<TextField
 							variant="outlined"
 							margin="normal"
@@ -99,9 +125,10 @@ const Login = ({ userlogin, setUserEmail, setUserPass }) => {
 								</div>
 							</Grid>
 							<Grid item>
-								<Button to="/signup" component={Link}>
-									{'Don\'t have an account? Sign Up'}
-								</Button>
+								<div>
+									{'Don\'t have an account? '}
+									<Link to="/signup">Sign Up</Link>
+								</div>
 							</Grid>
 						</Grid>
 					</form>

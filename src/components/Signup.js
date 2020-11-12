@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import Login from './Login'
+import { useAuth } from "../contexts/AuthContext"
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -32,15 +32,23 @@ const useStyles = makeStyles((theme) => ({
 		height: 100,
 	},
 }))
-const SignUp = ({ usersignUp }) => {
+const Signup = () => {
+	const [email, setEmail] = useState("")
+	const [pass, setPass] = useState("")
+	const [fname, setfName] = useState("")
+	const [lname, setlName] = useState("")
+	const { signup } = useAuth()
 	const classes = useStyles()
+	const [error, setError] = useState("")
+	const [loading, setLoading] = useState(false)
+	const history = useHistory()
 
 	const firstNameChange = (event) => {
-		setFirstName(event.target.value)
+		setfName(event.target.value)
 	}
 
 	const lastNameChange = (event) => {
-		setLastName(event.target.value)
+		setlName(event.target.value)
 	}
 
 	const emailChange = (event) => {
@@ -48,10 +56,21 @@ const SignUp = ({ usersignUp }) => {
 	}
 
 	const passwordChange = (event) => {
-		setPassword(event.target.value)
+		setPass(event.target.value)
 	}
-	const handleLogin = (event) => {
-		usersignUp(firstName, lastName, email, password)
+	async function handleSubmit(e) {
+		e.preventDefault()
+
+		try {
+			setError("")
+			setLoading(true)
+			await signup(email, pass)
+			history.push("/dashboard")
+		} catch {
+			setError("Failed to create an account")
+		}
+
+		setLoading(false)
 	}
 
 	return (
@@ -59,78 +78,77 @@ const SignUp = ({ usersignUp }) => {
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<div className={classes.paper}>
-					<img src="/companyLogo.png" alt="" />
+					{/* <img src="/companyLogo.png" alt="" /> */}
 
 					<Typography component="h1" variant="h5">
 						Sign up
 					</Typography>
-					<form className={classes.form} noValidate>
+					<form className={classes.form} noValidate onSubmit={handleSubmit}>
 						<Grid container spacing={2}>
 							<Grid item xs={12} sm={6}>
 								<TextField
-  autoComplete="fname"
-  name="firstName"
-  variant="outlined"
-  required
-  fullWidth
-  id="firstName"
-  label="First Name"
-  autoFocus
-  onChange={firstNameChange}
+									autoComplete="fname"
+									name="firstName"
+									variant="outlined"
+									required
+									fullWidth
+									id="firstName"
+									label="First Name"
+									autoFocus
+									onChange={firstNameChange}
 
 								/>
 							</Grid>
 							<Grid item xs={12} sm={6}>
 								<TextField
-  variant="outlined"
-  required
-  fullWidth
-  id="lastName"
-  label="Last Name"
-  name="lastName"
-  autoComplete="lname"
-  onChange={lastNameChange}
+									variant="outlined"
+									required
+									fullWidth
+									id="lastName"
+									label="Last Name"
+									name="lastName"
+									autoComplete="lname"
+									onChange={lastNameChange}
 								/>
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-  variant="outlined"
-  required
-  fullWidth
-  id="email"
-  label="Email Address"
-  name="email"
-  autoComplete="email"
-  onChange={emailChange}
+									variant="outlined"
+									required
+									fullWidth
+									id="email"
+									label="Email Address"
+									name="email"
+									autoComplete="email"
+									onChange={emailChange}
 								/>
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-  variant="outlined"
-  required
-  fullWidth
-  name="password"
-  label="Password"
-  type="password"
-  id="password"
-  autoComplete="current-password"
-  onChange={passwordChange}
+									variant="outlined"
+									required
+									fullWidth
+									name="password"
+									label="Password"
+									type="password"
+									id="password"
+									autoComplete="current-password"
+									onChange={passwordChange}
 								/>
 							</Grid>
 						</Grid>
 						<Button
-  type="submit"
-  fullWidth
-  variant="contained"
-  color="primary"
-  className={classes.submit}
-  onClick={handleLogin}
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
 						>
 							Sign Up
 						</Button>
 						<Grid container justify="flex-end">
 							<Grid item>
-								<Link to="/" component={Login} className="">
+								<Link to="/" className="">
 									Already have an account? Sign in
 								</Link>
 							</Grid>
@@ -139,9 +157,7 @@ const SignUp = ({ usersignUp }) => {
 				</div>
 				<Box mt={5} />
 			</Container>
-			ß
-
 		</div>
 	)
 }
-export default SignUp
+export default Signup

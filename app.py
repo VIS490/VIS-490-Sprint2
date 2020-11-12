@@ -17,6 +17,7 @@ def get_room_client_id():
     u_id = flask.request.sid
     return u_id
 
+
 @app.route('/')
 def hello():
     return flask.render_template('index.html')
@@ -34,7 +35,9 @@ def on_quiz_submission(data):
 def onLogin(msg):
     oath = Oauth()
     res = oath.login_user(msg['email'], msg['password'])
+    print(res)
     socketio.emit('new user', res)
+
 
 @socketio.on("disconnect")
 def on_disconnect():

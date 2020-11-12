@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+__pycache__/Oath.cpython-38.pyc
 # testing
 /coverage
 
@@ -24,6 +24,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.env
 
 .vscode
 
