@@ -18,6 +18,7 @@ class Oauth:
     "appId": os.getenv("appId"),
     "measurementId": os.getenv("measurementId"),
   }
+
     def __init__(self):
         self.firebase = pyrebase.initialize_app(self.firebaseConfig)
         self.auth = self.firebase.auth()

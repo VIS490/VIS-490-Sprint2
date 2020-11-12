@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ThemeProvider, makeStyles } from '@material-ui/styles'
-
+import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from '@apollo/client';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import theme from './components/ui/Theme'
 import Dashboard from './components/Dashboard'
@@ -18,12 +18,25 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
+const createApolloClient = (authToken) => {
+	return new ApolloClient({
+		link: new HttpLink({
+			uri: 'https://hasura.io/learn/graphql',
+			headers: {
+				Authorization: `Bearer ${authToken}`
+			}
+		}),
+		cache: new InMemoryCache(),
+	});
+};
+
 const App = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
 	const classes = useStyles()
+	let client;
 	// const socket = useRef()
 	// const [auth, setAuth] = useState(false)
 
@@ -33,7 +46,8 @@ const App = () => {
 			console.log(`Server ${msg}`)
 		})
 		Socket.on('new user', (msg) => {
-			console.log(msg)
+			// console.log(msg)
+			client = createApolloClient(msg.idToken);
 		})
 	}, [])
 
@@ -77,9 +91,11 @@ const App = () => {
 	}
 
 	return (
+		// <ApolloProvider client={client}>
 		<ThemeProvider theme={theme}>
 			{Authenticated}
 		</ThemeProvider>
+		// </ApolloProvider>
 	)
 }
 export default App
