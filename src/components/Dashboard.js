@@ -1,9 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
-import { makeStyles } from '@material-ui/core/styles';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { useAuth,currentUser } from '../contexts/AuthContext';
+
+export const GET_WELLNESS_SCORE = gql`
+query GET_WELLNESS_SCORES {
+	Users(limit: 1, where: {email: {_eq: ""}}) {
+	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
+		Test {
+		  score
+		}
+	  }
+	}
+  }
+`;
+
+export const GET_BARGRAPH_SCORES = gql`
+query GET_BARGRAPH_SCORES {
+	Users(limit: 1, where: {email: {_eq: ""}}) {
+	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
+		Test {
+		  work_load_score
+		  peer_relations_score
+		  leader_support_score
+		  impact_score
+		  development_score
+		  autonomy_score
+		}
+	  }
+	}
+  }
+  
+`;
+
+export const GET_LINEGRAPH_SCORES = gql`
+query GET_LINEGRAPH_SCORES {
+	Users(limit: 1, where: {email: {_eq: ""}}) {
+	  UserTests(order_by: {created_at: asc_nulls_first}) {
+		Test {
+		  score
+		}
+	  }
+	}
+  }
+  
+`;
 
 
 const Dashboard = () => {
+    console.log(currentUser)
+    //const email = currentUser.
+    //const [wellTodo] = useQuery(GET_WELLNESS_SCORE)
+    //const [barTodo] = useQuery(GET_BARGRAPH_SCORES)
+    //const [lineTodo] = useQuery(GET_LINEGRAPH_SCORES)
+    
     const [barChartData, setBarChartData] = useState()
     const barChart = () => {
         setBarChartData({
