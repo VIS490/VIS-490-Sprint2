@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { useAuth,currentUser } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export const GET_WELLNESS_SCORE = gql`
 query GET_WELLNESS_SCORES {
@@ -48,12 +48,13 @@ query GET_LINEGRAPH_SCORES {
 
 
 const Dashboard = () => {
-    console.log(currentUser)
+    const { currentUser } = useAuth()
+    console.log(currentUser.email)
     //const email = currentUser.
     //const [wellTodo] = useQuery(GET_WELLNESS_SCORE)
     //const [barTodo] = useQuery(GET_BARGRAPH_SCORES)
     //const [lineTodo] = useQuery(GET_LINEGRAPH_SCORES)
-    
+
     const [barChartData, setBarChartData] = useState()
     const barChart = () => {
         setBarChartData({
