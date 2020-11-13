@@ -45,25 +45,9 @@ const Signup = () => {
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
-
-	const data = {
-
-	}
 	const [addTodo] = useMutation(ADD_NEW_USER)
-	addTodo({
-		variables: {
-			input:
-				{ name: "Raj", email: "raj@gmail.com", pic: "User.png" }
-		}
-	})
 
-	console.log("loading " + load)
-	console.log("error " + err)
-	console.log("data " + data)
-	// const { data } = useQuery(queryString)
 
-	// console.log(data)
-	// getUsers()
 
 	const firstNameChange = (event) => {
 		setfName(event.target.value)
@@ -87,6 +71,14 @@ const Signup = () => {
 			setError("")
 			setLoading(true)
 			await signup(email, pass)
+
+			addTodo({
+				variables: {
+					input:
+						{ name: fname + ' ' + lname, email: email, pic: "User.png" }
+				}
+			})
+
 			history.push("/dashboard")
 		} catch {
 			setError("Failed to create an account")
