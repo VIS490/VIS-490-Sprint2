@@ -32,7 +32,7 @@ const Quiz = (props) => {
   let questionList = [];
 
   function getAllQuestionsQuery() {
-     const { loading, error, data } = useQuery(GET_ALL_QUESTIONS);
+     const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY);
      if (loading) return 'Loading...';
      if (error) return `Error! ${error.message}`;
      for(temp in data['data']['Questions']){
