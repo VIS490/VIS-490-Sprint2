@@ -10,8 +10,6 @@ load_dotenv()
 app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 
-score_generator = score.ScoresGenerator()
-
 
 def get_room_client_id():
     u_id = flask.request.sid
@@ -30,7 +28,12 @@ def on_connect():
 
 @socketio.on("on_quiz_submission")
 def on_quiz_submission(data):
-    result = score_generator.get_all_scaled_scores(data)
+    score_generator = score.ScoresGenerator()
+    data_dict = {}
+    for var in data:
+        q_key = "q" + var['qid']
+        data_dict.update({q_key: var['qval']})
+    result = score_generator.get_all_scaled_scores(data_dict)
     socketio.emit("on_quiz_submission_response", result, room=get_room_client_id())
 
 

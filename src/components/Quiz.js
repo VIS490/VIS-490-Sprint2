@@ -5,26 +5,26 @@ import Button from "@material-ui/core/Button";
 
 const Quiz = () => {
   const resetList = [
-    { id: "1", qval: 0 },
-    { id: "2", qval: 0 },
-    { id: "3", qval: 0 },
-    { id: "4", qval: 0 },
-    { id: "5", qval: 0 },
-    { id: "6", qval: 0 },
-    { id: "7", qval: 0 },
-    { id: "8", qval: 0 },
-    { id: "9", qval: 0 },
-    { id: "10", qval: 0 },
-    { id: "11", qval: 0 },
-    { id: "12", qval: 0 },
-    { id: "13", qval: 0 },
-    { id: "14", qval: 0 },
-    { id: "15", qval: 0 },
-    { id: "16", qval: 0 },
-    { id: "17", qval: 0 },
-    { id: "18", qval: 0 },
-    { id: "19", qval: 0 },
-    { id: "20", qval: 0 }
+    { qid: "1", qval: 0 },
+    { qid: "2", qval: 0 },
+    { qid: "3", qval: 0 },
+    { qid: "4", qval: 0 },
+    { qid: "5", qval: 0 },
+    { qid: "6", qval: 0 },
+    { qid: "7", qval: 0 },
+    { qid: "8", qval: 0 },
+    { qid: "9", qval: 0 },
+    { qid: "10", qval: 0 },
+    { qid: "11", qval: 0 },
+    { qid: "12", qval: 0 },
+    { qid: "13", qval: 0 },
+    { qid: "14", qval: 0 },
+    { qid: "15", qval: 0 },
+    { qid: "16", qval: 0 },
+    { qid: "17", qval: 0 },
+    { qid: "18", qval: 0 },
+    { qid: "19", qval: 0 },
+    { qid: "20", qval: 0 }
   ];
   const [userResponses, updateUserResponses] = React.useState(resetList);
 
@@ -53,9 +53,7 @@ const Quiz = () => {
   ];
 
   const handleUpdate = (id, newVal, e) => {
-    console.log("in parent handle update id: " + id + " newval: " + newVal);
     const elementIndex = id - 1;
-    console.log(elementIndex);
     let newUserResponses = [...userResponses];
     newUserResponses[elementIndex] = {
       ...newUserResponses[elementIndex],
@@ -66,9 +64,8 @@ const Quiz = () => {
   };
 
   const handleClick = (e) => {
-    // TODO: send a socket emit to python server
-    console.log("in handle submit");
     console.log(JSON.stringify(userResponses));
+    Socket.emit("on_quiz_submission", userResponses);
     updateUserResponses(resetList);
   };
 

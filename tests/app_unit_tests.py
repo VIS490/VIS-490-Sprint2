@@ -2,9 +2,10 @@ import unittest
 import unittest.mock as mock
 from os.path import dirname, join
 import sys
-sys.path.insert(1, join(dirname(__file__), '../'))
 import app
 from app import app as Flask_App
+sys.path.insert(1, join(dirname(__file__), '../'))
+
 
 KEY_WORK_LOAD = "Work Load"
 KEY_INDEPENDENCE = "Independence"
@@ -26,10 +27,31 @@ TEST_SCALED_SCORES = {
     KEY_TOTAL: 10.0
 }
 
-TEST_COMPLETE_USER_RESPONSE = {
-    "q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1, "q6": 1, "q7": 1, "q8": 1, "q9": 1, "q10": 1,
-    "q11": 1, "q12": 1, "q13": 1, "q14": 1, "q15": 1, "q16": 1, "q17": 1, "q18": 1, "q19": 1, "q20": 1
-}
+qval = "qval"
+qid = "qid"
+
+TEST_QUIZ_SUBMISSION = [
+    {qid: "1", qval: 1},
+    {qid: "2", qval: 1},
+    {qid: "3", qval: 1},
+    {qid: "4", qval: 1},
+    {qid: "5", qval: 1},
+    {qid: "6", qval: 1},
+    {qid: "7", qval: 1},
+    {qid: "8", qval: 1},
+    {qid: "9", qval: 1},
+    {qid: "10", qval: 1},
+    {qid: "11", qval: 1},
+    {qid: "12", qval: 1},
+    {qid: "13", qval: 1},
+    {qid: "14", qval: 1},
+    {qid: "15", qval: 1},
+    {qid: "16", qval: 1},
+    {qid: "17", qval: 1},
+    {qid: "18", qval: 1},
+    {qid: "19", qval: 1},
+    {qid: "20", qval: 1}
+]
 
 
 class AppTest(unittest.TestCase):
@@ -50,7 +72,7 @@ class AppTest(unittest.TestCase):
     def test_on_quiz_submission_success(self):
         with mock.patch('score.ScoresGenerator.get_all_scaled_scores') as mock_get_all_scaled_scores:
             mock_get_all_scaled_scores.return_value = TEST_SCALED_SCORES
-            self.socketio_test_client.emit('on_quiz_submission', TEST_COMPLETE_USER_RESPONSE)
+            self.socketio_test_client.emit('on_quiz_submission', TEST_QUIZ_SUBMISSION)
 
         response = self.socketio_test_client.get_received()
         self.assertEqual(response[0]['name'], KEY_QUIZ_SOCKET_RESPONSE)
