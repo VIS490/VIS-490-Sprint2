@@ -41,7 +41,7 @@ const Dashboard = () => {
                 }
             ]
         })
-    }
+    } //all of this is just fake data for how it would look
 
     useEffect(() => {
         barChart()
@@ -50,12 +50,17 @@ const Dashboard = () => {
     
     return(
         <div className="Dashboard">
-            <h1>Wellness Score: 89</h1>
+            <h1 style={{borderRadius: 100, borderWidth: 10, borderColor: "black"}}>Wellness Score: 89</h1>
             <div style={{float: "right", width: "500px",}}>
                 <Bar data={barChartData} options={{
                     
                     responsive: true,
-                    title: {text: 'Topic Breakdown', display: true},
+                    title: {
+                        text: 'Topic Breakdown', 
+                        display: true,
+                        fontSize: 25,
+                        fontStyle: 'bold'
+                    },
                     layout: {
                         padding: 5
                     },
@@ -73,7 +78,12 @@ const Dashboard = () => {
             <div style={{width: "900px"}}>
                 <Line data={lineChartData} options={{
                     responsive: true,
-                    title: {text: 'Weekly Trend', display: true},
+                    title: {
+                        text: 'Weekly Trend', 
+                        display: true,
+                        fontSize: 25,
+                        fontStyle: 'bold'
+                    },
                     layout: {
                         padding: 50
                     },
