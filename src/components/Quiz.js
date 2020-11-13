@@ -28,29 +28,29 @@ const Quiz = () => {
   ];
   const [userResponses, updateUserResponses] = React.useState(resetList);
 
-  // TODO: Populate questionList with the questions from the DB
-   const questionList = [
-    "q1-text",
-    "q2-text",
-    "q3-text",
-    "q4-text",
-    "q5-text",
-    "q6-text",
-    "q7-text",
-    "q8-text",
-    "q9-text",
-    "q10-text",
-    "q11-text",
-    "q12-text",
-    "q13-text",
-    "q14-text",
-    "q15-text",
-    "q16-text",
-    "q17-text",
-    "q18-text",
-    "q19-text",
-    "q20-text"
-  ];
+	// TODO: Populate questionList with the questions from the DB
+	const questionList = [
+		'q1-text',
+		'q2-text',
+		'q3-text',
+		'q4-text',
+		'q5-text',
+		'q6-text',
+		'q7-text',
+		'q8-text',
+		'q9-text',
+		'q10-text',
+		'q11-text',
+		'q12-text',
+		'q13-text',
+		'q14-text',
+		'q15-text',
+		'q16-text',
+		'q17-text',
+		'q18-text',
+		'q19-text',
+		'q20-text'
+	]
 
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
@@ -69,20 +69,20 @@ const Quiz = () => {
     updateUserResponses(resetList);
   };
 
-  return (
-    <div className="Quiz">
-      <ul list-style-type="none">
-        {questionList.map((item, id) => (
-          <li key={id}>
-            <Question questionName={item} update={handleUpdate} />
-          </li>
-        ))}
-      </ul>
-      <Button variant="outlined" color="secondary" onClick={handleClick}>
+	return (
+		<div className="Quiz">
+			<ul list-style-type="none">
+				{questionList.map((item, id) => (
+					<li key={id}>
+						<Question questionName={item} update={handleUpdate} />
+					</li>
+				))}
+			</ul>
+			<Button variant="outlined" color="secondary" onClick={handleClick}>
         Submit Responses
-      </Button>
-    </div>
-  );
-};
+			</Button>
+		</div>
+	)
+}
 
-export default Quiz;
+export default Quiz

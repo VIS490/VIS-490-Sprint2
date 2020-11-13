@@ -1,6 +1,7 @@
-import flask
+"""app.py
+"""
 import os
-from flask import Flask
+import flask
 from dotenv import load_dotenv
 import flask_socketio
 import score
@@ -12,22 +13,36 @@ socketio = flask_socketio.SocketIO(app, cors_allowed_origins="*")
 
 
 def get_room_client_id():
+    """get unique client id
+
+    Returns:
+        uid: unique client id
+    """
     u_id = flask.request.sid
     return u_id
 
 
 @app.route('/')
 def hello():
+    """get the index.html file
+    """
     return flask.render_template('index.html')
 
 
 @socketio.on("connect")
 def on_connect():
+    """print on new user connection
+    """
     print(f"Someone connected... {get_room_client_id()}")
 
 
 @socketio.on("on_quiz_submission")
 def on_quiz_submission(data):
+    """emit, when user submits a quiz
+
+    Args:
+        data ([string]): [quiz responses]
+    """
     score_generator = score.ScoresGenerator()
     data_dict = {}
     for var in data:
@@ -39,6 +54,8 @@ def on_quiz_submission(data):
 
 @socketio.on("disconnect")
 def on_disconnect():
+    """print when user disconnects
+    """
     print(f"Someone disconnected... {get_room_client_id()}")
 
 

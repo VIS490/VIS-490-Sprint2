@@ -8,8 +8,8 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import { useAuth } from "../contexts/AuthContext"
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { useAuth } from '../contexts/AuthContext'
+import { gql, useQuery, useMutation } from '@apollo/client'
 import { ADD_NEW_USER } from '../graphql/mutations'
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme) => ({
 const Signup = () => {
 
 
-	const [email, setEmail] = useState("")
-	const [pass, setPass] = useState("")
-	const [fname, setfName] = useState("")
-	const [lname, setlName] = useState("")
+	const [email, setEmail] = useState('')
+	const [pass, setPass] = useState('')
+	const [fname, setfName] = useState('')
+	const [lname, setlName] = useState('')
 	const { signup } = useAuth()
 	const classes = useStyles()
-	const [error, setError] = useState("")
+	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
 	const [addTodo] = useMutation(ADD_NEW_USER)
@@ -68,20 +68,20 @@ const Signup = () => {
 		e.preventDefault()
 
 		try {
-			setError("")
+			setError('')
 			setLoading(true)
 			await signup(email, pass)
 
 			addTodo({
 				variables: {
 					input:
-						{ name: fname + ' ' + lname, email: email, pic: "User.png" }
+						{ name: fname + ' ' + lname, email: email, pic: 'User.png' }
 				}
 			})
 
-			history.push("/dashboard")
+			history.push('/dashboard')
 		} catch {
-			setError("Failed to create an account")
+			setError('Failed to create an account')
 		}
 
 		setLoading(false)

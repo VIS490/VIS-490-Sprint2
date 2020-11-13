@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { ThemeProvider, makeStyles } from '@material-ui/styles'
-import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from '@apollo/client';
+import React from 'react'
+import { ThemeProvider } from '@material-ui/styles'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import theme from './components/ui/Theme'
 import Dashboard from './components/Dashboard'
@@ -9,8 +8,7 @@ import Quiz from './components/Quiz'
 import PrivateRoute from './components/PrivateRoute'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import Socket from './components/Socket'
-import { useAuth, AuthProvider, currrentUser } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext'
 import { createApolloClient } from './graphql/apollo'
 
 const App = () => {

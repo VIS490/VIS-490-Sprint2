@@ -1,3 +1,8 @@
+"""score.py
+
+Returns:
+    int: test score
+"""
 from os.path import dirname, join
 import sys
 
@@ -20,11 +25,14 @@ DEVELOPMENT_QUESTIONS = ["q1", "q4", "q9"]
 
 
 class ScoresGenerator:
+    """ScoresGenerator class"""
     SCALE_MULTIPLIER = 10
     SCORES = {}
     SCALED_SCORES = {}
 
     def __init__(self):
+        """initialize variables
+        """
         self.SCORES = {
             KEY_WORK_LOAD: 0,
             KEY_INDEPENDENCE: 0,
@@ -45,6 +53,8 @@ class ScoresGenerator:
         }
 
     def split_data(self, data):
+        """spliting the data
+        """
         for k, v in data.items():
             if k in WORK_LOAD_QUESTIONS:
                 self.SCORES[KEY_WORK_LOAD] += v
@@ -60,6 +70,8 @@ class ScoresGenerator:
                 self.SCORES[KEY_DEVELOPMENT] += v
 
     def create_category_scaled_score(self, category):
+        """create category scaled score
+        """
         if category == KEY_WORK_LOAD or category == KEY_INDEPENDENCE:
             scaled_res = (self.SCORES[category] * self.SCALE_MULTIPLIER) / 24
             self.SCALED_SCORES[category] = scaled_res
@@ -68,11 +80,15 @@ class ScoresGenerator:
             self.SCALED_SCORES[category] = scaled_res
 
     def create_total_scaled_score(self):
+        """create total scaled score
+        """
         for k, v in self.SCALED_SCORES.items():
             if k != KEY_TOTAL:
                 self.SCALED_SCORES[KEY_TOTAL] += v
 
     def get_all_scaled_scores(self, data):
+        """get all scaled score
+        """
         self.split_data(data)
         for k in self.SCORES.keys():
             self.create_category_scaled_score(k)
