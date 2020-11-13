@@ -1,33 +1,30 @@
 import React from 'react'
-import  { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Card from '@material-ui/core/Card'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
-import { useAuth } from "../contexts/AuthContext"
-import { postAxios } from '../postAxios'
-
+import { useAuth } from '../contexts/AuthContext'
+import { gql, useQuery } from '@apollo/client'
 const useStyles = makeStyles((theme) => ({
 
 	card: {
 
-		width: '100%',	
+		width: '100%',
 		display: 'flex',
 
 		flexDirection: 'column',
 	},
 }))
-
-const Profile = (props) => {
+const Profile = () => {
 	const classes = useStyles()
-	const { login, currentUser } = useAuth()
-	const [currentUserName , setName] = useState("");
-	const [email, setEmail] = useState(currentUser.email);
+	const { currentUser } = useAuth()
+	const [currentUserName, setName] = useState('')
+	const email = currentUser.email
 
-	  const fetchCurrentUsers = async () =>{
-		const condition = ' where: {email: {_eq: ' + '"'+email+'"' + '}}';
-		const queryString = `
+	const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
+	const queryString = `
 		query  {
 			Users(
 				` + condition + `
@@ -35,17 +32,15 @@ const Profile = (props) => {
 				name
 			  }
 		  }`
-	
-		const result = await postAxios(queryString)
-		setName(result.data.data.Users[0].name);
-	
+	const GET_CURRENT_USER = gql`${queryString}`
+
+	const setUserName = async () => {
+		const { data } = await useQuery(GET_CURRENT_USER)
+		let name = data['Users'][0].name
+		setName(name)
 	}
 
-
-	useEffect(() => {
-		// Update the document title using the browser API
-		fetchCurrentUsers();
-	  });
+	setUserName()
 
 	return (
 
@@ -57,8 +52,8 @@ const Profile = (props) => {
 				</Typography>
 
 				<img
-  alt=" logo" height="175px"
-  src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png"
+					alt=" logo" height="175px"
+					src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png"
 				/>
 				<Card className={classes.card}>
 
@@ -67,26 +62,26 @@ const Profile = (props) => {
 							Profile Information
 						</Typography>
 						<Typography component="h1">
-							 name:
+							name:
 							{' '}
-							
+
 							{currentUserName}
 							<br />
 							{' '}
 							<br />
-							
+
 							{' '}
 							<br />
 							{' '}
 							<br />
 							Email:
 							{email}
-							
+
 							{' '}
 							<br />
 							{' '}
 							<br />
-							
+
 						</Typography>
 					</CardContent>
 				</Card>

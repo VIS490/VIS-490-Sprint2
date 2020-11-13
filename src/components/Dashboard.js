@@ -94,56 +94,64 @@ const Dashboard = () => {
         })
     }
 
-    useEffect(() => {
-        barChart()
-        lineChart()
-    }, [])
+	useEffect(() => {
+		barChart()
+		lineChart()
+	}, [])
 
-    return (
-        <div className="Dashboard">
-            <h1>Wellness Score: 89</h1>
-            <div style={{ float: "right", width: "500px", }}>
-                <Bar data={barChartData} options={{
+	return (
+		<div className="Dashboard">
+			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Wellness Score: 89</h1>
+			<div style={{ float: 'right', width: '500px', }}>
+				<Bar data={barChartData} options={{
+					responsive: true,
+					title: {
+						text: 'Topic Breakdown',
+						display: true,
+						fontSize: 25,
+						fontStyle: 'bold'
+					},
+					layout: {
+						padding: 5
+					},
+					scales: {
+						yAxes: [
+							{
+								ticks: {
+									beginAtZero: true
+								}
+							}
+						]
+					}
+				}} />
+			</div>
+			<div style={{ width: '900px' }}>
+				<Line data={lineChartData} options={{
+					responsive: true,
+					title: {
+						text: 'Weekly Trend',
+						display: true,
+						fontSize: 25,
+						fontStyle: 'bold'
+					},
+					layout: {
+						padding: 50
+					},
+					scales: {
+						yAxes: [
+							{
+								ticks: {
+									beginAtZero: true
+								}
+							}
+						]
+					}
+				}} />
+			</div>
 
-                    responsive: true,
-                    title: { text: 'Topic Breakdown', display: true },
-                    layout: {
-                        padding: 5
-                    },
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        ]
-                    }
-                }} />
-            </div>
-            <div style={{ width: "900px" }}>
-                <Line data={lineChartData} options={{
-                    responsive: true,
-                    title: { text: 'Weekly Trend', display: true },
-                    layout: {
-                        padding: 50
-                    },
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        ]
-                    }
-                }} />
-            </div>
+		</div>
 
-        </div>
-
-
-    )
+	)
 }
 
 export default Dashboard

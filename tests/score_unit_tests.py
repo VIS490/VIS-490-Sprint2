@@ -1,10 +1,9 @@
 import unittest
 import unittest.mock as mock
-import score
 import sys
 from os.path import dirname, join
-
 sys.path.insert(1, join(dirname(__file__), '../'))
+import score
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
