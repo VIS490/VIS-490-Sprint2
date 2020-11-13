@@ -10,9 +10,9 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Link, useHistory } from 'react-router-dom'
-import { useAuth } from "../contexts/AuthContext"
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
+import { useAuth } from '../contexts/AuthContext'
+import Alert from '@material-ui/lab/Alert'
+import AlertTitle from '@material-ui/lab/AlertTitle'
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -34,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const Login = ({ }) => {
-	const [email, setEmail] = useState("")
-	const [pass, setPass] = useState("")
-	const { login, currentUser } = useAuth()
+const Login = () => {
+	const [email, setEmail] = useState('')
+	const [pass, setPass] = useState('')
+	const { login } = useAuth()
 	const classes = useStyles()
-	const [error, setError] = useState("")
+	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
 
@@ -47,14 +47,13 @@ const Login = ({ }) => {
 		e.preventDefault()
 
 		try {
-			setError("")
+			setError('')
 			setLoading(true)
 			await login(email, pass)
-			history.push("/dashboard")
+			history.push('/dashboard')
 		} catch {
-			setError("Failed to Login")
+			setError('Failed to Login')
 		}
-
 		setLoading(false)
 	}
 

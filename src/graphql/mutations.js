@@ -7,4 +7,4 @@ export const ADD_NEW_USER = gql`
 		  id
 		}
 	  }
-	`;
+	`
