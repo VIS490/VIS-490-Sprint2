@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useAuth } from "../contexts/AuthContext"
-import { gql, useQuery } from '@apollo/client';
-
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { ADD_NEW_USER } from '../graphql/mutations'
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -35,14 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Signup = () => {
 
-	const GET_DOGS = gql`
-	mutation ($input:Users_insert_input!){
-		insert_Users_one(object:$input){
-		  name
-		  id
-		}
-	  }
-	`;
 
 	const [email, setEmail] = useState("")
 	const [pass, setPass] = useState("")
@@ -53,6 +45,25 @@ const Signup = () => {
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
+
+	const data = {
+
+	}
+	const [addTodo] = useMutation(ADD_NEW_USER)
+	addTodo({
+		variables: {
+			input:
+				{ name: "Raj", email: "raj@gmail.com", pic: "User.png" }
+		}
+	})
+
+	console.log("loading " + load)
+	console.log("error " + err)
+	console.log("data " + data)
+	// const { data } = useQuery(queryString)
+
+	// console.log(data)
+	// getUsers()
 
 	const firstNameChange = (event) => {
 		setfName(event.target.value)
@@ -77,15 +88,6 @@ const Signup = () => {
 			setLoading(true)
 			await signup(email, pass)
 			history.push("/dashboard")
-			const { loading, error, data } = useQuery(GET_DOGS, {
-				variables: {
-					input: {
-						"name": "Raj",
-						"email": "raj@gmail.com",
-						"pic": "User.png"
-					}
-				},
-			});
 		} catch {
 			setError("Failed to create an account")
 		}

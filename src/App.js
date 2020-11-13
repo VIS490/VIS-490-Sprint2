@@ -11,22 +11,24 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Socket from './components/Socket'
 import { useAuth, AuthProvider, currrentUser } from './contexts/AuthContext'
-
+import { createApolloClient } from './graphql/apollo'
 
 const App = () => {
-
+	const client = createApolloClient()
 	const Authenticated = (
 		<React.Fragment>
 			<BrowserRouter>
-				<AuthProvider>
-					<Switch>
-						<PrivateRoute exact path="/dashboard" component={Dashboard} />
-						<PrivateRoute path="/quiz" component={Quiz} />
-						<PrivateRoute path="/profile" component={Profile} />
-						<Route path="/signup" component={Signup} />
-						<Route path="/" component={Login} />
-					</Switch>
-				</AuthProvider>
+				<ApolloProvider client={client}>
+					<AuthProvider>
+						<Switch>
+							<PrivateRoute exact path="/dashboard" component={Dashboard} />
+							<PrivateRoute path="/quiz" component={Quiz} />
+							<PrivateRoute path="/profile" component={Profile} />
+							<Route path="/signup" component={Signup} />
+							<Route path="/" component={Login} />
+						</Switch>
+					</AuthProvider>
+				</ApolloProvider>
 			</BrowserRouter>
 		</React.Fragment>
 	)
