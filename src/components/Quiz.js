@@ -1,29 +1,30 @@
 import React from "react";
 import Question from "./Question.js";
+import Socket from "./Socket.js";
 import Button from "@material-ui/core/Button";
 
 const Quiz = () => {
   const resetList = [
-    { id: "1", name: "q1-text", qval: 0 },
-    { id: "2", name: "q2-text", qval: 0 },
-    { id: "3", name: "q3-text", qval: 0 },
-    { id: "4", name: "q4-text", qval: 0 },
-    { id: "5", name: "q5-text", qval: 0 },
-    { id: "6", name: "q6-text", qval: 0 },
-    { id: "7", name: "q7-text", qval: 0 },
-    { id: "8", name: "q8-text", qval: 0 },
-    { id: "9", name: "q9-text", qval: 0 },
-    { id: "10", name: "q10-text", qval: 0 },
-    { id: "11", name: "q11-text", qval: 0 },
-    { id: "12", name: "q12-text", qval: 0 },
-    { id: "13", name: "q13-text", qval: 0 },
-    { id: "14", name: "q14-text", qval: 0 },
-    { id: "15", name: "q15-text", qval: 0 },
-    { id: "16", name: "q16-text", qval: 0 },
-    { id: "17", name: "q17-text", qval: 0 },
-    { id: "18", name: "q18-text", qval: 0 },
-    { id: "19", name: "q19-text", qval: 0 },
-    { id: "20", name: "q20-text", qval: 0 }
+    { id: "1", qval: 0 },
+    { id: "2", qval: 0 },
+    { id: "3", qval: 0 },
+    { id: "4", qval: 0 },
+    { id: "5", qval: 0 },
+    { id: "6", qval: 0 },
+    { id: "7", qval: 0 },
+    { id: "8", qval: 0 },
+    { id: "9", qval: 0 },
+    { id: "10", qval: 0 },
+    { id: "11", qval: 0 },
+    { id: "12", qval: 0 },
+    { id: "13", qval: 0 },
+    { id: "14", qval: 0 },
+    { id: "15", qval: 0 },
+    { id: "16", qval: 0 },
+    { id: "17", qval: 0 },
+    { id: "18", qval: 0 },
+    { id: "19", qval: 0 },
+    { id: "20", qval: 0 }
   ];
   const [userResponses, updateUserResponses] = React.useState(resetList);
 
