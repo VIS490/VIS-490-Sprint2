@@ -1,6 +1,10 @@
 import unittest
 import unittest.mock as mock
+from os.path import dirname, join
+import sys
+sys.path.insert(1, join(dirname(__file__), '../'))
 import app
+from app import app as Flask_App
 
 KEY_WORK_LOAD = "Work Load"
 KEY_INDEPENDENCE = "Independence"
@@ -36,6 +40,12 @@ class AppTest(unittest.TestCase):
 
     def test_on_connected_success(self):
         assert self.socketio_test_client.is_connected()
+
+    def test_home(self):
+        """/ ROUTE"""
+        tester = Flask_App.test_client(self)
+        response = tester.get('/', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
 
     def test_on_quiz_submission_success(self):
         with mock.patch('score.ScoresGenerator.get_all_scaled_scores') as mock_get_all_scaled_scores:

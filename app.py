@@ -3,7 +3,6 @@ import os
 from flask import Flask
 from dotenv import load_dotenv
 import flask_socketio
-from Oath import Oauth
 import score
 
 load_dotenv()
@@ -33,14 +32,6 @@ def on_connect():
 def on_quiz_submission(data):
     result = score_generator.get_all_scaled_scores(data)
     socketio.emit("on_quiz_submission_response", result, room=get_room_client_id())
-
-
-@socketio.on('new login')
-def onLogin(msg):
-    oath = Oauth()
-    res = oath.login_user(msg['email'], msg['password'])
-    print(res)
-    socketio.emit('new user', res)
 
 
 @socketio.on("disconnect")
