@@ -3,7 +3,7 @@ import Question from "./Question.js";
 import Socket from "./Socket.js";
 import Button from "@material-ui/core/Button";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { GET_ALL_QUESTIONS } from "../graphql/queries";
+//import { GET_ALL_QUESTIONS } from "../graphql/queries";
 
 const Quiz = (props) => {
   const resetList = [
@@ -29,17 +29,40 @@ const Quiz = (props) => {
     { qid: "20", qval: 0 }
   ];
   const [userResponses, updateUserResponses] = React.useState(resetList);
+  const [qList, setQList] = React.useState([]);
   let questionList = [];
 
-  function getAllQuestionsQuery() {
-     const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY);
-     if (loading) return 'Loading...';
-     if (error) return `Error! ${error.message}`;
-     for(temp in data['data']['Questions']){
-         questionList.push(temp['question']);
-     }
+  const queryString = `
+		query  {
+			Questions  {
+			    question
+			}
+		}`
+  const GET_ALL_QUESTIONS = gql`${queryString}`;
+
+  const callSetQList = async () => {
+		const { data } = await useQuery(GET_ALL_QUESTIONS);
+		console.log(JSON.stringify(data));
+		console.log(data.length);
+        let temp = data['Questions'][0];
+        console.log(temp);
+//		for( let temp in data['Questions']){
+//            questionList.push(temp['question']);
+//        }
+		setQList(questionList);
   }
-  getAllQuestionsQuery();
+
+  callSetQList()
+
+//  function getAllQuestionsQuery() {
+//     const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY);
+//     if (loading) return 'Loading...';
+//     if (error) return `Error! ${error.message}`;
+//     for(temp in data['data']['Questions']){
+//         questionList.push(temp['question']);
+//     }
+//  }
+//  getAllQuestionsQuery();
 
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
@@ -61,7 +84,7 @@ const Quiz = (props) => {
   return (
     <div className="Quiz">
       <ul list-style-type="none">
-        {questionList.map((item, id) => (
+        {qList.map((item, id) => (
           <li key={id}>
             <Question questionName={item} update={handleUpdate} />
           </li>

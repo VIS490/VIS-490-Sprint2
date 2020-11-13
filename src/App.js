@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import { AuthProvider } from './contexts/AuthContext'
+import { ApolloProvider } from '@apollo/react-hooks';
 import { createApolloClient } from './graphql/apollo'
 
 const App = () => {
