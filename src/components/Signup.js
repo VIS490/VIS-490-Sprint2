@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useAuth } from "../contexts/AuthContext"
+import { gql, useQuery } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -33,6 +34,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 const Signup = () => {
+
+	const GET_DOGS = gql`
+	mutation ($input:Users_insert_input!){
+		insert_Users_one(object:$input){
+		  name
+		  id
+		}
+	  }
+	`;
+
 	const [email, setEmail] = useState("")
 	const [pass, setPass] = useState("")
 	const [fname, setfName] = useState("")
@@ -66,6 +77,15 @@ const Signup = () => {
 			setLoading(true)
 			await signup(email, pass)
 			history.push("/dashboard")
+			const { loading, error, data } = useQuery(GET_DOGS, {
+				variables: {
+					input: {
+						"name": "Raj",
+						"email": "raj@gmail.com",
+						"pic": "User.png"
+					}
+				},
+			});
 		} catch {
 			setError("Failed to create an account")
 		}

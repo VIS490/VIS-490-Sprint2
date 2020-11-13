@@ -67,7 +67,9 @@ const Login = ({ }) => {
 	}
 	return (
 		<div className="container">
+			{JSON.stringify(currentUser)}
 			<Container component="main" maxWidth="xs">
+
 				<CssBaseline />
 				<div className={classes.paper}>
 					{error &&
