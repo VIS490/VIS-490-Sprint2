@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
-import { postAxios } from '../postAxios'
-
+import { gql, useQuery } from '@apollo/client'
 const useStyles = makeStyles((theme) => ({
 
 	card: {
@@ -18,16 +17,14 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 	},
 }))
-
-const Profile = (props) => {
+const Profile = () => {
 	const classes = useStyles()
-	const { login, currentUser } = useAuth()
+	const { currentUser } = useAuth()
 	const [currentUserName, setName] = useState('')
-	const [email, setEmail] = useState(currentUser.email)
+	const email = currentUser.email
 
-	const fetchCurrentUsers = async () => {
-		const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
-		const queryString = `
+	const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
+	const queryString = `
 		query  {
 			Users(
 				` + condition + `
@@ -35,17 +32,15 @@ const Profile = (props) => {
 				name
 			  }
 		  }`
+	const GET_CURRENT_USER = gql`${queryString}`
 
-		const result = await postAxios(queryString)
-		setName(result.data.data.Users[0].name)
-
+	const setUserName = async () => {
+		const { data } = await useQuery(GET_CURRENT_USER)
+		let name = data['Users'][0].name
+		setName(name)
 	}
 
-
-	useEffect(() => {
-		// Update the document title using the browser API
-		fetchCurrentUsers()
-	})
+	setUserName()
 
 	return (
 
