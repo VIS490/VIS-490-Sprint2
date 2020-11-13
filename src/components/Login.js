@@ -105,10 +105,6 @@ const Login = () => {
 							autoComplete="current-password"
 							onChange={passwordChange}
 						/>
-						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
-						/>
 						<Button
 							type="submit"
 							fullWidth
@@ -121,7 +117,7 @@ const Login = () => {
 						<Grid container>
 							<Grid item xs>
 								<div href="#" variant="body2">
-									Forgot password?
+									
 								</div>
 							</Grid>
 							<Grid item>

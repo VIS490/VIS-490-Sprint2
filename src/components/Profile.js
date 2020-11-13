@@ -85,7 +85,7 @@ const Profile = () => {
 						</Typography>
 					</CardContent>
 				</Card>
-				;
+				
 			</Container>
 		</div>
 	)

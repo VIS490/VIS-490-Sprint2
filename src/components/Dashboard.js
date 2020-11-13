@@ -3,54 +3,57 @@ import { Line, Bar } from 'react-chartjs-2';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
 
-export const GET_WELLNESS_SCORE = gql`
-query GET_WELLNESS_SCORES($email:String!) {
-	Users(limit: 1, where: {email: $email}) {
-	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
-		Test {
-		  score
-		}
-	  }
-	}
-  }
-`;
-
-export const GET_BARGRAPH_SCORES = gql`
-query GET_BARGRAPH_SCORES($email:String!) {
-	Users(limit: 1, where: {email: $email}) {
-	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
-		Test {
-		  work_load_score
-		  peer_relations_score
-		  leader_support_score
-		  impact_score
-		  development_score
-		  autonomy_score
-		}
-	  }
-	}
-  }
-  
-`;
-
-export const GET_LINEGRAPH_SCORES = gql`
-query GET_LINEGRAPH_SCORES($email: String!) {
-	Users(limit: 1, where: {email: $email}) {
-	  UserTests(order_by: {created_at: asc_nulls_first}) {
-		Test {
-		  score
-		}
-	  }
-	}
-  }
-  
-`;
-
-
 const Dashboard = () => {
     const { currentUser } = useAuth()
     const email=currentUser.email
-    console.log(email)
+    
+    const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
+    const queryStringLine = `
+		query  {
+            Users(limit: 1,
+                ` + condition + `
+                ) {
+			        UserTests(order_by: {created_at: asc_nulls_first}) {
+                    Test {
+                        score
+                    }
+                }
+			}
+        }`
+    
+    const GET_LINEGRAPH_SCORE = gql`${queryStringLine}`
+
+    const queryStringBar = `
+		query  {
+            Users(` + condition + `) {
+			    UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
+                    Test {
+                        work_load_score
+                        peer_relations_score
+                        leader_support_score
+                        impact_score
+                        development_score
+                        autonomy_score
+                    }
+                }
+			}
+        }`
+    const GET_BARGRAPH_SCORE = gql`${queryStringBar}`
+
+    const queryStringWellness = `
+	query  {
+        Users(` + condition + `) {
+			UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
+                Test {
+                    score
+                }
+            }
+		}
+    }`
+    
+    const GET_WELLNES_SCORE = gql`${queryStringWellness}`
+    
+    console.log(JSON.stringify(GET_LINEGRAPH_SCORE))
     //const email = currentUser.
     //const [wellTodo] = useQuery(GET_WELLNESS_SCORE)
     //const [barTodo] = useQuery(GET_BARGRAPH_SCORES)
