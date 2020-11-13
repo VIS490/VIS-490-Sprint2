@@ -4,8 +4,8 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
 
 export const GET_WELLNESS_SCORE = gql`
-query GET_WELLNESS_SCORES {
-	Users(limit: 1, where: {email: {_eq: ""}}) {
+query GET_WELLNESS_SCORES($email:String!) {
+	Users(limit: 1, where: {email: $email}) {
 	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
 		Test {
 		  score
@@ -16,8 +16,8 @@ query GET_WELLNESS_SCORES {
 `;
 
 export const GET_BARGRAPH_SCORES = gql`
-query GET_BARGRAPH_SCORES {
-	Users(limit: 1, where: {email: {_eq: ""}}) {
+query GET_BARGRAPH_SCORES($email:String!) {
+	Users(limit: 1, where: {email: $email}) {
 	  UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
 		Test {
 		  work_load_score
@@ -34,8 +34,8 @@ query GET_BARGRAPH_SCORES {
 `;
 
 export const GET_LINEGRAPH_SCORES = gql`
-query GET_LINEGRAPH_SCORES {
-	Users(limit: 1, where: {email: {_eq: ""}}) {
+query GET_LINEGRAPH_SCORES($email: String!) {
+	Users(limit: 1, where: {email: $email}) {
 	  UserTests(order_by: {created_at: asc_nulls_first}) {
 		Test {
 		  score
@@ -49,7 +49,8 @@ query GET_LINEGRAPH_SCORES {
 
 const Dashboard = () => {
     const { currentUser } = useAuth()
-    console.log(currentUser.email)
+    const email=currentUser.email
+    console.log(email)
     //const email = currentUser.
     //const [wellTodo] = useQuery(GET_WELLNESS_SCORE)
     //const [barTodo] = useQuery(GET_BARGRAPH_SCORES)
