@@ -52,8 +52,17 @@ const Dashboard = () => {
     }`
     
     const GET_WELLNES_SCORE = gql`${queryStringWellness}`
+
+    const setUserName = async () => {
+		const { data } = await useQuery(GET_WELLNES_SCORE)
+		//let name = data['Users'][0].name
+        //setName(name)
+        console.log(data)
+	}
+
+	setUserName()
     
-    console.log(JSON.stringify(GET_LINEGRAPH_SCORE))
+    //console.log(JSON.stringify(da))
     //const email = currentUser.
     //const [wellTodo] = useQuery(GET_WELLNESS_SCORE)
     //const [barTodo] = useQuery(GET_BARGRAPH_SCORES)
