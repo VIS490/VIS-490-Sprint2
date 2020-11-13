@@ -6,10 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from "../contexts/AuthContext"
-import { postAxios } from '../postAxios'
-// import { GET_CURRENT_USER} from '../graphql/query'
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { useParams } from 'react-router-dom'
+import { gql, useQuery } from '@apollo/client';
 const useStyles = makeStyles((theme) => ({
 
 	card: {
@@ -20,14 +17,11 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 	},
 }))
-
-
-
-const Profile = (props) => {
+const Profile = () => {
 	const classes = useStyles()
-	const { login, currentUser } = useAuth()
+	const { currentUser } = useAuth()
 	const [currentUserName , setName] = useState("");
-	const [email, setEmail] = useState(currentUser.email);
+	const email = currentUser.email;
 
 	const condition = ' where: {email: {_eq: ' + '"'+email+'"' + '}}';
 		const queryString = `
@@ -46,14 +40,8 @@ const Profile = (props) => {
 		setName(name);
 	}
 
-
-	
 	setUserName();
-	// useEffect(() => {
-		
-
-	//   });
-
+	
 	return (
 
 		<div className="Profile">
