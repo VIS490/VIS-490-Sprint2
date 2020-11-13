@@ -1,23 +1,51 @@
 import React from 'react'
+import  { useState,useEffect } from 'react'
 import Card from '@material-ui/core/Card'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
+import { useAuth } from "../contexts/AuthContext"
+import { postAxios } from '../postAxios'
 
 const useStyles = makeStyles((theme) => ({
 
 	card: {
 
-		width: '100%',
+		width: '100%',	
 		display: 'flex',
 
 		flexDirection: 'column',
 	},
 }))
 
-const Profile = () => {
+const Profile = (props) => {
 	const classes = useStyles()
+	const { login, currentUser } = useAuth()
+	const [currentUserName , setName] = useState("");
+	const [email, setEmail] = useState(currentUser.email);
+
+	  const fetchCurrentUsers = async () =>{
+		const condition = ' where: {email: {_eq: ' + '"'+email+'"' + '}}';
+		const queryString = `
+		query  {
+			Users(
+				` + condition + `
+			  ) {
+				name
+			  }
+		  }`
+	
+		const result = await postAxios(queryString)
+		setName(result.data.data.Users[0].name);
+	
+	}
+
+
+	useEffect(() => {
+		// Update the document title using the browser API
+		fetchCurrentUsers();
+	  });
 
 	return (
 
@@ -39,34 +67,26 @@ const Profile = () => {
 							Profile Information
 						</Typography>
 						<Typography component="h1">
-							full name:
+							 name:
 							{' '}
-							<strong> Please fetch from database</strong>
-							{' '}
+							
+							{currentUserName}
 							<br />
 							{' '}
 							<br />
-							Profile Name:
-							{' '}
-							<strong> Please fetch from database</strong>
+							
 							{' '}
 							<br />
 							{' '}
 							<br />
 							Email:
-							{' '}
-							<strong> Please fetch from database</strong>
-							{' '}
-							<br />
-							{' '}
-							<br />
-							Date Joined:
-							{' '}
-							<strong> Please fetch from database</strong>
+							{email}
+							
 							{' '}
 							<br />
 							{' '}
 							<br />
+							
 						</Typography>
 					</CardContent>
 				</Card>
