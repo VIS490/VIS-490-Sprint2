@@ -15,7 +15,6 @@ const Question = (props) => {
 		props.onUpdate(newQID, event.target.value, event)
 	}
 
-	// TODO: try and have radio button in horizontal order
 	return (
 		<FormControl component="fieldset">
 			<FormLabel component="legend"> {props.questionName} </FormLabel>
