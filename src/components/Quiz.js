@@ -28,8 +28,8 @@ const Quiz = (props) => {
     { qid: "19", qval: 0 },
     { qid: "20", qval: 0 }
   ];
+
   const [userResponses, updateUserResponses] = React.useState(resetList);
-  const [qList, setQList] = React.useState([]);
   let data_dump = {};
   let questionList = [];
 
@@ -51,13 +51,10 @@ const Quiz = (props) => {
             questionList.push(qtext);
         }
 
-//        questionList = data['Questions'];
-        setQList(questionList);
 		console.log(JSON.stringify(questionList));
   }
 
-   callSetQList();
-   console.log("after parslist:" + qList);
+  callSetQList();
 
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
@@ -79,7 +76,7 @@ const Quiz = (props) => {
   return (
     <div className="Quiz">
       <ul list-style-type="none">
-        {qList.map((item, id) => (
+        {questionList.map((item, id) => (
           <li key={id}>
             <Question questionName={item} update={handleUpdate} />
           </li>
