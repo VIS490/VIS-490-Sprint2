@@ -4,63 +4,89 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
 
 const Dashboard = () => {
+    const [wellnessScore,setWellnessScore]=useState(0)
+    const [autonomyScore,setAutonomyScore]=useState(0)
+    const [developmentScore,setDevelopmentScore]=useState(0)
+    const [impactScore,setImpactScore]=useState(0)
+    const [leaderSupportScore,setLeaderSupportScore]=useState(0)
+    const [peerRelationsScore,setPeerRelationsScore]=useState(0)
+    const [workLoadScore,setWorkLoadScore]=useState(0)
+    const [lineScore, setLineScore]=useState(0)
     const { currentUser } = useAuth()
     const email=currentUser.email
-    
-    const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
-    const queryStringLine = `
-		query  {
-            Users(limit: 1,
-                ` + condition + `
-                ) {
-			        UserTests(order_by: {created_at: asc_nulls_first}) {
-                    Test {
-                        score
-                    }
-                }
-			}
-        }`
-    
-    const GET_LINEGRAPH_SCORE = gql`${queryStringLine}`
 
-    const queryStringBar = `
-		query  {
-            Users(` + condition + `) {
-			    UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
-                    Test {
-                        work_load_score
-                        peer_relations_score
-                        leader_support_score
-                        impact_score
-                        development_score
-                        autonomy_score
-                    }
-                }
-			}
-        }`
-    const GET_BARGRAPH_SCORE = gql`${queryStringBar}`
-
-    const queryStringWellness = `
-	query  {
-        Users(` + condition + `) {
-			UserTests(order_by: {created_at: desc_nulls_last}, limit: 1) {
-                Test {
-                    score
-                }
+    const queryStringLine = gql`
+    query ($email:String!){
+        Tests(where: {
+            User:{
+              email:{
+                _eq:$email
+              }
             }
-		}
-    }`
+          }){
+            score
+          }
+        }`
     
-    const GET_WELLNES_SCORE = gql`${queryStringWellness}`
+    const queryStringWellness = gql`
+    query ($email:String!){
+        Tests(where: {
+              User:{
+                email:{
+                  _eq:$email
+                }
+              }
+            }){
+              
+              autonomy_score
+              development_score
+              impact_score
+              leader_support_score
+              peer_relations_score
+              work_load_score
+              score
+            
+            }
+          }`
+    
 
-    const setUserName = async () => {
-		const { data } = await useQuery(GET_WELLNES_SCORE)
-		//let name = data['Users'][0].name
-        //setName(name)
-        console.log(data)
+    const Score = async () => {
+        try{
+            const { loading, error, data } = await useQuery(queryStringWellness,{variables:{email:email}})
+            if (loading) return null;
+            if (error) return `Error! ${error}`;
+            console.log(autonomyScore)
+            console.log(wellnessScore)
+            setAutonomyScore(data.Tests[0].autonomy_score)
+            //setDevelopmentScore(data.Tests[0].development_score)
+            // setImpactScore(data.Tests[0].impact_score)
+            // setLeaderSupportScore(data.Tests[0].leader_support_score)
+            // setPeerRelationsScore(data.Tests[0].peer_relations_score)
+            // setWorkLoadScore(data.Tests[0].work_load_score)
+            setWellnessScore(data.Tests[0].score)
+            // //function ListScore(props){
+                //const Tests=data.Tests;
+                //const scoreList = Tests.map((scOre.score));
+                //console.log(scoreList)
+            //}
+
+        }
+        catch(e){
+            console.log("this")
+            setWellnessScore(0)
+            setAutonomyScore(0)
+            setDevelopmentScore(0)
+            setImpactScore(0)
+            setLeaderSupportScore(0)
+            setPeerRelationsScore(0)
+            setWorkLoadScore(0)
+            setLineScore(0)
+        }
+
 	}
+    Score()
 
-	setUserName()
+    
     
     //console.log(JSON.stringify(da))
     //const email = currentUser.
@@ -75,7 +101,7 @@ const Dashboard = () => {
             datasets: [
                 {
                     label: 'Scores',
-                    data: [32, 45, 12, 76, 69, 50],
+                    data: [3, 6, 8, 10, 9, 5],
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(55, 92, 12, 0.6)',
@@ -113,7 +139,7 @@ const Dashboard = () => {
 
 	return (
 		<div className="Dashboard">
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Wellness Score: 89</h1>
+			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Wellness Score: {wellnessScore}</h1>
 			<div style={{ float: 'right', width: '500px', }}>
 				<Bar data={barChartData} options={{
 					responsive: true,
