@@ -30,6 +30,7 @@ const Quiz = (props) => {
   ];
   const [userResponses, updateUserResponses] = React.useState(resetList);
   const [qList, setQList] = React.useState([]);
+  let data_dump = {};
   let questionList = [];
 
   const queryString = `
@@ -37,32 +38,26 @@ const Quiz = (props) => {
 			Questions  {
 			    question
 			}
-		}`
+		}`;
   const GET_ALL_QUESTIONS = gql`${queryString}`;
 
-  const callSetQList = async () => {
+  const callSetQList = async() =>  {
 		const { data } = await useQuery(GET_ALL_QUESTIONS);
-		console.log(JSON.stringify(data));
-		console.log(data.length);
-        let temp = data['Questions'][0];
-        console.log(temp);
-//		for( let temp in data['Questions']){
-//            questionList.push(temp['question']);
-//        }
-		setQList(questionList);
+	    console.log("in data: " + JSON.stringify(data));
+
+	    for(let i = 0; i < data['Questions'].length; i++){
+            console.log("loop i: " + i);
+            let qtext = data['Questions'][i]['question'];
+            questionList.push(qtext);
+        }
+
+//        questionList = data['Questions'];
+        setQList(questionList);
+		console.log(JSON.stringify(questionList));
   }
 
-  callSetQList()
-
-//  function getAllQuestionsQuery() {
-//     const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY);
-//     if (loading) return 'Loading...';
-//     if (error) return `Error! ${error.message}`;
-//     for(temp in data['data']['Questions']){
-//         questionList.push(temp['question']);
-//     }
-//  }
-//  getAllQuestionsQuery();
+   callSetQList();
+   console.log("after parslist:" + qList);
 
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
