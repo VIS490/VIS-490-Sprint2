@@ -11,6 +11,7 @@ import Signup from './components/Signup'
 import { AuthProvider } from './contexts/AuthContext'
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createApolloClient } from './graphql/apollo'
+import { ApolloProvider } from '@apollo/client';
 
 const App = () => {
 	const client = createApolloClient()
