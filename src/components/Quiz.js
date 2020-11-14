@@ -30,31 +30,28 @@ const Quiz = (props) => {
   ];
 
   const [userResponses, updateUserResponses] = React.useState(resetList);
-  let data_dump = {};
-  let questionList = [];
-
-  const queryString = `
-		query  {
-			Questions  {
-			    question
-			}
-		}`;
-  const GET_ALL_QUESTIONS = gql`${queryString}`;
-
-  const callSetQList = async() =>  {
-		const { data } = await useQuery(GET_ALL_QUESTIONS);
-	    console.log("in data: " + JSON.stringify(data));
-
-	    for(let i = 0; i < data['Questions'].length; i++){
-            console.log("loop i: " + i);
-            let qtext = data['Questions'][i]['question'];
-            questionList.push(qtext);
-        }
-
-		console.log(JSON.stringify(questionList));
-  }
-
-  callSetQList();
+  let questionList = [
+    "I am motivated to contribute and work today.",
+    "The tasks I have to get done today are manageable.",
+    "I am able to actively communicate any difficulties with my manager/team lead.",
+    "The tasks that I am currently working on challenge my thinking and original perceptions.",
+    "The tasks I work on offer visible real-world impact.",
+    "I am not working on tasks after work hours.",
+    "I feel confident in reaching out to team members to resolve any difficulties I am currently facing.",
+    "I am encouraged to approach the tasks as I best see fit.",
+    "I am progressing towards either my personal or career goals.",
+    "I have taken breaks to calmly eat my lunch.",
+    "The team meetings I attend are necessary and effective in progressing the team.",
+    "I worry about my current work environment.",
+    "My team members respect me.",
+    "I am able to maintain a work-life balance.",
+    "I feel that my questions, concerns, and/or suggestions are validated by both my peers and the manager/team lead.",
+    "My current state of emotions are an not impediment to my current work ethic.",
+    "My manager/team lead respects me.",
+    "I am able to socialize with my team members or others not regarding my work.",
+    "I am able to step away from my desk or main workspace and not feel restless.",
+    "At present, I feel my manager/team lead supports me."
+  ];
 
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
