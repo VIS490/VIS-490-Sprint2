@@ -1,77 +1,46 @@
-# Getting Started with Create React App
+# Landing page 
+https://agile-hamlet-62576.herokuapp.com/
+# Deployed Site 
+https://salty-coast-57310.herokuapp.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+# Work Done By Each Engineer 
+## Vrushali 
+. Reaserched on Wellness algoirthm 
+. Implemented Wellness Algoirthm along with testing 
+. Quiz component UI 
+. Created Socket conneciton to UI 
+. Test Hasura via Regression Suite 
+. Added Columns to test database 
 
-### `yarn start`
+## Ronak 
+. Created Landing Page 
+. Worked on Oauth Firebase
+. Created UI for Profile 
+. Fetched current user from database to Profile 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Brandon 
+. Created UI for Login and Signup Page 
+. Created Chart dashboard page 
+. Loaded Chart Data from DB 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Anshul 
+. Lint all the Files
+. Reaserch on Arctecture of Hasura / Firebase
+. Intergrate Firebase and Hasura
+. Create Routing system and side bar for app 
+. Create DB tables schema 
+. Set up connection to Hasura to React applicaiton 
+. Deploy to Heroku 
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Unfinished Tasks 
+. database persitance for the wellness score 
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### Project dependencies
-FireBase : yarn add firebase 
-
-#### Api Keys 
-in .gitignore the api and app info is in a config.js file , in form of a js object , 
-in the future needs  the api needs to be loaded in runtime from heroku 
