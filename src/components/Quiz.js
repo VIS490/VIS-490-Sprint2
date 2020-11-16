@@ -4,6 +4,7 @@ import Socket from "./Socket.js";
 import Button from "@material-ui/core/Button";
 import { gql, useQuery, useMutation } from "@apollo/client";
 //import { GET_ALL_QUESTIONS } from "../graphql/queries";
+import { Paper } from '@material-ui/core';
 
 const Quiz = (props) => {
   const resetList = [
@@ -72,6 +73,9 @@ const Quiz = (props) => {
 
   return (
     <div className="Quiz">
+      <Paper style={{maxHeight: 850, overflow: 'auto'}}>
+
+
       <ul list-style-type="none">
         {questionList.map((item, id) => (
           <li key={id}>
@@ -79,6 +83,7 @@ const Quiz = (props) => {
           </li>
         ))}
       </ul>
+      </Paper>
       <Button variant="outlined" color="secondary" onClick={handleClick}>
         Submit Responses
       </Button>
