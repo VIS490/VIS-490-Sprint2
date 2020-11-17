@@ -5,25 +5,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import { makeStyles } from "@material-ui/core/styles"
-
 const useStyles = makeStyles({
 	root: {
-	  // component default is "inline-flex", using "flex" makes the
-	  // label + control group use the entire width of the parent element
+
 	  display: "flex",
-	  // component default is "flex-start", using "space-between" pushes
-	  // both flexed content to the right and left edges of the flexbox
-	  // Note: the content is aligned to the right by default because
-	  // the 'labelPlacement="start"' component prop changes the flexbox
-	  // direction to "row-reverse"
 	  justifyContent: "space-between",
-	  width:'250px',
+	  width:'1350px',
 
-	
 	},
-
-
-	
+	title: {
+		fontSize: 34,
+	  },
   });
 
 const Question = (props) => {
@@ -36,7 +28,6 @@ const Question = (props) => {
 		let newQID = props.questionID + 1
 		props.onUpdate(newQID, event.target.value, event)
 	}
-
 	return (
 		<FormControl component="fieldset">
 			<FormLabel component="legend"> {props.questionName} </FormLabel>
@@ -45,7 +36,7 @@ const Question = (props) => {
 				name={props.questionName}
 				value={questionValue}
 				onChange={handleChange}
-				classes = {classes.group}
+				classes = {classes.title}
 			>
 				<FormControlLabel
 					value="6"
