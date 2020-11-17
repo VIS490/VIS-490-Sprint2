@@ -61,7 +61,6 @@ const Quiz = (props) => {
       qval: newVal
     };
     updateUserResponses(newUserResponses);
-    console.log(JSON.stringify(userResponses));
   };
 
   const handleClick = (e) => {
@@ -75,7 +74,7 @@ const Quiz = (props) => {
       <ul list-style-type="none">
         {questionList.map((item, id) => (
           <li key={id}>
-            <Question questionName={item} update={handleUpdate} />
+            <Question questionName={item} questionID={id} onUpdate={handleUpdate} />
           </li>
         ))}
       </ul>
