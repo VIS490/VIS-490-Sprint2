@@ -4,15 +4,7 @@ import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {List,ListItem,Paper,Card} from '@material-ui/core'
-
-const queryString = `
-		query  {
-			Questions  {
-			    question
-			}
-    }`
-  
-const GET_ALL_QUESTIONS = gql`${queryString}`
+import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
 
 const Quiz = (props) => {
 	const resetList = [
@@ -50,11 +42,11 @@ const Quiz = (props) => {
     updateUserResponses(newUserResponses);
   };
 
-	const handleClick = (e) => {
-		console.log(JSON.stringify(userResponses))
-		Socket.emit('on_quiz_submission', userResponses)
-		updateUserResponses(resetList)
-	}
+  const handleClick = (e) => {
+    console.log(JSON.stringify(userResponses))
+	Socket.emit('on_quiz_submission', userResponses)
+	updateUserResponses(resetList)
+  }
 
   return (
     <div className="Quiz">
@@ -77,7 +69,7 @@ const Quiz = (props) => {
 }
 
 const callSetQuestionList = () =>  {
-  const { loading, error, data } = useQuery(GET_ALL_QUESTIONS)
+  const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY)
   
   let questionList = []
 
@@ -94,4 +86,3 @@ const callSetQuestionList = () =>  {
 }
 
 export default callSetQuestionList
-export { GET_ALL_QUESTIONS }
