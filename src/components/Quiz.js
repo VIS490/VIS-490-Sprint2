@@ -3,8 +3,16 @@ import Question from './Question.js'
 import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
-//import { GET_ALL_QUESTIONS } from "../graphql/queries";
 import {List,ListItem,Paper,Card} from '@material-ui/core'
+
+const queryString = `
+		query  {
+			Questions  {
+			    question
+			}
+    }`
+  
+const GET_ALL_QUESTIONS = gql`${queryString}`
 
 const Quiz = (props) => {
 	const resetList = [
@@ -30,30 +38,8 @@ const Quiz = (props) => {
 		{ qid: '20', qval: 0 }
 	]
 
-	const [userResponses, updateUserResponses] = React.useState(resetList)
-	let questionList = [
-		'I am motivated to contribute and work today.',
-		'The tasks I have to get done today are manageable.',
-		'I am able to actively communicate any difficulties with my manager/team lead.',
-		'The tasks that I am currently working on challenge my thinking and original perceptions.',
-		'The tasks I work on offer visible real-world impact.',
-		'I am not working on tasks after work hours.',
-		'I feel confident in reaching out to team members to resolve any difficulties I am currently facing.',
-		'I am encouraged to approach the tasks as I best see fit.',
-		'I am progressing towards either my personal or career goals.',
-		'I have taken breaks to calmly eat my lunch.',
-		'The team meetings I attend are necessary and effective in progressing the team.',
-		'I worry about my current work environment.',
-		'My team members respect me.',
-		'I am able to maintain a work-life balance.',
-		'I feel that my questions, concerns, and/or suggestions are validated by both my peers and the manager/team lead.',
-		'My current state of emotions are an not impediment to my current work ethic.',
-		'My manager/team lead respects me.',
-		'I am able to socialize with my team members or others not regarding my work.',
-		'I am able to step away from my desk or main workspace and not feel restless.',
-		'At present, I feel my manager/team lead supports me.'
-	]
-
+  const [userResponses, updateUserResponses] = React.useState(resetList)
+  
   const handleUpdate = (id, newVal, e) => {
     const elementIndex = id - 1;
     let newUserResponses = [...userResponses];
@@ -74,7 +60,7 @@ const Quiz = (props) => {
     <div className="Quiz">
 			<Paper style={{maxHeight: 900, overflow: 'auto'}}>
 				<List component="nav"  aria-label="contacts">
-					{questionList.map((item, id) => (
+					{props.questions.map((item, id) => (
 						<li key={id}>
 							<ListItem button>
 								<Question questionName={item} questionID={id} onUpdate={handleUpdate} />
@@ -90,4 +76,22 @@ const Quiz = (props) => {
 	)
 }
 
-export default Quiz
+const callSetQuestionList = () =>  {
+  const { loading, error, data } = useQuery(GET_ALL_QUESTIONS)
+  
+  let questionList = []
+
+  if (loading) return <div>'Loading...'</div>
+  if (error) return `Error! ${error.message}`
+  
+  for(let i = 0; i < data['Questions'].length; i++){
+    let qtext = data['Questions'][i]['question']
+    questionList.push(qtext)
+  }
+  console.log(JSON.stringify(questionList))
+
+  return <Quiz questions={questionList} />
+}
+
+export default callSetQuestionList
+export { GET_ALL_QUESTIONS }
