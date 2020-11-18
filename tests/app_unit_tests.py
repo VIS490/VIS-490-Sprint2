@@ -7,13 +7,13 @@ from app import app as Flask_App
 sys.path.insert(1, join(dirname(__file__), '../'))
 
 
-KEY_WORK_LOAD = "Work Load"
+KEY_WORK_LOAD = "Work_Load"
 KEY_INDEPENDENCE = "Independence"
-KEY_LEADER_SUPPORT = "Leader Support"
-KEY_PEER_RELATIONSHIPS = "Peer Relationships"
-KEY_CONTRIBUTION_IMPACT = "Contribution and Impact"
+KEY_LEADER_SUPPORT = "Leader_Support"
+KEY_PEER_RELATIONSHIPS = "Peer_Relationships"
+KEY_CONTRIBUTION_IMPACT = "Contribution_and_Impact"
 KEY_DEVELOPMENT = "Development"
-KEY_TOTAL = "Wellness Score"
+KEY_TOTAL = "Wellness_Score"
 
 KEY_QUIZ_SOCKET_RESPONSE = "on_quiz_submission_response"
 

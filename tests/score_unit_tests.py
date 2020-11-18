@@ -8,13 +8,13 @@ import score
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 
-KEY_WORK_LOAD = "Work Load"
+KEY_WORK_LOAD = "Work_Load"
 KEY_INDEPENDENCE = "Independence"
-KEY_LEADER_SUPPORT = "Leader Support"
-KEY_PEER_RELATIONSHIPS = "Peer Relationships"
-KEY_CONTRIBUTION_IMPACT = "Contribution and Impact"
+KEY_LEADER_SUPPORT = "Leader_Support"
+KEY_PEER_RELATIONSHIPS = "Peer_Relationships"
+KEY_CONTRIBUTION_IMPACT = "Contribution_and_Impact"
 KEY_DEVELOPMENT = "Development"
-KEY_TOTAL = "Wellness Score"
+KEY_TOTAL = "Wellness_Score"
 
 TEST_COMPLETE_USER_RESPONSE = {
     "q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1, "q6": 1, "q7": 1, "q8": 1, "q9": 1, "q10": 1,

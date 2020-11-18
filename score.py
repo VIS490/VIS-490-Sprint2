@@ -8,13 +8,13 @@ import sys
 
 sys.path.insert(1, join(dirname(__file__), '../'))
 
-KEY_WORK_LOAD = "Work Load"
+KEY_WORK_LOAD = "Work_Load"
 KEY_INDEPENDENCE = "Independence"
-KEY_LEADER_SUPPORT = "Leader Support"
-KEY_PEER_RELATIONSHIPS = "Peer Relationships"
-KEY_CONTRIBUTION_IMPACT = "Contribution and Impact"
+KEY_LEADER_SUPPORT = "Leader_Support"
+KEY_PEER_RELATIONSHIPS = "Peer_Relationships"
+KEY_CONTRIBUTION_IMPACT = "Contribution_and_Impact"
 KEY_DEVELOPMENT = "Development"
-KEY_TOTAL = "Wellness Score"
+KEY_TOTAL = "Wellness_Score"
 
 WORK_LOAD_QUESTIONS = ["q2", "q6", "q10", "q14"]
 INDEPENDENCE_QUESTIONS = ["q8", "q12", "q16", "q19"]
