@@ -76,7 +76,7 @@ const Login = () => {
 							{error}
 						</Alert>
 					}
-					{/* <img src={'../../static/companyLogo.png'} alt="" /> */}
+					{<img src="/static/companyLogo.png" alt="company logo" style={{height:'150px', width:'150px'}}/>}
 					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
@@ -125,6 +125,7 @@ const Login = () => {
 									{'Don\'t have an account? '}
 									<Link to="/signup">Sign Up</Link>
 								</div>
+								
 							</Grid>
 						</Grid>
 					</form>

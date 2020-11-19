@@ -7,3 +7,18 @@ export const GET_ALL_QUESTIONS_QUERY = gql`
     }
   }
 `
+
+export const GET_WELLNESS_SCORE = gql`
+  query($email: String!){
+    Tests(where: {
+      User:{
+        email:{
+          _eq:$email
+        
+        }
+      }
+    }) {
+      score
+    }
+  }  
+`
