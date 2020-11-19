@@ -7,10 +7,10 @@ import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery } from '@apollo/client'
+import { GET_PROFILE_NAME } from "../graphql/queries"
 const useStyles = makeStyles((theme) => ({
 
 	card: {
-
 		width: '100%',
 		display: 'flex',
 
@@ -21,15 +21,7 @@ const Profile = () => {
 	const classes = useStyles()
 	const { currentUser } = useAuth()
 	const email = currentUser.email
-	const modQueryString =gql`query($email:String!){
-		Users(
-			where: {email: {_eq: $email}}
-			){
-				name
-			}
-		}
-	`
-	const {loading ,error,data} = useQuery(modQueryString,{
+	const {loading ,error,data} = useQuery(GET_PROFILE_NAME,{
 		variables:{email}
 	})
 
