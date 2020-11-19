@@ -21,17 +21,17 @@ const Profile = () => {
 	const classes = useStyles()
 	const { currentUser } = useAuth()
 	const email = currentUser.email
-	const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
-	const queryString = `
-		query  {
-			Users(
-				` + condition + `
-			  ) {
+	const modQueryString =gql`query($email:String!){
+		Users(
+			where: {email: {_eq: $email}}
+			){
 				name
-			  }
-		  }`
-	const GET_CURRENT_USER = gql`${queryString}`
-	const {loading ,error,data} = useQuery(GET_CURRENT_USER)
+			}
+		}
+	`
+	const {loading ,error,data} = useQuery(modQueryString,{
+		variables:{email}
+	})
 
 	if (loading) return <div>'Loading...'</div>
 	if (error) return `Error! ${error.message}`
