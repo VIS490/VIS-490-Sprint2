@@ -7,9 +7,8 @@ import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery } from '@apollo/client'
-import { GET_PROFILE_NAME } from "../graphql/queries"
+import { GET_PROFILE_NAME } from '../graphql/queries'
 const useStyles = makeStyles((theme) => ({
-
 	card: {
 		width: '100%',
 		display: 'flex',
@@ -17,17 +16,8 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 	},
 }))
-const Profile = () => {
+const Profile = (props) => {
 	const classes = useStyles()
-	const { currentUser } = useAuth()
-	const email = currentUser.email
-	const {loading ,error,data} = useQuery(GET_PROFILE_NAME,{
-		variables:{email}
-	})
-
-	if (loading) return <div>'Loading...'</div>
-	if (error) return `Error! ${error.message}`
-
 	return (
 
 		<div className="Profile">
@@ -51,7 +41,7 @@ const Profile = () => {
 							name:
 							{' '}
 
-							{data['Users'][0].name}
+							{props.name}
 							<br />
 							{' '}
 							<br />
@@ -61,7 +51,7 @@ const Profile = () => {
 							{' '}
 							<br />
 							Email:
-							{email}
+							{props.email}
 
 							{' '}
 							<br />
@@ -76,4 +66,14 @@ const Profile = () => {
 		</div>
 	)
 }
-export default Profile
+const callSetName = () =>  {
+	const { currentUser } = useAuth()
+	const email = currentUser.email
+	const {loading ,error,data} = useQuery(GET_PROFILE_NAME,{
+		variables:{email}
+	})
+	if (loading) return <div>'Loading...'</div>
+	if (error) return `Error! ${error.message}`
+	return <Profile name = {data['Users'][0].name} email={email}/>
+} 
+export default callSetName
