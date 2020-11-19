@@ -20,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
 	const classes = useStyles()
 	const { currentUser } = useAuth()
-	const [currentUserName, setName] = useState('')
 	const email = currentUser.email
-
 	const condition = ' where: {email: {_eq: ' + '"' + email + '"' + '}}'
 	const queryString = `
 		query  {
@@ -33,14 +31,10 @@ const Profile = () => {
 			  }
 		  }`
 	const GET_CURRENT_USER = gql`${queryString}`
+	const {loading ,error,data} = useQuery(GET_CURRENT_USER)
 
-	const setUserName = async () => {
-		const { data } = await useQuery(GET_CURRENT_USER)
-		let name = data['Users'][0].name
-		setName(name)
-	}
-
-	setUserName()
+	if (loading) return <div>'Loading...'</div>
+	if (error) return `Error! ${error.message}`
 
 	return (
 
@@ -65,7 +59,7 @@ const Profile = () => {
 							name:
 							{' '}
 
-							{currentUserName}
+							{data['Users'][0].name}
 							<br />
 							{' '}
 							<br />
