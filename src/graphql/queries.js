@@ -7,3 +7,11 @@ export const GET_ALL_QUESTIONS_QUERY = gql`
     }
   }
 `
+export const GET_PROFILE_NAME =gql`query($email:String!){
+  Users(
+    where: {email: {_eq: $email}}
+    ){
+      name
+    }
+  }
+`
