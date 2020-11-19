@@ -33,19 +33,24 @@ const Quiz = (props) => {
   const [userResponses, updateUserResponses] = React.useState(resetList)
   
   const handleUpdate = (id, newVal, e) => {
-    const elementIndex = id - 1;
-    let newUserResponses = [...userResponses];
+    const elementIndex = id - 1
+    let newUserResponses = [...userResponses]
     newUserResponses[elementIndex] = {
       ...newUserResponses[elementIndex],
       qval: newVal
     };
-    updateUserResponses(newUserResponses);
+    updateUserResponses(newUserResponses)
   };
 
   const handleClick = (e) => {
     console.log(JSON.stringify(userResponses))
 	Socket.emit('on_quiz_submission', userResponses)
 	updateUserResponses(resetList)
+	// TODO: get "on_quiz_submission_response" and save to DB
+
+	Socket.on("on_quiz_sbumission_response", data => {
+		console.log(JSON.stringify(data))
+	});
   }
 
   return (
