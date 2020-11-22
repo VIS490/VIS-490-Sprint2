@@ -52,9 +52,9 @@ const Quiz = (props) => {
 	updateUserResponses(resetList)
 	// TODO: get "on_quiz_submission_response" and save to DB
 
-	Socket.on("on_quiz_sbumission_response", data => {
+	Socket.on("on_quiz_sbumission_response", (data) => {
 		console.log(JSON.stringify(data))
-	});
+	})
   }
 
   return (

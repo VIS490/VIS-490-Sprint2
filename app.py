@@ -47,7 +47,8 @@ def on_quiz_submission(data):
     data_dict = {}
     for var in data:
         q_key = "q" + var['qid']
-        data_dict.update({q_key: var['qval']})
+        data_dict.update({q_key: int(var['qval'])})
+    print(data_dict)
     result = score_generator.get_all_scaled_scores(data_dict)
     socketio.emit("on_quiz_submission_response", result, room=get_room_client_id())
 
