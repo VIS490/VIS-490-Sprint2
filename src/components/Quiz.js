@@ -54,6 +54,29 @@ const Quiz = (props) => {
 	updateUserResponses(resetList)
 	Socket.on('on_quiz_submission_response', (data) => {
 		console.log(JSON.stringify(data))
+		try{
+			addTest({
+				variables: {
+					objects:[{
+						score: data['Wellness_Score'],
+						work_load_score: data['Work_Load'],
+						autonomy_score: data['Independence'],
+						peer_relations_score: data['Peer_Relationships'],
+						leader_support_score: data['Leader_Support'],
+						development_score: data['Development'],
+						impact_score: data['Contribution_and_Impact'],
+						test_users_rel: {
+							data: {
+								user_email: email
+							}
+						}
+					}]
+				}
+			})
+		}
+		catch (err){
+			console.log(err.message)
+		}
 	})
   }
   

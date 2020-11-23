@@ -89,7 +89,7 @@ class ScoresGenerator:
     def get_all_scaled_scores(self, data):
         """get all scaled score
         """
-        temp = self.split_data(data)
+        self.split_data(data)
         for k in self.SCORES.keys():
             self.create_category_scaled_score(k)
         self.create_total_scaled_score()
