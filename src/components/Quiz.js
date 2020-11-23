@@ -11,6 +11,7 @@ import { ADD_NEW_TEST } from '../graphql/mutations'
 const Quiz = (props) => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
+	const [addTest] = useMutation(ADD_NEW_TEST)
 	const resetList = [
 		{ qid: '1', qval: 0 },
 		{ qid: '2', qval: 0 },
@@ -51,17 +52,10 @@ const Quiz = (props) => {
     console.log(JSON.stringify(userResponses))
 	Socket.emit('on_quiz_submission', userResponses)
 	updateUserResponses(resetList)
-  }
-
-  // TODO: get "on_quiz_submission_response" and save to DB
-  function getScores(){
-	React.useEffect( () => {
-		Socket.on('on_quiz_sbumission_response', (data) => {
-			console.log(JSON.stringify(data))
-		})  
+	Socket.on('on_quiz_submission_response', (data) => {
+		console.log(JSON.stringify(data))
 	})
   }
-  getScores()
   
   return (
     <div className="Quiz">
