@@ -92,7 +92,7 @@ const Signup = () => {
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<div className={classes.paper}>
-					{/* <img src="/companyLogo.png" alt="" /> */}
+					{<img src="/static/companyLogo.png" alt="company logo" style={{height:'150px', width:'150px'}}/>}
 
 					<Typography component="h1" variant="h5">
 						Sign up
