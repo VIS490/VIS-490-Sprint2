@@ -51,6 +51,7 @@ def on_quiz_submission(data):
     print(data_dict)
     result = score_generator.get_all_scaled_scores(data_dict)
     socketio.emit("on_quiz_submission_response", result, room=get_room_client_id())
+    print(f'Emitted socket to client {get_room_client_id()} with updated scores: {result}')
 
 
 @socketio.on("disconnect")

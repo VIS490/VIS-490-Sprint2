@@ -47,16 +47,22 @@ const Quiz = (props) => {
   };
 
   const handleClick = (e) => {
+	e.preventDefault()
     console.log(JSON.stringify(userResponses))
 	Socket.emit('on_quiz_submission', userResponses)
 	updateUserResponses(resetList)
-	// TODO: get "on_quiz_submission_response" and save to DB
-
-	Socket.on("on_quiz_sbumission_response", (data) => {
-		console.log(JSON.stringify(data))
-	})
   }
 
+  // TODO: get "on_quiz_submission_response" and save to DB
+  function getScores(){
+	React.useEffect( () => {
+		Socket.on('on_quiz_sbumission_response', (data) => {
+			console.log(JSON.stringify(data))
+		})  
+	})
+  }
+  getScores()
+  
   return (
     <div className="Quiz">
 			<Paper style={{maxHeight: 900, overflow: 'auto'}}>

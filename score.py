@@ -55,7 +55,6 @@ class ScoresGenerator:
     def split_data(self, data):
         """spliting the data
         """
-        print(self.SCORES)
         for k, v in data.items():
             if k in WORK_LOAD_QUESTIONS:
                 self.SCORES[KEY_WORK_LOAD] += v
@@ -69,7 +68,6 @@ class ScoresGenerator:
                 self.SCORES[KEY_CONTRIBUTION_IMPACT] += v
             if k in DEVELOPMENT_QUESTIONS:
                 self.SCORES[KEY_DEVELOPMENT] += v
-            print(f'{k} {self.SCORES}')
 
     def create_category_scaled_score(self, category):
         """create category scaled score
@@ -91,8 +89,7 @@ class ScoresGenerator:
     def get_all_scaled_scores(self, data):
         """get all scaled score
         """
-        print(data)
-        self.split_data(data)
+        temp = self.split_data(data)
         for k in self.SCORES.keys():
             self.create_category_scaled_score(k)
         self.create_total_scaled_score()
