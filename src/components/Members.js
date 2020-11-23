@@ -9,18 +9,25 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Avatar from '@material-ui/core/Avatar'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper,
+		paddingLeft:theme.spacing(14),
 		
 	},
 	cardGrid: {
 		paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-        overflow: 'auto',
+		paddingBottom: theme.spacing(25),
+		overflow: 'auto',
+
 	},
+	purple: {
+		...theme.button,
+	},
+
+    
 }))
 
 const Members = () => {
@@ -39,15 +46,14 @@ const Members = () => {
 
 		setChecked(newChecked)
 	}
+	const handleClick = (e) => {
+	}
 	return (
 		<div>
 			<Container maxWidth="md">
-
-           
 				<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Team Members 
 				</Typography>
-                
 			</Container>
 
 			<List dense className={classes.cardGrid}>
@@ -57,12 +63,9 @@ const Members = () => {
         
 						<ListItem key={value} button>
 							<ListItemAvatar>
-								<Avatar
-									alt={`Avatar n°${value + 1}`}
-									src={`/static/images/avatar/${value + 1}.jpg`}
-								/>
+								<Avatar className={classes.purple}></Avatar>
 							</ListItemAvatar>
-							<ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+							<ListItemText id={labelId} primary={`User ${value + 1}`} />
 							<ListItemSecondaryAction>
 								<Checkbox
 									edge="end"
@@ -75,9 +78,12 @@ const Members = () => {
 					)
 				})}
 			</List>
-           
-		</div>
-        
+			<div className={classes.root}>
+				<Button variant="contained" color="secondary" onClick={handleClick}>
+                Remove User
+				</Button>
+			</div>
+		</div>   
 	)
 }
 export default Members
