@@ -3,7 +3,7 @@ import Question from './Question.js'
 import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
-import {List,ListItem,Paper,Card} from '@material-ui/core'
+import { List, ListItem, Paper, Card } from '@material-ui/core'
 import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
 
 const Quiz = (props) => {
@@ -31,7 +31,7 @@ const Quiz = (props) => {
 	]
 
 	const [userResponses, updateUserResponses] = React.useState(resetList)
-  
+
 	const handleUpdate = (id, newVal, e) => {
 		const elementIndex = id - 1
 		let newUserResponses = [...userResponses]
@@ -50,8 +50,8 @@ const Quiz = (props) => {
 
 	return (
 		<div className="Quiz">
-			<Paper style={{maxHeight: 900, overflow: 'auto'}}>
-				<List component="nav"  aria-label="contacts">
+			<Paper style={{ maxHeight: 900, overflow: 'auto' }}>
+				<List component="nav" aria-label="contacts">
 					{props.questions.map((item, id) => (
 						<li key={id}>
 							<ListItem button>
@@ -62,21 +62,21 @@ const Quiz = (props) => {
 				</List>
 			</Paper>
 			<Button variant="outlined" color="secondary" onClick={handleClick}>
-        Submit Responses
+				Submit Responses
 			</Button>
 		</div>
 	)
 }
 
-const callSetQuestionList = () =>  {
+const callSetQuestionList = () => {
 	const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY)
-  
+
 	let questionList = []
 
-	if (loading) return <div>'Loading...'</div>
+	if (loading) return <div>Loading...</div>
 	if (error) return `Error! ${error.message}`
-  
-	for(let i = 0; i < data['Questions'].length; i++){
+
+	for (let i = 0; i < data['Questions'].length; i++) {
 		let qtext = data['Questions'][i]['question']
 		questionList.push(qtext)
 	}
