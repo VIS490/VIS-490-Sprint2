@@ -4,7 +4,7 @@ import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {List,ListItem,Paper,Card} from '@material-ui/core'
-import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
+import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
 
 const Quiz = (props) => {
 	const resetList = [
@@ -30,26 +30,26 @@ const Quiz = (props) => {
 		{ qid: '20', qval: 0 }
 	]
 
-  const [userResponses, updateUserResponses] = React.useState(resetList)
+	const [userResponses, updateUserResponses] = React.useState(resetList)
   
-  const handleUpdate = (id, newVal, e) => {
-    const elementIndex = id - 1;
-    let newUserResponses = [...userResponses];
-    newUserResponses[elementIndex] = {
-      ...newUserResponses[elementIndex],
-      qval: newVal
-    };
-    updateUserResponses(newUserResponses);
-  };
+	const handleUpdate = (id, newVal, e) => {
+		const elementIndex = id - 1
+		let newUserResponses = [...userResponses]
+		newUserResponses[elementIndex] = {
+			...newUserResponses[elementIndex],
+			qval: newVal
+		}
+		updateUserResponses(newUserResponses)
+	}
 
-  const handleClick = (e) => {
-    console.log(JSON.stringify(userResponses))
-	Socket.emit('on_quiz_submission', userResponses)
-	updateUserResponses(resetList)
-  }
+	const handleClick = (e) => {
+		console.log(JSON.stringify(userResponses))
+		Socket.emit('on_quiz_submission', userResponses)
+		updateUserResponses(resetList)
+	}
 
-  return (
-    <div className="Quiz">
+	return (
+		<div className="Quiz">
 			<Paper style={{maxHeight: 900, overflow: 'auto'}}>
 				<List component="nav"  aria-label="contacts">
 					{props.questions.map((item, id) => (
@@ -69,20 +69,20 @@ const Quiz = (props) => {
 }
 
 const callSetQuestionList = () =>  {
-  const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY)
+	const { loading, error, data } = useQuery(GET_ALL_QUESTIONS_QUERY)
   
-  let questionList = []
+	let questionList = []
 
-  if (loading) return <div>'Loading...'</div>
-  if (error) return `Error! ${error.message}`
+	if (loading) return <div>'Loading...'</div>
+	if (error) return `Error! ${error.message}`
   
-  for(let i = 0; i < data['Questions'].length; i++){
-    let qtext = data['Questions'][i]['question']
-    questionList.push(qtext)
-  }
-  console.log(JSON.stringify(questionList))
+	for(let i = 0; i < data['Questions'].length; i++){
+		let qtext = data['Questions'][i]['question']
+		questionList.push(qtext)
+	}
+	console.log(JSON.stringify(questionList))
 
-  return <Quiz questions={questionList} />
+	return <Quiz questions={questionList} />
 }
 
 export default callSetQuestionList
