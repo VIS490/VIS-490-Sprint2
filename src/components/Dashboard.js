@@ -1,48 +1,48 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { useAuth } from '../contexts/AuthContext';
-import { GET_WELLNESS_SCORE } from '../graphql/queries';
+import React, { useEffect, useState } from 'react'
+import { Line, Bar } from 'react-chartjs-2'
+import { gql, useQuery, useMutation } from '@apollo/client'
+import { useAuth } from '../contexts/AuthContext'
+import { GET_WELLNESS_SCORE } from '../graphql/queries'
+import { GET_LINECHART_SCORES } from '../graphql/queries'
 
 const Dashboard = (props) => {
-
-    const [barChartData, setBarChartData] = useState()
-    const barChart = () => {
-        setBarChartData({
-            labels: ['Work Load', 'Independence', 'Leader Support', 'Peer Relationships', 'Contribution and Impact', 'Development'],
-            datasets: [
-                {
-                    label: 'Scores',
-                    data: [3, 6, 8, 10, 9, 5],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(55, 92, 12, 0.6)',
-                        'rgba(95, 2, 19, 0.6)',
-                        'rgba(25, 19, 92, 0.6)',
-                        'rgba(45, 9, 2, 0.6)',
-                        'rgba(35, 192, 86, 0.6)'
-                    ],
-                    borderWidth: 4
-                }
-            ]
-        })
-    }
-    const [lineChartData, setLineChartData] = useState()
-    const lineChart = () => {
-        setLineChartData({
-            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-            datasets: [
-                {
-                    label: 'Scores',
-                    data: [32, 45, 12, 76, 69, 50],
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.6)',
-                    ],
-                    borderWidth: 4
-                }
-            ]
-        })
-    }
+	const [barChartData, setBarChartData] = useState()
+	const barChart = () => {
+		setBarChartData({
+			labels: ['Work Load', 'Peer Relations', 'Impact', 'Leader Support', 'Development', 'Autonomy'],
+			datasets: [
+				{
+					label: 'Scores',
+					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
+					backgroundColor: [
+						'rgba(75, 192, 192, 0.6)',
+						'rgba(55, 92, 12, 0.6)',
+						'rgba(95, 2, 19, 0.6)',
+						'rgba(25, 19, 92, 0.6)',
+						'rgba(45, 9, 2, 0.6)',
+						'rgba(35, 192, 86, 0.6)'
+					],
+					borderWidth: 4
+				}
+			]
+		})
+	}
+	const [lineChartData, setLineChartData] = useState()
+	const lineChart = () => {
+		setLineChartData({
+			labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+			datasets: [
+				{
+					label: 'Scores',
+					data: props.label,
+					backgroundColor: [
+						'rgba(75, 192, 192, 0.6)',
+					],
+					borderWidth: 4
+				}
+			]
+		})
+	}
 
 	useEffect(() => {
 		barChart()
@@ -79,7 +79,7 @@ const Dashboard = (props) => {
 				<Line data={lineChartData} options={{
 					responsive: true,
 					title: {
-						text: 'Weekly Trend',
+						text: 'Wellness Score Trend',
 						display: true,
 						fontSize: 25,
 						fontStyle: 'bold'
@@ -104,15 +104,34 @@ const Dashboard = (props) => {
 	)
 }
 
-const WellnessScore = () => {
+const AllScores = () => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
-	const {loading ,error,data} = useQuery(GET_WELLNESS_SCORE,{
-		variables:{email}
+	var label = []
+	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
+		variables: { email }
 	})
-	if(loading) return <div>'Loading...'</div>
-	if (error) return `Error! ${error.message}`
-	return <Dashboard wellnessScore = {data['Users'][0]['UserTests'][0]['Test']['score']}/>
-}
 
-export default WellnessScore
+	const { loading: loadinG, error: erroR, data: datA } = useQuery(GET_WELLNESS_SCORE, {
+		variables: { email }
+	})
+
+	if (loadingR) return <div>Loading...</div>
+	if (loadinG) return <div>Loading...</div>
+	if (errorR) return `Error! ${errorR.message}`
+	if (erroR) return `Error! ${errorR.message}`
+	label = dataR['Users'].map(score => {
+		return score.user_tests_rel[0].Test.score
+	})
+	console.log(label)
+	return <Dashboard wellnessScore={datA['Users'][0]['user_tests_rel'][0]['Test']['score']}
+		workLoad={datA['Users'][0]['user_tests_rel'][0]['Test']['work_load_score']}
+		peerRelations={datA['Users'][0]['user_tests_rel'][0]['Test']['peer_relations_score']}
+		impact={datA['Users'][0]['user_tests_rel'][0]['Test']['impact_score']}
+		leaderSupport={datA['Users'][0]['user_tests_rel'][0]['Test']['leader_support_score']}
+		development={datA['Users'][0]['user_tests_rel'][0]['Test']['development_score']}
+		autonomy={datA['Users'][0]['user_tests_rel'][0]['Test']['autonomy_score']}
+		label={label}
+	/>
+}
+export default AllScores
