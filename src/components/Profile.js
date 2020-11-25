@@ -49,13 +49,13 @@ const Profile = (props) => {
 							Profile Information
 						</Typography>
 						<Typography gutterBottom variant="h6" component="h4">
-							name : {props.name}
+							Name : {props.name}
 						</Typography>
 						<Typography gutterBottom variant="h6" component="h4">
 							Email : {props.email}
 						</Typography>
 						<Typography gutterBottom variant="h6" component="h4">
-							Admin Email : {adminEmail}
+							Team Leader  Email : {adminEmail}
 						</Typography>
 						
 						
@@ -63,23 +63,23 @@ const Profile = (props) => {
 				</Card>
 
 				<Card className={classes.card}>
-				<CardContent width="100%">
-				<Typography gutterBottom variant="h5" component="h1">
-							Set Admin Information 
+					<CardContent width="100%">
+						<Typography gutterBottom variant="h5" component="h1">
+							Set New Team Leader Email
 						</Typography>
-				<TextField
-									autoComplete="fname"
-									name="firstName"
-									variant="outlined"
-									required
-									fullWidth
-									id="adminEmail"
-									label="Admin Email"
-									autoFocus
-									onChange={setAdmin}
+						<TextField
+							autoComplete="fname"
+							name="firstName"
+							variant="outlined"
+							required
+							fullWidth
+							id="Team Leader "
+							label="Team Leader Email"
+							autoFocus
+							onChange={setAdmin}
 								
 
-								/>
+						/>
 
 						<Button
 							type="submit"
@@ -88,11 +88,11 @@ const Profile = (props) => {
 							color="primary"
 							className={classes.submit}
 						>
-							Set New Admin 
+							Set New Team Leader 
 						</Button>
 
 
-                </CardContent>
+					</CardContent>
 				</Card>
 
 			</Container>
