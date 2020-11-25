@@ -7,6 +7,7 @@
 __pycache__/Oath.cpython-38.pyc
 # testing
 /coverage
+htmlcov/
 
 # Fire base config 
 /firebase.env

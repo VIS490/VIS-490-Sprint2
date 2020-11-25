@@ -3,10 +3,15 @@ import Question from './Question.js'
 import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
-import { List, ListItem, Paper, Card } from '@material-ui/core'
-import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
+import { useAuth } from '../contexts/AuthContext'
+import {List,ListItem,Paper,Card} from '@material-ui/core'
+import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
+import { ADD_NEW_TEST } from '../graphql/mutations'
 
 const Quiz = (props) => {
+	const { currentUser } = useAuth()
+	const email = currentUser.email
+	const [addTest] = useMutation(ADD_NEW_TEST)
 	const resetList = [
 		{ qid: '1', qval: 0 },
 		{ qid: '2', qval: 0 },
@@ -43,10 +48,36 @@ const Quiz = (props) => {
 	}
 
 	const handleClick = (e) => {
-		console.log(JSON.stringify(userResponses))
+		e.preventDefault()
 		Socket.emit('on_quiz_submission', userResponses)
 		updateUserResponses(resetList)
-	}
+		Socket.on('on_quiz_submission_response', (data) => {
+			console.log(JSON.stringify(data))
+			try{
+				addTest({
+					variables: {
+						objects:[{
+							score: data['Wellness_Score'],
+							work_load_score: data['Work_Load'],
+							autonomy_score: data['Independence'],
+							peer_relations_score: data['Peer_Relationships'],
+							leader_support_score: data['Leader_Support'],
+							development_score: data['Development'],
+							impact_score: data['Contribution_and_Impact'],
+							test_users_rel: {
+								data: {
+									user_email: email
+								}
+							}
+						}]
+					}
+				})
+			}
+			catch (err){
+				console.log(err.message)
+			}
+		})
+	  }	  
 
 	return (
 		<div className="Quiz">
