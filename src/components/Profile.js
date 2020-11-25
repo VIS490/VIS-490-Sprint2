@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery } from '@apollo/client'
 import { GET_PROFILE_NAME } from '../graphql/queries'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+
 const useStyles = makeStyles((theme) => ({
 	card: {
 		width: '100%',
@@ -15,9 +18,17 @@ const useStyles = makeStyles((theme) => ({
 
 		flexDirection: 'column',
 	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
 }))
 const Profile = (props) => {
 	const classes = useStyles()
+	const [adminEmail , setAdminEmail] = useState('todo get query admin email')
+
+	const setAdmin = (event) =>{
+		setAdminEmail(event.target.value)
+	}
 	return (
 
 		<div className="Profile">
@@ -34,31 +45,53 @@ const Profile = (props) => {
 				<Card className={classes.card}>
 
 					<CardContent width="100%">
-						<Typography gutterBottom variant="h5" component="h2">
+						<Typography gutterBottom variant="h5" component="h1">
 							Profile Information
 						</Typography>
-						<Typography component="h1">
-							name:
-							{' '}
-
-							{props.name}
-							<br />
-							{' '}
-							<br />
-
-							{' '}
-							<br />
-							{' '}
-							<br />
-							Email:
-							{props.email}
-
-							{' '}
-							<br />
-							{' '}
-							<br />
-
+						<Typography gutterBottom variant="h6" component="h4">
+							Name : {props.name}
 						</Typography>
+						<Typography gutterBottom variant="h6" component="h4">
+							Email : {props.email}
+						</Typography>
+						<Typography gutterBottom variant="h6" component="h4">
+							Team Leader  Email : {adminEmail}
+						</Typography>
+						
+						
+					</CardContent>
+				</Card>
+
+				<Card className={classes.card}>
+					<CardContent width="100%">
+						<Typography gutterBottom variant="h5" component="h1">
+							Set New Team Leader Email
+						</Typography>
+						<TextField
+							autoComplete="fname"
+							name="firstName"
+							variant="outlined"
+							required
+							fullWidth
+							id="Team Leader "
+							label="Team Leader Email"
+							autoFocus
+							onChange={setAdmin}
+								
+
+						/>
+
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+						>
+							Set New Team Leader 
+						</Button>
+
+
 					</CardContent>
 				</Card>
 
