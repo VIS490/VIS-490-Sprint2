@@ -46,6 +46,7 @@ const Signup = () => {
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
 	const [addTodo] = useMutation(ADD_NEW_USER)
+	const [check, setCheck] = useState(false)
 
 
 
@@ -64,6 +65,12 @@ const Signup = () => {
 	const passwordChange = (event) => {
 		setPass(event.target.value)
 	}
+
+	const AdminCheck = (event) => {
+		console.log('Admin box was clicked')
+		setCheck(event.target.checked)
+	}
+
 	async function handleSubmit(e) {
 		e.preventDefault()
 
@@ -161,9 +168,16 @@ const Signup = () => {
 							Sign Up
 						</Button>
 						<Grid container justify="flex-end">
+							<Grid item xs>
+								<div href="#" variant="body2">
+									<input type="checkbox" checked={check} onChange={AdminCheck}/>
+										Login As Admin
+								</div>
+							</Grid>
 							<Grid item>
 								<Link to="/" className="">
-									Already have an account? Sign in
+									<div>Already have an account? Sign in</div>
+									
 								</Link>
 							</Grid>
 						</Grid>

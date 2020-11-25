@@ -42,7 +42,6 @@ const Login = () => {
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
-	const [check, setCheck] = useState(false)
 
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -66,10 +65,6 @@ const Login = () => {
 		setPass(event.target.value)
 	}
 	
-	const AdminCheck = (event) => {
-		console.log('Admin box was clicked')
-		setCheck(event.target.checked)
-	}
 	return (
 		<div className="container">
 			<Container component="main" maxWidth="xs">
@@ -123,8 +118,6 @@ const Login = () => {
 						<Grid container>
 							<Grid item xs>
 								<div href="#" variant="body2">
-								<input type="checkbox" checked={check} onChange={AdminCheck}/>
-									Login As Admin
 								</div>
 							</Grid>
 							<Grid item>
