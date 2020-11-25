@@ -4,19 +4,19 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles({
 	root: {
 
-	  display: "flex",
-	  justifyContent: "space-between",
-	  width:'1350px',
+		display: 'flex',
+		justifyContent: 'space-between',
+		width: '1350px',
 
 	},
 	title: {
 		fontSize: 34,
-	  },
-  });
+	},
+})
 
 const Question = (props) => {
 	const [questionValue, setQuestionValue] = useState('0')
@@ -36,7 +36,7 @@ const Question = (props) => {
 				name={props.questionName}
 				value={questionValue}
 				onChange={handleChange}
-				classes = {classes.title}
+				classes={classes.title}
 			>
 				<FormControlLabel
 					value="6"
@@ -47,7 +47,7 @@ const Question = (props) => {
 				/>
 				<FormControlLabel
 					value="5"
-					control={<Radio  />}
+					control={<Radio />}
 					label="Agree"
 					labelPlacement="start"
 					classes={classes}

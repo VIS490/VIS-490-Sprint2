@@ -61,19 +61,19 @@ const Profile = (props) => {
 						</Typography>
 					</CardContent>
 				</Card>
-				
+
 			</Container>
 		</div>
 	)
 }
-const callSetName = () =>  {
+const callSetName = () => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
-	const {loading ,error,data} = useQuery(GET_PROFILE_NAME,{
-		variables:{email}
+	const { loading, error, data } = useQuery(GET_PROFILE_NAME, {
+		variables: { email }
 	})
-	if (loading) return <div>'Loading...'</div>
+	if (loading) return <div>Loading...</div>
 	if (error) return `Error! ${error.message}`
-	return <Profile name = {data['Users'][0].name} email={email}/>
-} 
+	return <Profile name={data['Users'][0].name} email={email} />
+}
 export default callSetName

@@ -8,3 +8,17 @@ export const ADD_NEW_USER = gql`
 		}
 	  }
 	`
+
+export const ADD_NEW_TEST = gql`
+	mutation insertTestforOneUser($objects: [Tests_insert_input!]!) {
+	  insert_Tests(objects: $objects) {
+		affected_rows
+		returning {
+		  id
+		  test_users_rel {
+			id
+		  }
+		}
+	  }
+	}
+  `

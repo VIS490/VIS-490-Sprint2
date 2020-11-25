@@ -10,7 +10,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import { AuthProvider } from './contexts/AuthContext'
 import { createApolloClient } from './graphql/apollo'
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client'
 
 const App = () => {
 	const client = createApolloClient()

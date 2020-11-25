@@ -9,8 +9,8 @@
 	jQuery.extend({
 		isOnScreen: function(box, container) {
 			//ensure numbers come in as intgers (not strings) and remove 'px' is it's there
-			for(var i in box){box[i] = parseFloat(box[i])}
-			for(var i in container){container[i] = parseFloat(container[i])}
+			for(var i in box){box[i] = parseFloat(box[i])};
+			for(var i in container){container[i] = parseFloat(container[i])};
 
 			if(!container){
 				container = {
@@ -25,14 +25,14 @@
 				box.left < container.width+container.left &&
 				box.top+box.height-container.top > 0 &&
 				box.top < container.height+container.top
-			) return true
-			return false
+			) return true;
+			return false;
 		}
 	})
 
 
 	jQuery.fn.isOnScreen = function (container) {
-		for(var i in container){container[i] = parseFloat(container[i])}
+		for(var i in container){container[i] = parseFloat(container[i])};
 
 		if(!container){
 			container = {
@@ -47,7 +47,7 @@
 			$(this).offset().left < container.width+container.left &&
 			$(this).offset().top+$(this).height()-container.top > 0 &&
 			$(this).offset().top < container.height+container.top
-		) return true
-		return false
+		) return true;
+		return false;
 	}
-})(jQuery)
+})(jQuery);

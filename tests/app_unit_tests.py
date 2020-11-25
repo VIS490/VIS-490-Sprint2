@@ -1,19 +1,20 @@
+"""App Test Class
+"""
 import unittest
 import unittest.mock as mock
 from os.path import dirname, join
 import sys
+sys.path.insert(1, join(dirname(__file__), '../'))
 import app
 from app import app as Flask_App
-sys.path.insert(1, join(dirname(__file__), '../'))
 
-
-KEY_WORK_LOAD = "Work Load"
+KEY_WORK_LOAD = "Work_Load"
 KEY_INDEPENDENCE = "Independence"
-KEY_LEADER_SUPPORT = "Leader Support"
-KEY_PEER_RELATIONSHIPS = "Peer Relationships"
-KEY_CONTRIBUTION_IMPACT = "Contribution and Impact"
+KEY_LEADER_SUPPORT = "Leader_Support"
+KEY_PEER_RELATIONSHIPS = "Peer_Relationships"
+KEY_CONTRIBUTION_IMPACT = "Contribution_and_Impact"
 KEY_DEVELOPMENT = "Development"
-KEY_TOTAL = "Wellness Score"
+KEY_TOTAL = "Wellness_Score"
 
 KEY_QUIZ_SOCKET_RESPONSE = "on_quiz_submission_response"
 
@@ -55,12 +56,20 @@ TEST_QUIZ_SUBMISSION = [
 
 
 class AppTest(unittest.TestCase):
+    """App test class
+    """
     @classmethod
     def setUpClass(self):
+        """set up
+        """
         self.flask_test_client = app.app.test_client()
-        self.socketio_test_client = app.socketio.test_client(app.app, flask_test_client=self.flask_test_client)
+        self.socketio_test_client = app.socketio.test_client(app.app,
+
+        flask_test_client=self.flask_test_client)
 
     def test_on_connected_success(self):
+        """test connection
+        """
         assert self.socketio_test_client.is_connected()
 
     def test_home(self):
@@ -70,7 +79,10 @@ class AppTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_on_quiz_submission_success(self):
-        with mock.patch('score.ScoresGenerator.get_all_scaled_scores') as mock_get_all_scaled_scores:
+        """test quiz submit
+        """
+        with mock.patch('score.ScoresGenerator.get_all_scaled_scores') \
+        as mock_get_all_scaled_scores:
             mock_get_all_scaled_scores.return_value = TEST_SCALED_SCORES
             self.socketio_test_client.emit('on_quiz_submission', TEST_QUIZ_SUBMISSION)
 
