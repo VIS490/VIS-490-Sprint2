@@ -12,9 +12,9 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
-import CardActions from '@material-ui/core/CardActions'
+import borderColor from '@material-ui/system'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
+
 import Paper from '@material-ui/core/Paper'
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -35,13 +35,9 @@ const useStyles = makeStyles((theme) => ({
 	listItemText:{
 		fontSize:'1.2em',
 	},
-	media: {           
-		height: 150,    
-		width: '19%',
-		marginLeft: '33%'
-	},
 	users:{
-		// overflow: 'auto',
+		borderTopWidth: 1, borderColor: theme.button ,borderStyle: 'solid'
+        
 	},
 	card :{
 		width: '100%',
@@ -80,13 +76,6 @@ const Members = () => {
 			</Container>
 			<Card className={classes.card}>
 				<CardActionArea>
-					<CardMedia
-						component="img"
-						alt="Company Logo"
-						className={classes.media}
-						image="/static/companyLogo.png"
-						title="Company Logo"
-					/>
 					<CardContent>
 						<Typography gutterBottom variant="h5" component="h2">
             Manage Users 
@@ -104,7 +93,7 @@ const Members = () => {
 						{[0, 1, 2, 3,4,5,6,7].map((value) => {
 							const labelId = `checkbox-list-secondary-label-${value}`
 							return (
-								<ListItem key={value} className={classes.users} button >
+								<ListItem key={value} className={classes.users} borderColor="grey.500" button  >
 									<ListItemAvatar>
 										<Avatar className={classes.purple}></Avatar>
 									</ListItemAvatar>
