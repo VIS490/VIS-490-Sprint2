@@ -4,8 +4,8 @@ import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAuth } from '../contexts/AuthContext'
-import {List,ListItem,Paper,Card} from '@material-ui/core'
-import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
+import { List, ListItem, Paper, Card } from '@material-ui/core'
+import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
 import { ADD_NEW_TEST } from '../graphql/mutations'
 
 const Quiz = (props) => {
@@ -53,10 +53,10 @@ const Quiz = (props) => {
 		updateUserResponses(resetList)
 		Socket.on('on_quiz_submission_response', (data) => {
 			console.log(JSON.stringify(data))
-			try{
+			try {
 				addTest({
 					variables: {
-						objects:[{
+						objects: [{
 							score: data['Wellness_Score'],
 							work_load_score: data['Work_Load'],
 							autonomy_score: data['Independence'],
@@ -73,11 +73,11 @@ const Quiz = (props) => {
 					}
 				})
 			}
-			catch (err){
+			catch (err) {
 				console.log(err.message)
 			}
 		})
-	  }	  
+	}
 
 	return (
 		<div className="Quiz">
