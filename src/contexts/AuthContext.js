@@ -1,38 +1,48 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase'
+import firebase from 'firebase/app'
 
 const AuthContext = React.createContext()
 
-export function useAuth() {
+export const useAuth = () => {
 	return useContext(AuthContext)
 }
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState()
 	const [loading, setLoading] = useState(true)
+	const googleProvider = new firebase.auth.GoogleAuthProvider()
 
-	function signup(email, password) {
+	const signup = (email, password) => {
 		return auth.createUserWithEmailAndPassword(email, password)
 	}
 
-	function login(email, password) {
+	const login = (email, password) => {
 		return auth.signInWithEmailAndPassword(email, password)
 	}
 
-	function logout() {
+	const logout = () => {
 		return auth.signOut()
 	}
 
-	function resetPassword(email) {
+	const resetPassword = (email) => {
 		return auth.sendPasswordResetEmail(email)
 	}
 
-	function updateEmail(email) {
+	const updateEmail = (email) => {
 		return currentUser.updateEmail(email)
 	}
 
-	function updatePassword(password) {
+	const updatePassword = (password) => {
 		return currentUser.updatePassword(password)
+	}
+	const signInWithGoogle = async () => {
+		await auth.signInWithPopup(googleProvider).then((res) => {
+			console.log(res.user)
+			console.log(res.credential.accessToken)
+		}).catch((error) => {
+			console.log(error.message)
+		})
 	}
 
 	useEffect(() => {
@@ -51,7 +61,8 @@ export function AuthProvider({ children }) {
 		logout,
 		resetPassword,
 		updateEmail,
-		updatePassword
+		updatePassword,
+		signInWithGoogle
 	}
 
 	return (

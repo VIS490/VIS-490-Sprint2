@@ -10,10 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Link, useHistory } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth, } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
-
+import Icon from '@material-ui/core/Icon'
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [pass, setPass] = useState('')
-	const { login } = useAuth()
+	const { login, signInWithGoogle } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -76,7 +76,7 @@ const Login = () => {
 							{error}
 						</Alert>
 					}
-					{<img src="/static/companyLogo.png" alt="company logo" style={{height:'150px', width:'150px'}}/>}
+					{<img src="/static/companyLogo.png" alt="company logo" style={{ height: '150px', width: '150px' }} />}
 					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
@@ -117,7 +117,7 @@ const Login = () => {
 						<Grid container>
 							<Grid item xs>
 								<div href="#" variant="body2">
-									
+
 								</div>
 							</Grid>
 							<Grid item>
@@ -129,6 +129,13 @@ const Login = () => {
 						</Grid>
 					</form>
 				</div>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={signInWithGoogle}>
+					Send
+				</Button>
 				<Box mt={8} />
 			</Container>
 		</div>
