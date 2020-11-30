@@ -33,7 +33,7 @@ const Dashboard = (props) => {
 			labels: props.date,
 			datasets: [
 				{
-					label: 'Scores',
+					label: 'Score During that Week',
 					data: props.label,
 					backgroundColor: [
 						'rgba(75, 192, 192, 0.6)',
@@ -51,7 +51,7 @@ const Dashboard = (props) => {
 
 	return (
 		<div className="Dashboard">
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Wellness Score: {props.wellnessScore}</h1>
+			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Wellness Score: {props.wellnessScore}</h1>
 			<div style={{ float: 'right', width: '500px', }}>
 				<Bar data={barChartData} options={{
 					responsive: true,
@@ -79,7 +79,7 @@ const Dashboard = (props) => {
 				<Line data={lineChartData} options={{
 					responsive: true,
 					title: {
-						text: 'Wellness Score Trend',
+						text: 'Weekly Wellness Score Trend',
 						display: true,
 						fontSize: 25,
 						fontStyle: 'bold'
@@ -111,7 +111,6 @@ const AllScores = () => {
 	var dates = []
 	var items = []
 	var i;
-	var date =0
 	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
 		variables: { email }
 	})
@@ -131,7 +130,7 @@ const AllScores = () => {
 		return date.created_at
 	})
 	for (i=0; i <dates.length;i++){
-		items.push(i)
+		items.push(i+1)
 	}
 	console.log(items)
 	console.log(label)
