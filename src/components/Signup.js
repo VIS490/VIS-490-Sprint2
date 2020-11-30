@@ -171,7 +171,7 @@ const Signup = () => {
 							<Grid item xs>
 								<div href="#" variant="body2">
 									<input type="checkbox" checked={check} onChange={AdminCheck}/>
-										Login As Admin
+										Signup As Admin
 								</div>
 							</Grid>
 							<Grid item>
