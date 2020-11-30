@@ -109,6 +109,9 @@ const AllScores = () => {
 	const email = currentUser.email
 	var label = []
 	var dates = []
+	var items = []
+	var i;
+	var date =0
 	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
 		variables: { email }
 	})
@@ -127,6 +130,10 @@ const AllScores = () => {
 	dates = dataR['UserTests'].map(date => {
 		return date.created_at
 	})
+	for (i=0; i <dates.length;i++){
+		items.push(i)
+	}
+	console.log(items)
 	console.log(label)
 	return <Dashboard wellnessScore={Math.round(datA['UserTests'][0]['Test']['score'])}
 		workLoad={datA['UserTests'][0]['Test']['work_load_score']}
@@ -136,7 +143,7 @@ const AllScores = () => {
 		development={datA['UserTests'][0]['Test']['development_score']}
 		autonomy={datA['UserTests'][0]['Test']['autonomy_score']}
 		label={label}
-		date={dates}
+		date={items}
 	/>
 }
 export default AllScores
