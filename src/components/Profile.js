@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery } from '@apollo/client'
 import { GET_PROFILE_NAME } from '../graphql/queries'
+import { UPDATE_USER_ADMIN } from '../graphql/mutations'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
