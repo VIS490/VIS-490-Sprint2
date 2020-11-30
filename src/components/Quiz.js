@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Question from './Question.js'
 import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
@@ -13,6 +13,9 @@ const Quiz = (props) => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
 	const [addTest] = useMutation(ADD_NEW_TEST)
+	const [error, setError] = useState('')
+	const [loading, setLoading] = useState(false)
+	const history = useHistory()
 	const resetList = [
 		{ qid: '1', qval: 0 },
 		{ qid: '2', qval: 0 },
@@ -78,6 +81,14 @@ const Quiz = (props) => {
 				console.log(err.message)
 			}
 		})
+		try {
+			setError('')
+			setLoading(true)
+			history.push('/dashboard')
+		} catch{
+			setError('Something went wrong!')
+		}
+		setLoading(false)
 	  }	  
 
 	return (
@@ -93,11 +104,9 @@ const Quiz = (props) => {
 					))}
 				</List>
 			</Paper>
-			<Link to="/dashboard" style={{ textDecoration: 'none' }}>
 				<Button variant="outlined" color="secondary" onClick={handleClick}>
 					Submit Responses
 				</Button>
-			</Link>
 		</div>
 	)
 }
