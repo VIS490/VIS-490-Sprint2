@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext'
 import {List,ListItem,Paper,Card} from '@material-ui/core'
 import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
 import { ADD_NEW_TEST } from '../graphql/mutations'
+import { Link, useHistory } from 'react-router-dom'
 
 const Quiz = (props) => {
 	const { currentUser } = useAuth()
@@ -92,9 +93,11 @@ const Quiz = (props) => {
 					))}
 				</List>
 			</Paper>
-			<Button variant="outlined" color="secondary" onClick={handleClick}>
-				Submit Responses
-			</Button>
+			<Link to="/dashboard" style={{ textDecoration: 'none' }}>
+				<Button variant="outlined" color="secondary" onClick={handleClick}>
+					Submit Responses
+				</Button>
+			</Link>
 		</div>
 	)
 }
