@@ -64,6 +64,7 @@ const Login = () => {
 	const passwordChange = (event) => {
 		setPass(event.target.value)
 	}
+	
 	return (
 		<div className="container">
 			<Container component="main" maxWidth="xs">
@@ -127,11 +128,12 @@ const Login = () => {
 						<Grid container>
 							<Grid item xs>
 								<div href="#" variant="body2">
-									
 								</div>
 							</Grid>
 							<Grid item>
 								<div>
+									
+									
 									{'Don\'t have an account? '}
 									<Link to="/signup">Sign Up</Link>
 								</div>
