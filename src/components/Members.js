@@ -14,7 +14,8 @@ import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import { useAuth } from '../contexts/AuthContext'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery,useMutation } from '@apollo/client'
+import {REMOVE_USER_ADMIN} from '../graphql/mutations'
 import { GET_ADMIN_USERS } from '../graphql/queries'
 
 
@@ -46,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 	}
 
-      
-
+    
     
 }))
 
 const Members = (props) => {
 	const classes = useStyles()
 	const [checked, setChecked] = React.useState([1])
+	const [updateUserAdmin,{ loading: mutationLoading, error: mutationError },] = useMutation(REMOVE_USER_ADMIN)
 
 	const handleToggle = (value) => () => {
 		const currentIndex = checked.indexOf(value)
@@ -68,6 +69,28 @@ const Members = (props) => {
 		setChecked(newChecked)
 	}
 	const handleClick = (e) => {
+		e.preventDefault()
+		for ( let i = 0; i < checked.length; i++ ){
+			let selectedUserEmail = props.membersList[checked[i]]
+		
+
+
+			updateUserAdmin({
+				variables: {
+					'_set':{
+						'admin_email': null
+					},
+					'where': {
+						'email':{
+						  '_eq': selectedUserEmail
+						}
+					}
+				}
+			})
+
+		}
+
+		alert('Users removed from  Team')
 	}
 	return (
 		<div>
@@ -100,7 +123,7 @@ const Members = (props) => {
 									<ListItemAvatar>
 										<Avatar className={classes.purple}></Avatar>
 									</ListItemAvatar>
-									<ListItemText id={labelId}   classes={{primary:classes.listItemText}} primary={`User ${name}`} />
+									<ListItemText id={labelId}   classes={{primary:classes.listItemText}} primary={` ${name}`} />
 									<ListItemSecondaryAction>
 										<Checkbox
 											edge="end"
@@ -121,6 +144,9 @@ const Members = (props) => {
                 Remove User
 				</Button>
 			</div>
+			{mutationLoading && <p>Loading...</p>}
+
+			{mutationError && <p>Error :( Please try again</p>}
 		</div>   
 	)
 }
@@ -129,7 +155,7 @@ const Members = (props) => {
 
 const callSetName = () => {
 	const { currentUser } = useAuth()
-	const email = "rpasricha@gmail.com"
+	const email = 'rpasricha@gmail.com'
 	const { loading, error, data } = useQuery(GET_ADMIN_USERS, {
 		variables: { email }
 	})
