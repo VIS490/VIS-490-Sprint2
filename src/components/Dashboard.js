@@ -30,10 +30,10 @@ const Dashboard = (props) => {
 	const [lineChartData, setLineChartData] = useState()
 	const lineChart = () => {
 		setLineChartData({
-			labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+			labels: props.date,
 			datasets: [
 				{
-					label: 'Scores',
+					label: 'Score During that Week',
 					data: props.label,
 					backgroundColor: [
 						'rgba(75, 192, 192, 0.6)',
@@ -51,7 +51,7 @@ const Dashboard = (props) => {
 
 	return (
 		<div className="Dashboard">
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Wellness Score: {props.wellnessScore}</h1>
+			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Wellness Score: {props.wellnessScore}</h1>
 			<div style={{ float: 'right', width: '500px', }}>
 				<Bar data={barChartData} options={{
 					responsive: true,
@@ -79,7 +79,7 @@ const Dashboard = (props) => {
 				<Line data={lineChartData} options={{
 					responsive: true,
 					title: {
-						text: 'Wellness Score Trend',
+						text: 'Weekly Wellness Score Trend',
 						display: true,
 						fontSize: 25,
 						fontStyle: 'bold'
@@ -108,6 +108,9 @@ const AllScores = () => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
 	var label = []
+	var dates = []
+	var items = []
+	var i;
 	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
 		variables: { email }
 	})
@@ -120,18 +123,26 @@ const AllScores = () => {
 	if (loadinG) return <div>Loading...</div>
 	if (errorR) return `Error! ${errorR.message}`
 	if (erroR) return `Error! ${errorR.message}`
-	label = dataR['Users'].map(score => {
-		return score.user_tests_rel[0].Test.score
+	label = dataR['UserTests'].map(score => {
+		return score.Test.score
 	})
+	dates = dataR['UserTests'].map(date => {
+		return date.created_at
+	})
+	for (i=0; i <dates.length;i++){
+		items.push(i+1)
+	}
+	console.log(items)
 	console.log(label)
-	return <Dashboard wellnessScore={datA['Users'][0]['user_tests_rel'][0]['Test']['score']}
-		workLoad={datA['Users'][0]['user_tests_rel'][0]['Test']['work_load_score']}
-		peerRelations={datA['Users'][0]['user_tests_rel'][0]['Test']['peer_relations_score']}
-		impact={datA['Users'][0]['user_tests_rel'][0]['Test']['impact_score']}
-		leaderSupport={datA['Users'][0]['user_tests_rel'][0]['Test']['leader_support_score']}
-		development={datA['Users'][0]['user_tests_rel'][0]['Test']['development_score']}
-		autonomy={datA['Users'][0]['user_tests_rel'][0]['Test']['autonomy_score']}
+	return <Dashboard wellnessScore={Math.round(datA['UserTests'][0]['Test']['score'])}
+		workLoad={datA['UserTests'][0]['Test']['work_load_score']}
+		peerRelations={datA['UserTests'][0]['Test']['peer_relations_score']}
+		impact={datA['UserTests'][0]['Test']['impact_score']}
+		leaderSupport={datA['UserTests'][0]['Test']['leader_support_score']}
+		development={datA['UserTests'][0]['Test']['development_score']}
+		autonomy={datA['UserTests'][0]['Test']['autonomy_score']}
 		label={label}
+		date={items}
 	/>
 }
 export default AllScores
