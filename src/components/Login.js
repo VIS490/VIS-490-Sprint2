@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
@@ -13,7 +11,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth, } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
-import Icon from '@material-ui/core/Icon'
+import { useMutation } from '@apollo/client'
+import { ADD_NEW_USER } from '../graphql/mutations'
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -37,11 +36,13 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [pass, setPass] = useState('')
-	const { login, signInWithGoogle } = useAuth()
+	const { login, signInWithGoogle, currentUser } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
+	const [addTodo] = useMutation(ADD_NEW_USER)
+
 
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -64,10 +65,27 @@ const Login = () => {
 	const passwordChange = (event) => {
 		setPass(event.target.value)
 	}
+	const GoogleAuth = async () => {
+		try {
+			setError('')
+			setLoading(true)
+			await signInWithGoogle()
+			setLoading(true)
+			addTodo({
+				variables: {
+					input:
+						{ name: currentUser.displayName, email: currentUser.email, pic: currentUser.photoURL, id: currentUser.uid }
+				}
+			})
+			history.push('/dashboard')
+		} catch {
+			setError('Failed to Login')
+		}
+		setLoading(false)
+	}
 	return (
 		<div className="container">
 			<Container component="main" maxWidth="xs">
-
 				<CssBaseline />
 				<div className={classes.paper}>
 					{error &&
@@ -133,8 +151,8 @@ const Login = () => {
 					variant="contained"
 					color="primary"
 					className={classes.button}
-					onClick={signInWithGoogle}>
-					Send
+					onClick={GoogleAuth}>
+					Login or Signup with Google
 				</Button>
 				<Box mt={8} />
 			</Container>

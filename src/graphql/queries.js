@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const GET_ALL_QUESTIONS_QUERY = gql`
   query getAllQuestions {
@@ -7,7 +7,7 @@ export const GET_ALL_QUESTIONS_QUERY = gql`
     }
   }
 `
-export const GET_PROFILE_NAME =gql`query($email:String!){
+export const GET_PROFILE_NAME = gql`query($email:String!){
   Users(
     where: {email: {_eq: $email}}
     ){
@@ -45,3 +45,10 @@ export const GET_LINECHART_SCORES = gql`
     }
   }
 `
+export const FINDUSER = gql`
+  query findUser($emailUser: String!){
+    Users_by_pk(email:$emailUser){
+  	  id
+      email
+    }
+  }`

@@ -38,8 +38,6 @@ export const AuthProvider = ({ children }) => {
 	}
 	const signInWithGoogle = async () => {
 		await auth.signInWithPopup(googleProvider).then((res) => {
-			console.log(res.user)
-			console.log(res.credential.accessToken)
 		}).catch((error) => {
 			console.log(error.message)
 		})

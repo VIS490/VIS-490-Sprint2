@@ -40,7 +40,7 @@ const Signup = () => {
 	const [pass, setPass] = useState('')
 	const [fname, setfName] = useState('')
 	const [lname, setlName] = useState('')
-	const { signup } = useAuth()
+	const { signup, currentUser } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -75,7 +75,7 @@ const Signup = () => {
 			addTodo({
 				variables: {
 					input:
-						{ name: fname + ' ' + lname, email: email, pic: 'User.png' }
+						{ name: fname + ' ' + lname, email: email, pic: 'User.png', id: currentUser.uid }
 				}
 			})
 
@@ -92,7 +92,7 @@ const Signup = () => {
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<div className={classes.paper}>
-					{<img src="/static/companyLogo.png" alt="company logo" style={{height:'150px', width:'150px'}}/>}
+					{<img src="/static/companyLogo.png" alt="company logo" style={{ height: '150px', width: '150px' }} />}
 
 					<Typography component="h1" variant="h5">
 						Sign up

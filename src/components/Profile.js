@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { GET_PROFILE_NAME } from '../graphql/queries'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Profile = (props) => {
 	const classes = useStyles()
-	const [adminEmail , setAdminEmail] = useState('todo get query admin email')
+	const [adminEmail, setAdminEmail] = useState('todo get query admin email')
 
-	const setAdmin = (event) =>{
+	const setAdmin = (event) => {
 		setAdminEmail(event.target.value)
 	}
 	return (
@@ -57,8 +57,8 @@ const Profile = (props) => {
 						<Typography gutterBottom variant="h6" component="h4">
 							Team Leader  Email : {adminEmail}
 						</Typography>
-						
-						
+
+
 					</CardContent>
 				</Card>
 
@@ -77,7 +77,7 @@ const Profile = (props) => {
 							label="Team Leader Email"
 							autoFocus
 							onChange={setAdmin}
-								
+
 
 						/>
 
@@ -88,7 +88,7 @@ const Profile = (props) => {
 							color="primary"
 							className={classes.submit}
 						>
-							Set New Team Leader 
+							Set New Team Leader
 						</Button>
 
 
