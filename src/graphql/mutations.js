@@ -22,3 +22,14 @@ export const ADD_NEW_TEST = gql`
 	  }
 	}
   `
+  
+export const ADD_NEW_ADMIN_USER = gql`
+  mutation insertAdminUser($objects: [Admins_insert_input!]!, $objects1: [Users_insert_input!]!) {
+    insert_Admins(objects: $objects) {
+      affected_rows
+    }
+    insert_Users(objects: $objects1) {
+      affected_rows
+    }
+  }
+`
