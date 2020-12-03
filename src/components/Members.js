@@ -155,7 +155,7 @@ const Members = (props) => {
 
 const callSetName = () => {
 	const { currentUser } = useAuth()
-	const email = 'rpasricha@gmail.com'
+	const email = currentUser.email
 	const { loading, error, data } = useQuery(GET_ADMIN_USERS, {
 		variables: { email }
 	})
