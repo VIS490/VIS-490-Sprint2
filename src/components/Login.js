@@ -132,18 +132,31 @@ const Login = () => {
 						>
 							Sign In
 						</Button>
+						<Button
+							type="submit"
+							href="https://agile-hamlet-62576.herokuapp.com"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+						>
+							Learn More about VIS
+						</Button>
 						<Grid container>
 							<Grid item xs>
 								<div href="#" variant="body2">
-
 								</div>
 							</Grid>
 							<Grid item>
 								<div>
+
+
 									{'Don\'t have an account? '}
 									<Link to="/signup">Sign Up</Link>
 								</div>
+
 							</Grid>
+
 						</Grid>
 					</form>
 				</div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Question from './Question.js'
 import Socket from './Socket.js'
 import Button from '@material-ui/core/Button'
@@ -7,11 +7,15 @@ import { useAuth } from '../contexts/AuthContext'
 import { List, ListItem, Paper, Card } from '@material-ui/core'
 import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
 import { ADD_NEW_TEST } from '../graphql/mutations'
+import { Link, useHistory } from 'react-router-dom'
 
 const Quiz = (props) => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
 	const [addTest] = useMutation(ADD_NEW_TEST)
+	const [error, setError] = useState('')
+	const [loading, setLoading] = useState(false)
+	const history = useHistory()
 	const resetList = [
 		{ qid: '1', qval: 0 },
 		{ qid: '2', qval: 0 },
@@ -77,6 +81,14 @@ const Quiz = (props) => {
 				console.log(err.message)
 			}
 		})
+		try {
+			setError('')
+			setLoading(true)
+			history.push('/dashboard')
+		} catch{
+			setError('Something went wrong!')
+		}
+		setLoading(false)
 	}
 
 	return (

@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import { useAuth } from '../contexts/AuthContext'
 import { useQuery } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { GET_PROFILE_NAME } from '../graphql/queries'
+import { UPDATE_USER_ADMIN } from '../graphql/mutations'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
@@ -25,10 +27,29 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
 	const classes = useStyles()
 	const [adminEmail, setAdminEmail] = useState('todo get query admin email')
+	const [updateAdminEmail, { loading: mutationLoading, error: mutationError },] = useMutation(UPDATE_USER_ADMIN)
 
 	const setAdmin = (event) => {
 		setAdminEmail(event.target.value)
 	}
+
+	const handleClick = (event) => {
+		event.preventDefault()
+		console.log("in handle click")
+		updateAdminEmail({
+			variables: {
+				"_set": {
+					"admin_email": adminEmail
+				},
+				"where": {
+					"email": {
+						"_eq": props.email
+					}
+				}
+			}
+		})
+	}
+
 	return (
 
 		<div className="Profile">
@@ -87,11 +108,12 @@ const Profile = (props) => {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
+							onClick={handleClick}
 						>
 							Set New Team Leader
 						</Button>
-
-
+						{mutationLoading && <p>Loading...</p>}
+						{mutationError && <p>Error :( Please try again</p>}
 					</CardContent>
 				</Card>
 
@@ -105,6 +127,7 @@ const callSetName = () => {
 	const { loading, error, data } = useQuery(GET_PROFILE_NAME, {
 		variables: { email }
 	})
+
 	if (loading) return <div>Loading...</div>
 	if (error) return `Error! ${error.message}`
 	return <Profile name={data['Users'][0].name} email={email} />
