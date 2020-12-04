@@ -12,6 +12,7 @@ export const GET_PROFILE_NAME =gql`query($email:String!){
     where: {email: {_eq: $email}}
     ){
       name
+      admin_email
     }
   }
 `
