@@ -60,7 +60,7 @@ const Sidebar = () => {
 	return (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
-				<Typography selected={value === 0} className={classes.name} onChange={handleChange} onClick={() => { setValue(0) }} variant="h4" component={Link} to="/" label="Home">Vis</Typography>
+				<Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography>
 			</div>
 			<div className={classes.sidebarBody}>
 				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
@@ -72,6 +72,9 @@ const Sidebar = () => {
 					</ListItem>
 					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => { setValue(3) }}>
 						<ListItemText disableTypography>Quiz</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 4} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(4) }}>
+						<ListItemText disableTypography>Logout</ListItemText>
 					</ListItem>
 				</List>
 			</div>
