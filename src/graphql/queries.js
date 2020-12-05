@@ -12,6 +12,7 @@ export const GET_PROFILE_NAME =gql`query($email:String!){
     where: {email: {_eq: $email}}
     ){
       name
+      admin_email
     }
   }
 `
@@ -43,4 +44,12 @@ export const GET_LINECHART_SCORES = gql`
   }
 `
 
-export const WELLNESS_SCORE_AVERAGE = gql`
+export const GET_ADMIN_USERS  =gql`query($email:String!){
+  Users(
+    where: {admin_email: {_eq: $email}}
+    ){
+      name
+      email
+    }
+  }
+`

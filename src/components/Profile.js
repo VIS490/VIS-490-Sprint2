@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Profile = (props) => {
 	const classes = useStyles()
-	const [adminEmail , setAdminEmail] = useState('todo get query admin email')
+	const [adminEmail , setAdminEmail] = useState(props.admin)
 	const [updateAdminEmail,{ loading: mutationLoading, error: mutationError },] = useMutation(UPDATE_USER_ADMIN)
 
 	const setAdmin = (event) =>{
@@ -129,6 +129,6 @@ const callSetName = () => {
 
 	if (loading) return <div>Loading...</div>
 	if (error) return `Error! ${error.message}`
-	return <Profile name={data['Users'][0].name} email={email}/>
+	return <Profile name={data['Users'][0].name} email={email} admin={data['Users'][0].admin_email}/>
 }
 export default callSetName

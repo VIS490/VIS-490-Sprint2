@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery, useMutation } from '@apollo/client'
-import { ADD_NEW_USER } from '../graphql/mutations'
+import { ADD_NEW_USER, ADD_NEW_ADMIN_USER } from '../graphql/mutations'
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -46,6 +46,7 @@ const Signup = () => {
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
 	const [addTodo] = useMutation(ADD_NEW_USER)
+	const [addAdminUser] = useMutation(ADD_NEW_ADMIN_USER)
 	const [check, setCheck] = useState(false)
 
 
@@ -74,24 +75,52 @@ const Signup = () => {
 	async function handleSubmit(e) {
 		e.preventDefault()
 
-		try {
-			setError('')
-			setLoading(true)
-			await signup(email, pass)
+		if(check == true){
+			try {
+				setError('')
+				setLoading(true)
+				await signup(email, pass)
 
-			addTodo({
-				variables: {
-					input:
-						{ name: fname + ' ' + lname, email: email, pic: 'User.png' }
-				}
-			})
+				addAdminUser({
+					variables: {
+						objects: {
+						    admin_email: email
+						},
+						objects1: {
+							email: email,
+						    name: fname + ' ' + lname,
+						    pic: 'User.png'
+						}
+					  }
+				})
 
-			history.push('/dashboard')
-		} catch {
-			setError('Failed to create an account')
+				history.push('/dashboard')
+			} catch {
+				setError('Failed to create an account')
+			}
+
+			setLoading(false)
 		}
+		else{
+			try {
+				setError('')
+				setLoading(true)
+				await signup(email, pass)
 
-		setLoading(false)
+				addTodo({
+					variables: {
+						input:
+							{ name: fname + ' ' + lname, email: email, pic: 'User.png' }
+					}
+				})
+
+				history.push('/dashboard')
+			} catch {
+				setError('Failed to create an account')
+			}
+
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -150,12 +179,18 @@ const Signup = () => {
 									required
 									fullWidth
 									name="password"
-									label="Password"
+									label="Password (at least 6 characters)"
 									type="password"
 									id="password"
 									autoComplete="current-password"
 									onChange={passwordChange}
 								/>
+							</Grid>
+							<Grid item xs={12}>
+								<div href="#" variant="body2">
+									<input type="checkbox" checked={check} onChange={AdminCheck}/>
+										Signup As Admin
+								</div>
 							</Grid>
 						</Grid>
 						<Button
@@ -168,12 +203,6 @@ const Signup = () => {
 							Sign Up
 						</Button>
 						<Grid container justify="flex-end">
-							<Grid item xs>
-								<div href="#" variant="body2">
-									<input type="checkbox" checked={check} onChange={AdminCheck}/>
-										Signup As Admin
-								</div>
-							</Grid>
 							<Grid item>
 								<Link to="/" className="">
 									<div>Already have an account? Sign in</div>
