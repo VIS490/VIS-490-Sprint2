@@ -40,3 +40,12 @@ export const ADD_NEW_TEST = gql`
     }
   }
 ` 
+  
+export const UPDATE_USER_ADMIN = gql`
+  mutation MyMutation($_set: Users_set_input!, $where: Users_bool_exp!) {
+    update_Users(_set: $_set, where: $where) {
+      affected_rows
+    }
+  }
+` 
+`
