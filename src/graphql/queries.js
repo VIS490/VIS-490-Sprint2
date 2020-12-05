@@ -42,3 +42,5 @@ export const GET_LINECHART_SCORES = gql`
     }
   }
 `
+
+export const WELLNESS_SCORE_AVERAGE = gql`
