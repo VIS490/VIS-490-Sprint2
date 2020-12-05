@@ -112,7 +112,7 @@ const Profile = (props) => {
 							Set New Team Leader 
 						</Button>
 						{mutationLoading && <p>Loading...</p>}
-        				{mutationError && <p>Error :( Please try again</p>}
+						{mutationError && <p>Error :( Please try again</p>}
 					</CardContent>
 				</Card>
 

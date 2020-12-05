@@ -126,7 +126,7 @@ const AllScores = () => {
 	if (erroR) return `Error! ${errorR.message}`
 	
 	if (Object.keys(check.UserTests).length==0){
-		ws, wl, pr, im, ls, dv, ay = 0;
+		ws, wl, pr, im, ls, dv, ay = 0
 		label = [0]
 	} 
 	else{

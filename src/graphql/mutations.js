@@ -59,4 +59,4 @@ export const UPDATE_USER_ADMIN = gql`
     }
   }
 ` 
-`
+
