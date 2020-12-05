@@ -13,7 +13,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
-
+import { useMutation } from '@apollo/client'
+import { ADD_NEW_USER } from '../graphql/mutations'
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -37,11 +38,12 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [pass, setPass] = useState('')
-	const { login } = useAuth()
+	const { login, signInWithGoogle, currentUser } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const history = useHistory()
+	const [addTodo] = useMutation(ADD_NEW_USER)
 
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -63,6 +65,33 @@ const Login = () => {
 
 	const passwordChange = (event) => {
 		setPass(event.target.value)
+	}
+	const GoogleAuth = async () => {
+		try {
+			setError('')
+			setLoading(true)
+			await signInWithGoogle()
+			setLoading(true)
+			try{
+				addTodo({
+					variables: {
+						input:
+							{
+								name: currentUser.displayName,
+								email: currentUser.email,
+								pic: currentUser.photoURL,
+								id: currentUser.uid
+							}
+					}
+				})
+			} catch (e){
+				console.log('already in db')
+			}
+			history.push('/dashboard')
+		} catch {
+			setError('Failed to Login')
+		}
+		setLoading(false)
 	}
 	
 	return (
@@ -132,8 +161,6 @@ const Login = () => {
 							</Grid>
 							<Grid item>
 								<div>
-									
-									
 									{'Don\'t have an account? '}
 									<Link to="/signup">Sign Up</Link>
 								</div>
@@ -143,6 +170,13 @@ const Login = () => {
 						</Grid>
 					</form>
 				</div>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={GoogleAuth}>
+					Login or Signup with Google
+				</Button>
 				<Box mt={8} />
 			</Container>
 		</div>

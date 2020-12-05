@@ -40,7 +40,7 @@ const Signup = () => {
 	const [pass, setPass] = useState('')
 	const [fname, setfName] = useState('')
 	const [lname, setlName] = useState('')
-	const { signup } = useAuth()
+	const { signup, currentUser } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -75,7 +75,7 @@ const Signup = () => {
 	async function handleSubmit(e) {
 		e.preventDefault()
 
-		if(check == true){
+		if(check === true){
 			try {
 				setError('')
 				setLoading(true)
@@ -84,14 +84,14 @@ const Signup = () => {
 				addAdminUser({
 					variables: {
 						objects: {
-						    admin_email: email
+							admin_email: email
 						},
 						objects1: {
 							email: email,
-						    name: fname + ' ' + lname,
-						    pic: 'User.png'
+							name: fname + ' ' + lname,
+							pic: 'User.png'
 						}
-					  }
+					}
 				})
 
 				history.push('/dashboard')
@@ -110,7 +110,7 @@ const Signup = () => {
 				addTodo({
 					variables: {
 						input:
-							{ name: fname + ' ' + lname, email: email, pic: 'User.png' }
+							{name: fname + ' ' + lname, email: email, pic: 'User.png', id: currentUser.uid}
 					}
 				})
 
