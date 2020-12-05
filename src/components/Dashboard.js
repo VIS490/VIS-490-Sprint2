@@ -108,9 +108,9 @@ const AllScores = () => {
 	const { currentUser } = useAuth()
 	const email = currentUser.email
 	var label = []
-	var dates = []
 	var items = []
-	var i;
+	var i, ws, wl, pr, im, ls, dv, ay;
+	
 	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
 		variables: { email }
 	})
@@ -118,29 +118,41 @@ const AllScores = () => {
 	const { loading: loadinG, error: erroR, data: datA } = useQuery(GET_WELLNESS_SCORE, {
 		variables: { email }
 	})
+	var check= datA
 
 	if (loadingR) return <div>Loading...</div>
 	if (loadinG) return <div>Loading...</div>
 	if (errorR) return `Error! ${errorR.message}`
 	if (erroR) return `Error! ${errorR.message}`
-	label = dataR['UserTests'].map(score => {
-		return score.Test.score
-	})
-	dates = dataR['UserTests'].map(date => {
-		return date.created_at
-	})
-	for (i=0; i <dates.length;i++){
+	
+	if (Object.keys(check.UserTests).length==0){
+		ws, wl, pr, im, ls, dv, ay = 0;
+		label = [0]
+	} 
+	else{
+		ws=Math.round(datA['UserTests'][0]['Test'].score)
+		wl=datA['UserTests'][0]['Test'].work_load_score
+		pr=datA['UserTests'][0]['Test'].peer_relations_score
+		im=datA['UserTests'][0]['Test'].impact_score
+		ls=datA['UserTests'][0]['Test'].leader_support_score
+		dv=datA['UserTests'][0]['Test'].development_score
+		ay=datA['UserTests'][0]['Test'].autonomy_score
+		label = dataR['UserTests'].map(score => {
+			return score.Test.score
+		})
+	}
+
+	for (i=0; i <label.length;i++){
 		items.push(i+1)
 	}
-	console.log(items)
-	console.log(label)
-	return <Dashboard wellnessScore={Math.round(datA['UserTests'][0]['Test']['score'])}
-		workLoad={datA['UserTests'][0]['Test']['work_load_score']}
-		peerRelations={datA['UserTests'][0]['Test']['peer_relations_score']}
-		impact={datA['UserTests'][0]['Test']['impact_score']}
-		leaderSupport={datA['UserTests'][0]['Test']['leader_support_score']}
-		development={datA['UserTests'][0]['Test']['development_score']}
-		autonomy={datA['UserTests'][0]['Test']['autonomy_score']}
+
+	return <Dashboard wellnessScore={ws}
+		workLoad={wl}
+		peerRelations={pr}
+		impact={im}
+		leaderSupport={ls}
+		development={dv}
+		autonomy={ay}
 		label={label}
 		date={items}
 	/>
