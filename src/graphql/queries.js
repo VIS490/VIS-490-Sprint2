@@ -43,3 +43,13 @@ export const GET_LINECHART_SCORES = gql`
     }
   }
 `
+
+export const GET_ADMIN_USERS  =gql`query($email:String!){
+  Users(
+    where: {admin_email: {_eq: $email}}
+    ){
+      name
+      email
+    }
+  }
+`

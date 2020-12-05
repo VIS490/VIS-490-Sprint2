@@ -150,12 +150,18 @@ const Signup = () => {
 									required
 									fullWidth
 									name="password"
-									label="Password"
+									label="Password (at least 6 characters)"
 									type="password"
 									id="password"
 									autoComplete="current-password"
 									onChange={passwordChange}
 								/>
+							</Grid>
+							<Grid item xs={12}>
+								<div href="#" variant="body2">
+									<input type="checkbox" checked={check} onChange={AdminCheck}/>
+										Signup As Admin
+								</div>
 							</Grid>
 						</Grid>
 						<Button
@@ -168,12 +174,6 @@ const Signup = () => {
 							Sign Up
 						</Button>
 						<Grid container justify="flex-end">
-							<Grid item xs>
-								<div href="#" variant="body2">
-									<input type="checkbox" checked={check} onChange={AdminCheck}/>
-										Signup As Admin
-								</div>
-							</Grid>
 							<Grid item>
 								<Link to="/" className="">
 									<div>Already have an account? Sign in</div>
