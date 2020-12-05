@@ -17,6 +17,12 @@ jobs:
           command: python ./tests/score_unit_tests.py
           name: Score.py Testing
 workflows:
-  main:
+  heroku_deploy:
     jobs:
       - build-and-test
+      - heroku/deploy-via-git:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: main
