@@ -13,8 +13,9 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert'
 import AlertTitle from '@material-ui/lab/AlertTitle'
-import { useMutation } from '@apollo/client'
+import {useMutation, useQuery} from '@apollo/client'
 import { ADD_NEW_USER } from '../graphql/mutations'
+
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		marginTop: theme.spacing(8),
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
 	const [email, setEmail] = useState('')
 	const [pass, setPass] = useState('')
-	const { login, signInWithGoogle, currentUser } = useAuth()
+	const { login, signInWithGoogle, currentUser  } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)

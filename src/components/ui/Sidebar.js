@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import {useAuth} from '../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
 	sidebar: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = () => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
+	const { isAdmin } = useAuth()
 
 	useEffect(() => {
 		if (window.location.pathname === '/' && value !== 0) {
@@ -50,14 +52,17 @@ const Sidebar = () => {
 			setValue(2)
 		} else if (window.location.pathname === '/quiz' && value !== 3) {
 			setValue(3)
+		} else if (window.location.pathname === '/admin-dash' && value !== 4) {
+			setValue(4)
+		} else if (window.location.pathname === '/team' && value !== 5) {
+			setValue(5)
 		}
 	}, [])
 
 	const handleChange = (e, value) => {
 		setValue(value)
 	}
-
-	return (
+	const user = (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
 				<Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography>
@@ -73,12 +78,46 @@ const Sidebar = () => {
 					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => { setValue(3) }}>
 						<ListItemText disableTypography>Quiz</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 4} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(4) }}>
+					<ListItem selected={value === 6} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
 						<ListItemText disableTypography>Logout</ListItemText>
 					</ListItem>
 				</List>
 			</div>
 		</div>
+	)
+	const admin = (
+		<div className={classes.sidebar}>
+			<div className={classes.header}>
+				<Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography>
+			</div>
+			<div className={classes.sidebarBody}>
+				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
+					<ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to="/profile" label="Profile" onClick={() => { setValue(2) }}>
+						<ListItemText disableTypography>Profile</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to="/dashboard" label="Dashboard" onClick={() => { setValue(1) }}>
+						<ListItemText disableTypography>Dashboard</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => { setValue(3) }}>
+						<ListItemText disableTypography>Quiz</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 4} className={classes.listItem} divider button component={Link} to="/admin-dash" label="Admin Dashboard" onClick={() => { setValue(4) }}>
+						<ListItemText disableTypography>Admin Dashboard</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 5} className={classes.listItem} divider button component={Link} to="/team" label="Team" onClick={() => { setValue(5) }}>
+						<ListItemText disableTypography>Team</ListItemText>
+					</ListItem>
+					<ListItem selected={value === 6} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
+						<ListItemText disableTypography>Logout</ListItemText>
+					</ListItem>
+				</List>
+			</div>
+		</div>
+	)
+	return (
+		<React.Fragment>
+			{isAdmin ? admin: user}
+		</React.Fragment>
 	)
 }
 

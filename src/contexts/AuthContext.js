@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import firebase from 'firebase/app'
+import {useQuery} from '@apollo/client'
+import {FIND_ADMIN_EMAIL} from '../graphql/queries'
 
 const AuthContext = React.createContext(undefined)
 
@@ -10,13 +12,16 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 	const [currentUser, setCurrentUser] = useState()
+	const [isAdmin, setisAdmin] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const googleProvider = new firebase.auth.GoogleAuthProvider()
 
 	function signup(email, password) {
 		return auth.createUserWithEmailAndPassword(email, password)
 	}
-
+	function setAdminStatus(state){
+		setisAdmin(state)
+	}
 	function login(email, password) {
 		return auth.signInWithEmailAndPassword(email, password)
 	}
@@ -54,13 +59,15 @@ export function AuthProvider({ children }) {
 
 	const value = {
 		currentUser,
+		isAdmin,
+		setAdminStatus,
 		login,
 		signup,
 		logout,
 		resetPassword,
 		updateEmail,
 		updatePassword,
-		signInWithGoogle
+		signInWithGoogle,
 	}
 
 	return (

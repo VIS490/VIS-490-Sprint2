@@ -6,6 +6,7 @@ const createApolloClient = () => new ApolloClient({
 		uri: 'https://vis-cs490-sprint2.hasura.app/v1/graphql',
 		headers: {
 			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
 			'x-hasura-admin-secret': process.env.REACT_APP_HASURA_ADMIN_SECRET
 		}
 	}),

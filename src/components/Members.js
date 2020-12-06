@@ -82,7 +82,7 @@ const Members = (props) => {
 					},
 					'where': {
 						'email':{
-						  '_eq': selectedUserEmail
+							'_eq': selectedUserEmail
 						}
 					}
 				}
@@ -154,7 +154,7 @@ const Members = (props) => {
 
 
 const callSetName = () => {
-	const { currentUser } = useAuth()
+	const { currentUser, isAdmin } = useAuth()
 	const email = currentUser.email
 	const { loading, error, data } = useQuery(GET_ADMIN_USERS, {
 		variables: { email }
@@ -167,6 +167,6 @@ const callSetName = () => {
 		let email=data['Users'][i]['email']
 		userList.push(email)
 	}
-	return <Members membersList={userList } />
+	return isAdmin && <Members membersList={userList } />
 }
 export default callSetName

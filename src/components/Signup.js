@@ -40,7 +40,7 @@ const Signup = () => {
 	const [pass, setPass] = useState('')
 	const [fname, setfName] = useState('')
 	const [lname, setlName] = useState('')
-	const { signup, currentUser } = useAuth()
+	const { signup, currentUser, setAdminStatus, signInWithGoogle } = useAuth()
 	const classes = useStyles()
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -71,6 +71,33 @@ const Signup = () => {
 		console.log('Admin box was clicked')
 		setCheck(event.target.checked)
 	}
+	const GoogleAuth = async () => {
+		try {
+			setError('')
+			setLoading(true)
+			await signInWithGoogle()
+			setLoading(true)
+			try{
+				addTodo({
+					variables: {
+						input:
+							{
+								name: currentUser.displayName,
+								email: currentUser.email,
+								pic: currentUser.photoURL,
+								id: currentUser.uid
+							}
+					}
+				})
+			} catch (e){
+				console.log('already in db')
+			}
+			history.push('/dashboard')
+		} catch {
+			setError('Failed to Login')
+		}
+		setLoading(false)
+	}
 
 	async function handleSubmit(e) {
 		e.preventDefault()
@@ -80,7 +107,7 @@ const Signup = () => {
 				setError('')
 				setLoading(true)
 				await signup(email, pass)
-
+				setAdminStatus(true)
 				addAdminUser({
 					variables: {
 						objects: {
@@ -89,7 +116,8 @@ const Signup = () => {
 						objects1: {
 							email: email,
 							name: fname + ' ' + lname,
-							pic: 'User.png'
+							pic: 'User.png',
+							id: currentUser.uid
 						}
 					}
 				})
@@ -106,7 +134,7 @@ const Signup = () => {
 				setError('')
 				setLoading(true)
 				await signup(email, pass)
-
+				setAdminStatus(false)
 				addTodo({
 					variables: {
 						input:
@@ -212,6 +240,13 @@ const Signup = () => {
 						</Grid>
 					</form>
 				</div>
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={GoogleAuth}>
+					Login or Signup with Google
+				</Button>
 				<Box mt={5} />
 			</Container>
 		</div>

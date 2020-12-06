@@ -53,3 +53,10 @@ export const GET_ADMIN_USERS  =gql`query($email:String!){
     }
   }
 `
+export const FIND_ADMIN_EMAIL = gql`
+  query findAdmin($admin_email:String!) {
+    Admins_by_pk(admin_email:$admin_email){
+      admin_email
+    }
+  }
+`
