@@ -13,10 +13,14 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
+	Profile:{
+		margin: 'auto',
+		padding: 'auto',
+		height: '100%',
+		float: 'left'
+	},
 	card: {
-		width: '100%',
 		display: 'flex',
-
 		flexDirection: 'column',
 	},
 	submit: {
@@ -51,7 +55,7 @@ const Profile = (props) => {
 
 	return (
 
-		<div className="Profile">
+		<div className={classes.Profile}>
 			<Container maxWidth="lg">
 
 				<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
