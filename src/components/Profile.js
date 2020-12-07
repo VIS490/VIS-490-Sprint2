@@ -16,8 +16,13 @@ const useStyles = makeStyles((theme) => ({
 	card: {
 		width: '100%',
 		display: 'flex',
+		paddingBottom: '25%',
 
 		flexDirection: 'column',
+	},
+	teamLeader :{
+		width: '100%',
+		display: 'flex',
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
@@ -53,15 +58,7 @@ const Profile = (props) => {
 
 		<div className="Profile">
 			<Container maxWidth="lg">
-
-				<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-					User Profile
-				</Typography>
-
-				<img
-					alt=" logo" height="175px"
-					src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png"
-				/>
+				<img src="/static/settings.png" alt="company logo" style={{height:'50%', width:'20%'}}/>
 				<Card className={classes.card}>
 
 					<CardContent width="100%">
@@ -82,7 +79,7 @@ const Profile = (props) => {
 					</CardContent>
 				</Card>
 
-				<Card className={classes.card}>
+				<Card className={classes.teamLeader}>
 					<CardContent width="100%">
 						<Typography gutterBottom variant="h5" component="h1">
 							Set New Team Leader Email
