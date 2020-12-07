@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	header: {
 		textAlign: 'center',
+		objectFit: 'cover',
 		float: 'left',
-		width: '100%',
 		color: 'white',
 		marginBottom: '20%',
 		paddingTop: '5%',
@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
 	name: {
 		color: 'white',
 		textDecoration: 'none',
+	},
+	logout:{
+		...theme.button,
+		margin: '10px 0 10px 0',
+		marginTop: '20%'
 	}
 
 }))
@@ -81,7 +86,8 @@ const Sidebar = () => {
 	const user = (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
-				<Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography>
+				{<img src="../../static/companyLogo.png" alt="Vis" style={{  height:161, width:299 }}/>}
+				{/* <Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography> */}
 			</div>
 			<div className={classes.sidebarBody}>
 				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
@@ -103,7 +109,7 @@ const Sidebar = () => {
          	 			</ListItemIcon>
 						<ListItemText disableTypography>Survey</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 6} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
+					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
 						<ListItemIcon>
             				<ExitToAppIcon />
          	 			</ListItemIcon>
@@ -116,8 +122,8 @@ const Sidebar = () => {
 	const admin = (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
-				{<img src="../static/companyLogo.png" alt="company logo" style={{height:'150px', width:'150px'}}/>}
-				<Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography>
+				{<img src="../../static/companyLogo.png" alt="Vis" style={{  height:161, width:299 }}/>}
+				{/* <Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography> */}
 			</div>
 			<div className={classes.sidebarBody}>
 				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
@@ -151,7 +157,7 @@ const Sidebar = () => {
          	 			</ListItemIcon>
 						<ListItemText disableTypography>Team</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 6} className={classes.listItem} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
+					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
 						<ListItemIcon>
             				<ExitToAppIcon />
          	 			</ListItemIcon>
