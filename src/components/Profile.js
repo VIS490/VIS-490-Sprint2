@@ -17,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		display: 'flex',
 		paddingBottom: '25%',
-
+		backgroundColor: '#F4F1F0',
 		flexDirection: 'column',
 	},
 	teamLeader :{
 		width: '100%',
 		display: 'flex',
+		backgroundColor: '#F4F1F0'
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
