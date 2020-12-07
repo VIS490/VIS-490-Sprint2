@@ -11,15 +11,21 @@ const useStyles = makeStyles((theme) => ({
 	sidebar: {
 		background: theme.palette.primary.main,
 		width: '20%',
-		height: '100vh',
+		height: '100%',
+		position: 'absolute',
+		top: '0',
+		bottom: '0',
 		display: 'flex',
+		float: 'left',
 		flexDirection: 'column'
-
 	},
 	header: {
 		textAlign: 'center',
+		float: 'left',
+		width: '100%',
 		color: 'white',
 		paddingTop: '5%',
+		paddingBottom: '5%',
 		scrollPaddingBottom: '5%',
 		background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
 	},
