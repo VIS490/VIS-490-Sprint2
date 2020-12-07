@@ -50,7 +50,7 @@ const Dashboard = (props) => {
 
 	return (
 		<div className="Dashboard">
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Average Wellness Score: {props.wellnessScore}</h1>
+			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Average Wellness Score: {props.wellnessScoreAverage}</h1>
 			<div style={{ float: 'right', width: '500px', }}>
 				<Bar data={barChartData} options={{
 					responsive: true,
