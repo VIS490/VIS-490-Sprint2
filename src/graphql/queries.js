@@ -60,3 +60,43 @@ export const FIND_ADMIN_EMAIL = gql`
     }
   }
 `
+export const GET_AVERAGE_WELLNESS_SCORE = gql`
+  query Myquery($email: String!){
+    Users(where: {admin_email: {_eq: $email}}) {
+      user_tests_rel(limit: 1, order_by: {created_at: desc}) {
+        Test {
+          score
+        }
+      }
+    }
+  }
+`
+
+export const GET_AVERAGE_BAR_SCORES = gql`
+  query Myquery($email: String!){
+    Users(where: {admin_email: {_eq: $email}}) {
+      user_tests_rel(order_by: {created_at: desc}, limit: 1) {
+        Test {
+          work_load_score
+          peer_relations_score
+          leader_support_score
+          impact_score
+          autonomy_score
+          development_score
+        }
+      }
+    }
+  }
+`
+
+export const GET_AVERAGE_LINE = gql`
+  query MyQuery($email: String!) {
+    Users(where: {admin_email: {_eq: $email}}) {
+      user_tests_rel(order_by: {created_at: desc}, limit: 5) {
+        Test {
+          score
+        }
+      }
+    }
+  }
+`

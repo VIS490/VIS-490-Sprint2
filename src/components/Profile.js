@@ -13,11 +13,19 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
+	Profile:{
+		margin: 'auto',
+		padding: 'auto',
+		height: '100%',
+		float: 'left'
+	},
 	card: {
-		width: '100%',
 		display: 'flex',
+<<<<<<< HEAD
 		paddingBottom: '25%',
 		backgroundColor: '#F4F1F0',
+=======
+>>>>>>> b9f34b35098863a0458ac9ec30b4a1f66c73709f
 		flexDirection: 'column',
 	},
 	teamLeader :{
@@ -57,7 +65,7 @@ const Profile = (props) => {
 
 	return (
 
-		<div className="Profile">
+		<div className={classes.Profile}>
 			<Container maxWidth="lg">
 				<img src="/static/settings.png" alt="company logo" style={{height:'50%', width:'20%'}}/>
 				<Card className={classes.card}>

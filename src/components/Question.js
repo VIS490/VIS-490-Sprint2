@@ -4,14 +4,13 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
+import {Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-const useStyles = makeStyles({
-	root: {
 
+const useStyles = makeStyles({
+	question: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		width: '1350px',
-
 	},
 	title: {
 		fontSize: 34,
@@ -29,6 +28,8 @@ const Question = (props) => {
 		props.onUpdate(newQID, event.target.value, event)
 	}
 	return (
+		<div className={classes.question}>
+		<Paper>
 		<FormControl component="fieldset">
 			<FormLabel component="legend"> {props.questionName} </FormLabel>
 			<RadioGroup
@@ -82,6 +83,8 @@ const Question = (props) => {
 				/>
 			</RadioGroup>
 		</FormControl>
+		</Paper>
+		</div>
 	)
 }
 
