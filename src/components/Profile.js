@@ -19,25 +19,25 @@ const useStyles = makeStyles((theme) => ({
 		padding: 'auto',
 		height: '100%',
 		float: 'left',
+		textAlign: 'center', 
+		verticalAlign: 'middle',
+		marginLeft:'30%'
 	},
 	card: {
 		display: 'flex',
 		width:'100%',
-		paddingBottom:'25%',
+		marginTop:'10%',
+		marginBottom:'10%',
 		flexDirection: 'column',
-		
 	},
 	teamLeader :{
 		width: '100%',
 		display: 'flex',
-	
 		flexDirection: 'column',
-		
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
-	},
-	
+	}
 }))
 const Profile = (props) => {
 	const classes = useStyles()
@@ -64,16 +64,12 @@ const Profile = (props) => {
 			}
 		})
 	}
-
 	return (
-
 		<div className={classes.Profile}>
-			<Container maxWidth="lg">
-			
-				<img src="/static/settings.png" alt="settings logo" style={{height:'50%', width:'20%'}}/>
+			<Container >
+				<img src="/static/settings.png" alt="settings logo" style={{height:'55%', width:'25%'}}/>
 				
-				<Card className={classes.card}>
-
+				<Card className={classes.card} raised={true}>
 					<CardContent width="100%">
 						<Typography gutterBottom variant="h5" component="h1">
 							Profile Information
@@ -85,14 +81,11 @@ const Profile = (props) => {
 							Email : {props.email}
 						</Typography>
 						<Typography gutterBottom variant="h6" component="h4">
-							Team Leader  Email : {adminEmail}
+							Team Leader Email : {adminEmail}
 						</Typography>
-						
-						
 					</CardContent>
 				</Card>
-
-				<Card className={classes.teamLeader}>
+				<Card className={classes.teamLeader} raised={true}>
 					<CardContent width="100%">
 						<Typography gutterBottom variant="h5" component="h1">
 							Set New Team Leader Email
@@ -107,10 +100,7 @@ const Profile = (props) => {
 							label="Team Leader Email"
 							autoFocus
 							onChange={setAdmin}
-								
-
 						/>
-
 						<Button
 							type="submit"
 							fullWidth
@@ -125,7 +115,6 @@ const Profile = (props) => {
 						{mutationError && <p>Error :( Please try again</p>}
 					</CardContent>
 				</Card>
-
 			</Container>
 		</div>
 	)
