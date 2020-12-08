@@ -33,7 +33,7 @@ const Dashboard = (props) => {
 			labels: props.date,
 			datasets: [
 				{
-					label: 'Score During that Week',
+					label: 'Wellness Score',
 					data: props.label,
 					backgroundColor: [
 						'rgba(75, 192, 192, 0.6)',
@@ -50,8 +50,10 @@ const Dashboard = (props) => {
 	}, [])
 
 	return (
-		<div className="Dashboard" style={{ margin: 'auto', padding: 'auto'}}>
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Wellness Score: {props.wellnessScore}</h1>
+		<div className="Dashboard" style={{ margin: 'auto', padding: 'auto', marginRight:'20%'}}>
+			<div>
+				<h1>Current Wellness Score: {props.wellnessScore}</h1>
+			</div>
 			<div style={{ float: 'right', width: '500px', }}>
 				<Bar data={barChartData} options={{
 					responsive: true,
@@ -67,8 +69,20 @@ const Dashboard = (props) => {
 					scales: {
 						yAxes: [
 							{
+								scaleLabel: {
+									display: true,
+									labelString: 'Score Range'
+								},
 								ticks: {
 									beginAtZero: true
+								}
+							}
+						],
+						xAxes: [
+							{
+								scaleLabel: {
+									display: true,
+									labelString: 'Categories'
 								}
 							}
 						]
@@ -90,8 +104,20 @@ const Dashboard = (props) => {
 					scales: {
 						yAxes: [
 							{
+								scaleLabel: {
+									display: true,
+									labelString: 'Score Range'
+								},
 								ticks: {
 									beginAtZero: true
+								}
+							}
+						],
+						xAxes: [
+							{
+								scaleLabel: {
+									display: true,
+									labelString: 'Last Survey from this Week'
 								}
 							}
 						]
