@@ -22,17 +22,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	card: {
 		display: 'flex',
-		width:'35%',
-		
+		width:'100%',
+		paddingBottom:'25%',
 		flexDirection: 'column',
-		position:'absolute',
-		top:'25%',
+		
 	},
 	teamLeader :{
-		width: '35%',
+		width: '100%',
 		display: 'flex',
-		position:'absolute',
-		top: '63%',
 	
 		flexDirection: 'column',
 		
@@ -40,15 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
-	legend:{
-		backgroundColor:'#E1DEDD',
-		position:'relative',
-		left:'70%',
-		width:'65%',
-		top:'75%',
-		
-		
-	}
+	
 }))
 const Profile = (props) => {
 	const classes = useStyles()
@@ -82,16 +71,6 @@ const Profile = (props) => {
 			<Container maxWidth="lg">
 			
 				<img src="/static/settings.png" alt="settings logo" style={{height:'50%', width:'20%'}}/>
-				<Card className={classes.legend}>
-				      <EditIcon/>
-					<Typography gutterBottom variant="h6" component="h4">
-							The Setting page currently shows your current Team Leader , you can set a New Team leader if you need to switch teams 
-					</Typography>
-					<Typography gutterBottom variant="h6" component="h4">
-							Once you set a new Team Leader all scores and new scores will be accessible to that specfic Team Leader 
-					</Typography>
-
-				</Card>
 				
 				<Card className={classes.card}>
 
