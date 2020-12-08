@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	membersContainer: {
 		margin: 'auto',
 		padding: 'auto',
-		// width: '100%',
-		// paddingLeft:theme.spacing(14),
+	
 	},
 	cardGrid: {
 		width:'650px',
@@ -50,6 +49,7 @@ const Members = (props) => {
 	const classes = useStyles()
 	const [checked, setChecked] = React.useState([1])
 	const [userList,updateList] = React.useState(props.membersList)
+	const [nameList,updateNames] = React.useState(props.nameList)
 	const [updateUserAdmin,{ loading: mutationLoading, error: mutationError },] = useMutation(REMOVE_USER_ADMIN)
 
 	const handleToggle = (value) => () => {
@@ -68,6 +68,7 @@ const Members = (props) => {
 		e.preventDefault()
 		for ( let i = 0; i < checked.length; i++ ){
 			let selectedUserEmail = props.membersList[checked[i]]
+			let selectedName = props.nameList[checked[i]]
 		
 
 
@@ -84,7 +85,9 @@ const Members = (props) => {
 				}
 			})
 			const newList = userList.filter((email) => email !== selectedUserEmail)
+			const updatedUsers = nameList.filter((name) => name !== selectedName)
 			updateList(newList)
+			updateNames(updatedUsers)
 		}
 		
 		alert('Users removed from  Team')
@@ -111,14 +114,14 @@ const Members = (props) => {
 			<div className = "Users">
 				<Paper style={{maxHeight: 500, overflow: 'auto',width:'100%'}}>
 					<List dense className={classes.cardGrid}>
-						{userList.map((name,index) => {
+						{userList.map((email,index) => {
 							const labelId = `checkbox-list-secondary-label-${index}`
 							return (
 								<ListItem key={index} className={classes.users} borderColor="grey.500" button  >
 									<ListItemAvatar>
 										<Avatar className={classes.purple}></Avatar>
 									</ListItemAvatar>
-									<ListItemText id={labelId}   classes={{primary:classes.listItemText}} primary={` ${name}`} />
+									<ListItemText id={labelId}   classes={{primary:classes.listItemText}} primary={` ${nameList[index]} : ${email}`} />
 									<ListItemSecondaryAction>
 										<Checkbox
 											edge="end"
@@ -155,10 +158,14 @@ const callSetName = () => {
 	if (error) return `Error! ${error.message}`
 	console.log(data)
 	let userList = []
+	let userName = []
 	for (let i = 0; i <data['Users'].length; i++ ){
 		let email=data['Users'][i]['email']
+		let name = data['Users'][i]['name']
+		userName.push(name)
 		userList.push(email)
 	}
-	return isAdmin && <Members membersList={userList } />
+	
+	return isAdmin && <Members membersList={userList } nameList={userName} />
 }
 export default callSetName
