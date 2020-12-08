@@ -92,8 +92,8 @@ const Quiz = (props) => {
 	  }	  
 
 	return (
-		<div className="Quiz">
-			<Paper style={{ maxHeight: 900, overflow: 'auto' }}>
+		<div className="Quiz-Container" style={{ margin: 'auto', padding: 'auto', maxHeight: 900, overflow: 'auto' }}>
+			<Paper>
 				<List component="nav" aria-label="contacts">
 					{props.questions.map((item, id) => (
 						<li key={id}>

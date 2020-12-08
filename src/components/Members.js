@@ -17,21 +17,19 @@ import { useAuth } from '../contexts/AuthContext'
 import { gql, useQuery,useMutation } from '@apollo/client'
 import {REMOVE_USER_ADMIN} from '../graphql/mutations'
 import { GET_ADMIN_USERS } from '../graphql/queries'
-
-
 import Paper from '@material-ui/core/Paper'
+
 const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-		paddingLeft:theme.spacing(14),
-		
+	membersContainer: {
+		margin: 'auto',
+		padding: 'auto',
+		// width: '100%',
+		// paddingLeft:theme.spacing(14),
 	},
 	cardGrid: {
 		width:'650px',
 		paddingTop: theme.spacing(8),
 		paddingBottom: theme.spacing(25),
-		
-
 	},
 	purple: {
 		...theme.button,
@@ -41,13 +39,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	users:{
 		borderTopWidth: 1, borderColor: theme.button ,borderStyle: 'solid'
-        
 	},
 	card :{
 		width: '100%',
 	}
-
-    
     
 }))
 
@@ -93,8 +88,7 @@ const Members = (props) => {
 		alert('Users removed from  Team')
 	}
 	return (
-		<div>
-
+		<div className={classes.membersContainer}>
 			<Container maxWidth="md">
 				<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Team Members 
@@ -114,7 +108,6 @@ const Members = (props) => {
 			</Card>
 			<div className = "Users">
 				<Paper style={{maxHeight: 500, overflow: 'auto',width:'100%'}}>
-         
 					<List dense className={classes.cardGrid}>
 						{props.membersList.map((name,index) => {
 							const labelId = `checkbox-list-secondary-label-${index}`
@@ -133,17 +126,14 @@ const Members = (props) => {
 										/>
 									</ListItemSecondaryAction>
 								</ListItem>
-                       
 							)
 						})}
 					</List>
 				</Paper>
 			</div>
-			<div className={classes.root}>
-				<Button variant="contained" color="secondary" onClick={handleClick}>
+			<Button variant="contained" color="secondary" onClick={handleClick}>
                 Remove User
-				</Button>
-			</div>
+			</Button>
 			{mutationLoading && <p>Loading...</p>}
 
 			{mutationError && <p>Error :( Please try again</p>}
