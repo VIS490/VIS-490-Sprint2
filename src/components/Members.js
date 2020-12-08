@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const Members = (props) => {
 	const classes = useStyles()
 	const [checked, setChecked] = React.useState([1])
+	const [userList,updateList] = React.useState(props.membersList)
 	const [updateUserAdmin,{ loading: mutationLoading, error: mutationError },] = useMutation(REMOVE_USER_ADMIN)
 
 	const handleToggle = (value) => () => {
@@ -82,9 +83,10 @@ const Members = (props) => {
 					}
 				}
 			})
-
+			const newList = userList.filter((email) => email !== selectedUserEmail)
+			updateList(newList)
 		}
-
+		
 		alert('Users removed from  Team')
 	}
 	return (
@@ -109,7 +111,7 @@ const Members = (props) => {
 			<div className = "Users">
 				<Paper style={{maxHeight: 500, overflow: 'auto',width:'100%'}}>
 					<List dense className={classes.cardGrid}>
-						{props.membersList.map((name,index) => {
+						{userList.map((name,index) => {
 							const labelId = `checkbox-list-secondary-label-${index}`
 							return (
 								<ListItem key={index} className={classes.users} borderColor="grey.500" button  >
