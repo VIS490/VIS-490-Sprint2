@@ -15,7 +15,12 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontSize: 34,
+		justifyContent: 'flex-start'
 	},
+	labels:{
+		display:'flex',
+		justifyContent: 'flex-end',
+	}
 })
 
 const Question = (props) => {
@@ -31,7 +36,7 @@ const Question = (props) => {
 	return (
 		<div className={classes.question}>
 			<Paper elevation={0}>
-				<FormControl component="fieldset">
+				<FormControl component="fieldset" style={{}}>
 					<FormLabel component="legend" style={{fontSize:'20px',fontWeight:'bold', color:'black'}}> {props.questionName} </FormLabel>
 					<RadioGroup
 						aria-label="question"
@@ -44,42 +49,43 @@ const Question = (props) => {
 							value="6"
 							control={<Radio />}
 							label="Strongly Agree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
+
 						/>
 						<FormControlLabel
 							value="5"
 							control={<Radio />}
 							label="Agree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
 						/>
 						<FormControlLabel
 							value="4"
 							control={<Radio />}
 							label="Somewhat Agree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
 						/>
 						<FormControlLabel
 							value="3"
 							control={<Radio />}
 							label="Somewhat Disagree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
 						/>
 						<FormControlLabel
 							value="2"
 							control={<Radio />}
 							label="Disagree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
 						/>
 						<FormControlLabel
 							value="1"
 							control={<Radio />}
 							label="Strongly Disagree"
-							labelPlacement="start"
+							labelPlacement="end"
 							classes={classes}
 						/>
 					</RadioGroup>
