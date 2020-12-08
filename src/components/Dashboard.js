@@ -4,6 +4,7 @@ import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAuth } from '../contexts/AuthContext'
 import { GET_WELLNESS_SCORE } from '../graphql/queries'
 import { GET_LINECHART_SCORES } from '../graphql/queries'
+import Paper from '@material-ui/core/Paper'
 
 const Dashboard = (props) => {
 	const [barChartData, setBarChartData] = useState()
@@ -12,7 +13,7 @@ const Dashboard = (props) => {
 			labels: ['Work Load', 'Peer Relations', 'Impact', 'Leader Support', 'Development', 'Autonomy'],
 			datasets: [
 				{
-					label: 'Scores',
+					label: 'Category Scores',
 					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
 					backgroundColor: [
 						'rgba(75, 192, 192, 0.6)',
@@ -50,80 +51,84 @@ const Dashboard = (props) => {
 	}, [])
 
 	return (
-		<div className="Dashboard" style={{ margin: 'auto', padding: 'auto', marginRight:'20%'}}>
-			<div>
-				<h1>Current Wellness Score: {props.wellnessScore}</h1>
-			</div>
-			<div style={{ float: 'right', width: '500px', }}>
-				<Bar data={barChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Topic Breakdown',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 5
-					},
-					scales: {
-						yAxes: [
-							{
-								scaleLabel: {
-									display: true,
-									labelString: 'Score Range'
-								},
-								ticks: {
-									beginAtZero: true
+		<div className="Dashboard" style={{ margin: 'auto', padding: '0%', marginRight:'20%', marginTop: '5px'}}>
+			<Paper elevation={24} square={false} style={{ display: 'inline-block', margin: '25px', padding: '20px', marginTop:'10%', marginBottom: '3%', textAlign: 'center', verticalAlign: 'middle'}}>
+				<h1 style={{color:'dimgray'}}>Current Wellness Score: {props.wellnessScore}</h1>
+			</Paper>
+			<Paper elevation={24} style={{ float: 'right', width: '500px', margin:'auto', marginTop: '5%', marginRight: '20px', padding:'25px'}}>
+				<div>
+					<Bar data={barChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Topic Breakdown',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 5
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
 								}
-							}
-						],
-						xAxes: [
-							{
-								scaleLabel: {
-									display: true,
-									labelString: 'Categories'
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Categories'
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
-			<div style={{ width: '900px' }}>
-				<Line data={lineChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Weekly Wellness Score Trend',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 50
-					},
-					scales: {
-						yAxes: [
-							{
-								scaleLabel: {
-									display: true,
-									labelString: 'Score Range'
-								},
-								ticks: {
-									beginAtZero: true
+							]
+						}
+					}} />
+				</div>
+			</ Paper>
+			<Paper elevation={24} style={{ margin:'auto', padding:'auto', marginTop:'13%'}}>
+				<div>
+					<Line data={lineChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Weekly Wellness Score Trend',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 50
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
 								}
-							}
-						],
-						xAxes: [
-							{
-								scaleLabel: {
-									display: true,
-									labelString: 'Last Survey from this Week'
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Last Survey from this Week'
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
+							]
+						}
+					}} />
+				</div>
+			</ Paper>
 		</div>
 	)
 }
