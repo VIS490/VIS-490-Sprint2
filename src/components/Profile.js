@@ -11,31 +11,44 @@ import { GET_PROFILE_NAME } from '../graphql/queries'
 import { UPDATE_USER_ADMIN } from '../graphql/mutations'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles((theme) => ({
 	Profile:{
 		margin: 'auto',
 		padding: 'auto',
 		height: '100%',
-		float: 'left'
+		float: 'left',
 	},
 	card: {
 		display: 'flex',
-<<<<<<< HEAD
-		paddingBottom: '25%',
-		backgroundColor: '#F4F1F0',
-=======
->>>>>>> b9f34b35098863a0458ac9ec30b4a1f66c73709f
+		width:'35%',
+		
 		flexDirection: 'column',
+		position:'absolute',
+		top:'25%',
 	},
 	teamLeader :{
-		width: '100%',
+		width: '35%',
 		display: 'flex',
-		backgroundColor: '#F4F1F0'
+		position:'absolute',
+		top: '63%',
+	
+		flexDirection: 'column',
+		
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	legend:{
+		backgroundColor:'#E1DEDD',
+		position:'relative',
+		left:'70%',
+		width:'65%',
+		top:'75%',
+		
+		
+	}
 }))
 const Profile = (props) => {
 	const classes = useStyles()
@@ -48,15 +61,15 @@ const Profile = (props) => {
 
 	const handleClick = (event) => {
 		event.preventDefault()
-		console.log("in handle click")
+		console.log('in handle click')
 		updateAdminEmail({
 			variables: {
-				"_set":{
-					"admin_email": adminEmail
+				'_set':{
+					'admin_email': adminEmail
 				},
-				"where": {
-					"email":{
-					  "_eq": props.email
+				'where': {
+					'email':{
+					  '_eq': props.email
 					}
 				}
 			}
@@ -67,7 +80,19 @@ const Profile = (props) => {
 
 		<div className={classes.Profile}>
 			<Container maxWidth="lg">
+			
 				<img src="/static/settings.png" alt="company logo" style={{height:'50%', width:'20%'}}/>
+				<Card className={classes.legend}>
+				      <EditIcon/>
+					<Typography gutterBottom variant="h6" component="h4">
+							The Setting page currently shows your current Team Leader , you can set a New Team leader if you need to switch teams 
+					</Typography>
+					<Typography gutterBottom variant="h6" component="h4">
+							Once you set a new Team Leader all scores and new scores will be accessible to that specfic Team Leader 
+					</Typography>
+
+				</Card>
+				
 				<Card className={classes.card}>
 
 					<CardContent width="100%">
