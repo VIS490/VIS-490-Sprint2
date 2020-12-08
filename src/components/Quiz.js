@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAuth } from '../contexts/AuthContext'
 import {List,ListItem,Paper,Card} from '@material-ui/core'
-import { GET_ALL_QUESTIONS_QUERY } from "../graphql/queries"
+import { GET_ALL_QUESTIONS_QUERY } from '../graphql/queries'
 import { ADD_NEW_TEST } from '../graphql/mutations'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -89,24 +89,24 @@ const Quiz = (props) => {
 			setError('Something went wrong!')
 		}
 		setLoading(false)
-	  }	  
+	}
 
 	return (
-		<div className="Quiz-Container" style={{ margin: 'auto', padding: 'auto', maxHeight: 900, overflow: 'auto' }}>
+		<div className="Quiz-Container" style={{ marginLeft: 'auto', padding: 'auto', maxHeight: 900, overflow: 'auto' }}>
 			<Paper>
 				<List component="nav" aria-label="contacts">
 					{props.questions.map((item, id) => (
 						<li key={id}>
-							<ListItem button>
+							<ListItem style={{justifyContent: 'flex-end'}}>
 								<Question questionName={item} questionID={id} onUpdate={handleUpdate} />
 							</ListItem>
 						</li>
 					))}
 				</List>
 			</Paper>
-				<Button variant="outlined" color="secondary" onClick={handleClick}>
+			<Button variant="outlined" color="secondary" onClick={handleClick}>
 					Submit Responses
-				</Button>
+			</Button>
 		</div>
 	)
 }

@@ -10,7 +10,8 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles({
 	question: {
 		display: 'flex',
-		justifyContent: 'space-between',
+		justifyContent: 'start',
+		padding: '10px',
 	},
 	title: {
 		fontSize: 34,
@@ -29,61 +30,61 @@ const Question = (props) => {
 	}
 	return (
 		<div className={classes.question}>
-		<Paper>
-		<FormControl component="fieldset">
-			<FormLabel component="legend"> {props.questionName} </FormLabel>
-			<RadioGroup
-				aria-label="question"
-				name={props.questionName}
-				value={questionValue}
-				onChange={handleChange}
-				classes={classes.title}
-			>
-				<FormControlLabel
-					value="6"
-					control={<Radio />}
-					label="Strongly Agree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-				<FormControlLabel
-					value="5"
-					control={<Radio />}
-					label="Agree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-				<FormControlLabel
-					value="4"
-					control={<Radio />}
-					label="Somewhat Agree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-				<FormControlLabel
-					value="3"
-					control={<Radio />}
-					label="Somewhat Disagree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-				<FormControlLabel
-					value="2"
-					control={<Radio />}
-					label="Disagree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-				<FormControlLabel
-					value="1"
-					control={<Radio />}
-					label="Strongly Disagree"
-					labelPlacement="start"
-					classes={classes}
-				/>
-			</RadioGroup>
-		</FormControl>
-		</Paper>
+			<Paper elevation={0}>
+				<FormControl component="fieldset">
+					<FormLabel component="legend" style={{fontSize:'20px',fontWeight:'bold', color:'black'}}> {props.questionName} </FormLabel>
+					<RadioGroup
+						aria-label="question"
+						name={props.questionName}
+						value={questionValue}
+						onChange={handleChange}
+						classes={classes.title}
+					>
+						<FormControlLabel
+							value="6"
+							control={<Radio />}
+							label="Strongly Agree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+						<FormControlLabel
+							value="5"
+							control={<Radio />}
+							label="Agree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+						<FormControlLabel
+							value="4"
+							control={<Radio />}
+							label="Somewhat Agree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+						<FormControlLabel
+							value="3"
+							control={<Radio />}
+							label="Somewhat Disagree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+						<FormControlLabel
+							value="2"
+							control={<Radio />}
+							label="Disagree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+						<FormControlLabel
+							value="1"
+							control={<Radio />}
+							label="Strongly Disagree"
+							labelPlacement="start"
+							classes={classes}
+						/>
+					</RadioGroup>
+				</FormControl>
+			</Paper>
 		</div>
 	)
 }
