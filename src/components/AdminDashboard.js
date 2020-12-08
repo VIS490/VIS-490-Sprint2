@@ -109,7 +109,8 @@ const AverageScores = () => {
 	const averageScore = average => average.reduce((a,b) => a+b,0)/average.length
 	function checkT(array){
 		if(array.length==0){
-			return array.push(0)
+			array.push(0)
+			return array[0]
 		}else{
 			return averageScore(array)
 
