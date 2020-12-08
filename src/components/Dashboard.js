@@ -16,12 +16,12 @@ const Dashboard = (props) => {
 					label: 'Category Scores',
 					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
-						'rgba(55, 92, 12, 0.6)',
-						'rgba(95, 2, 19, 0.6)',
-						'rgba(25, 19, 92, 0.6)',
-						'rgba(45, 9, 2, 0.6)',
-						'rgba(35, 192, 86, 0.6)'
+						'rgba(75, 192, 192, 0.8)',
+						'rgba(19, 41, 143, 0.8',
+						'#990808',
+						'rgba(40, 191, 103, 0.8)',
+						'#f0e000',
+						'#ed972d'
 					],
 					borderWidth: 4
 				}
@@ -37,8 +37,9 @@ const Dashboard = (props) => {
 					label: 'Wellness Score',
 					data: props.label,
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
+						'rgba(7, 55, 92, 0.75)'
 					],
+					borderColor: 'rgb(7, 55, 92, 0.9)',
 					borderWidth: 4
 				}
 			]
@@ -51,7 +52,7 @@ const Dashboard = (props) => {
 	}, [])
 
 	return (
-		<div className="Dashboard" style={{ margin: 'auto', padding: '0%', marginRight:'20%', marginTop: '5px'}}>
+		<div className="Dashboard" style={{ margin: 'auto', padding: '0%', marginRight:'17%', marginTop: '5px'}}>
 			<Paper elevation={24} square={false} style={{ display: 'inline-block', margin: '25px', padding: '20px', marginTop:'10%', marginBottom: '3%', textAlign: 'center', verticalAlign: 'middle'}}>
 				<h1 style={{color:'dimgray'}}>Current Wellness Score: {props.wellnessScore}</h1>
 			</Paper>
