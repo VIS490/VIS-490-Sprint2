@@ -81,7 +81,7 @@ const Profile = (props) => {
 		<div className={classes.Profile}>
 			<Container maxWidth="lg">
 			
-				<img src="/static/settings.png" alt="company logo" style={{height:'50%', width:'20%'}}/>
+				<img src="/static/settings.png" alt="settings logo" style={{height:'50%', width:'20%'}}/>
 				<Card className={classes.legend}>
 				      <EditIcon/>
 					<Typography gutterBottom variant="h6" component="h4">
