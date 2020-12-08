@@ -3,6 +3,7 @@ import { Line, Bar } from 'react-chartjs-2'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAuth } from '../contexts/AuthContext'
 import { GET_AVERAGE_BAR_SCORES, GET_AVERAGE_LINE, GET_AVERAGE_WELLNESS_SCORE } from '../graphql/queries'
+import Paper from '@material-ui/core/Paper'
 
 const Dashboard = (props) => {
 	const [barChartData, setBarChartData] = useState()
@@ -11,15 +12,15 @@ const Dashboard = (props) => {
 			labels: ['Work Load', 'Peer Relations', 'Impact', 'Leader Support', 'Development', 'Autonomy'],
 			datasets: [
 				{
-					label: 'Scores',
+					label: 'Category Scores',
 					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
-						'rgba(55, 92, 12, 0.6)',
-						'rgba(95, 2, 19, 0.6)',
-						'rgba(25, 19, 92, 0.6)',
-						'rgba(45, 9, 2, 0.6)',
-						'rgba(35, 192, 86, 0.6)'
+						'rgba(255, 174, 0, 0.8)',
+						'rgba(253, 130, 47, 0.8)',
+						'rgba(249, 75, 0, 0.8)',
+						'rgba(253, 218, 246, 0.8)',
+						'rgba(255, 131, 188, 0.8)',
+						'rgba(204, 0, 103, 0.8)'
 					],
 					borderWidth: 4
 				}
@@ -35,8 +36,9 @@ const Dashboard = (props) => {
 					label: 'Average Score During that Week',
 					data: [props.score1,props.score2,props.score3,props.score4,props.score5],
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
+						'rgba(245, 168, 73, 0.7)'
 					],
+					borderColor: 'rgb(245, 168, 73, 0.9)',
 					borderWidth: 4
 				}
 			]
@@ -49,55 +51,84 @@ const Dashboard = (props) => {
 	}, [])
 
 	return (
-		<div className="Dashboard" style={{ margin: 'auto', padding: 'auto'}}>
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Average Wellness Score: {props.wellnessScoreAverage}</h1>
-			<div style={{ float: 'right', width: '500px', }}>
-				<Bar data={barChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Average Topic Score of Team',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 5
-					},
-					scales: {
-						yAxes: [
-							{
-								ticks: {
-									beginAtZero: true
+		<div className="Dashboard" style={{ margin: 'auto', padding: '0%', marginRight:'15%'}}>
+			<Paper elevation={24} square={false} style={{ display: 'inline-block', margin: '25px', padding: '20px', marginTop:'10%', marginBottom: '3%', textAlign: 'center', verticalAlign: 'middle'}}>
+				<h1 style={{color:'dimgray'}}>Current Average Wellness Score: {props.wellnessScoreAverage}</h1>
+			</ Paper>
+			<Paper elevation={24} style={{ float: 'right', width: '500px', margin:'auto', marginTop: '3%', marginRight: '20px', padding:'25px'}}>
+				<div>
+					<Bar data={barChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Average Topic Score of Team',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 5
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
-			<div style={{ width: '900px' }}>
-				<Line data={lineChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Average Score Trend of Team',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 50
-					},
-					scales: {
-						yAxes: [
-							{
-								ticks: {
-									beginAtZero: true
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Categories'
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
-
+							]
+						}
+					}} />
+				</div>
+			</Paper>
+			<Paper elevation={24} style={{ margin:'auto', padding:'auto', marginTop:'9%', marginBottom:'0'}}>
+				<div>
+					<Line data={lineChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Average Score Trend of Team',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 50
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
+								}
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Previous Weeks'
+									}
+								}
+							]
+						}
+					}} />
+				</div>
+			</Paper>
 		</div>
 
 	)

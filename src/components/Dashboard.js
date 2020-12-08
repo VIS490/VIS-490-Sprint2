@@ -16,12 +16,12 @@ const Dashboard = (props) => {
 					label: 'Category Scores',
 					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.8)',
-						'rgba(19, 41, 143, 0.8',
-						'#990808',
-						'rgba(40, 191, 103, 0.8)',
-						'#f0e000',
-						'#ed972d'
+						'rgba(179, 205, 224, 0.8)',
+						'rgba(100, 151, 177, 0.8)',
+						'rgba(0, 91, 150, 0.8)',
+						'rgba(3, 57, 108, 0.8)',
+						'rgba(1, 31, 75, 0.8)',
+						'rgba(0, 25, 46, 0.8)'
 					],
 					borderWidth: 4
 				}
