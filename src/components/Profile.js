@@ -11,21 +11,33 @@ import { GET_PROFILE_NAME } from '../graphql/queries'
 import { UPDATE_USER_ADMIN } from '../graphql/mutations'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import EditIcon from '@material-ui/icons/Edit'
 
 const useStyles = makeStyles((theme) => ({
 	Profile:{
 		margin: 'auto',
 		padding: 'auto',
 		height: '100%',
-		float: 'left'
+		float: 'left',
 	},
 	card: {
 		display: 'flex',
+		width:'100%',
+		paddingBottom:'25%',
 		flexDirection: 'column',
+		
+	},
+	teamLeader :{
+		width: '100%',
+		display: 'flex',
+	
+		flexDirection: 'column',
+		
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	
 }))
 const Profile = (props) => {
 	const classes = useStyles()
@@ -38,15 +50,15 @@ const Profile = (props) => {
 
 	const handleClick = (event) => {
 		event.preventDefault()
-		console.log("in handle click")
+		console.log('in handle click')
 		updateAdminEmail({
 			variables: {
-				"_set":{
-					"admin_email": adminEmail
+				'_set':{
+					'admin_email': adminEmail
 				},
-				"where": {
-					"email":{
-					  "_eq": props.email
+				'where': {
+					'email':{
+					  '_eq': props.email
 					}
 				}
 			}
@@ -57,15 +69,9 @@ const Profile = (props) => {
 
 		<div className={classes.Profile}>
 			<Container maxWidth="lg">
-
-				<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-					User Profile
-				</Typography>
-
-				<img
-					alt=" logo" height="175px"
-					src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button-by-vexels.png"
-				/>
+			
+				<img src="/static/settings.png" alt="settings logo" style={{height:'50%', width:'20%'}}/>
+				
 				<Card className={classes.card}>
 
 					<CardContent width="100%">
@@ -86,7 +92,7 @@ const Profile = (props) => {
 					</CardContent>
 				</Card>
 
-				<Card className={classes.card}>
+				<Card className={classes.teamLeader}>
 					<CardContent width="100%">
 						<Typography gutterBottom variant="h5" component="h1">
 							Set New Team Leader Email
