@@ -33,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+		
 	},
+	learnMore:{
+		background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+	}
+	
 }))
 
 const Login = () => {
@@ -151,7 +156,7 @@ const Login = () => {
 							fullWidth
 							variant="contained"
 							color="primary"
-							className={classes.submit}
+							className={classes.learnMore}
 						>
 							Learn More about VIS
 						</Button>
