@@ -108,9 +108,10 @@ const Members = (props) => {
 					</CardContent>
 				</CardActionArea>
 			</Card>
+			<br /> 
 			<div className = "Users">
 				<Paper style={{maxHeight: 500, overflow: 'auto',width:'100%'}}>
-					<List dense className={classes.cardGrid}>
+					<List dense className={classes.cardGrid}>						
 						{userList.map((name,index) => {
 							const labelId = `checkbox-list-secondary-label-${index}`
 							return (
@@ -133,6 +134,7 @@ const Members = (props) => {
 					</List>
 				</Paper>
 			</div>
+			<br /> 
 			<Button variant="contained" color="secondary" onClick={handleClick}>
                 Remove User
 			</Button>
