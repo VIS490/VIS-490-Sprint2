@@ -111,6 +111,7 @@ const Members = (props) => {
 					</CardContent>
 				</CardActionArea>
 			</Card>
+			<br /> 
 			<div className = "Users">
 				<Paper style={{maxHeight: 500, overflow: 'auto',width:'100%'}}>
 					<List dense className={classes.cardGrid}>
@@ -136,6 +137,7 @@ const Members = (props) => {
 					</List>
 				</Paper>
 			</div>
+			<br /> 
 			<Button variant="contained" color="secondary" onClick={handleClick}>
                 Remove User
 			</Button>
