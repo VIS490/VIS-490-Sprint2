@@ -4,6 +4,7 @@ import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAuth } from '../contexts/AuthContext'
 import { GET_WELLNESS_SCORE } from '../graphql/queries'
 import { GET_LINECHART_SCORES } from '../graphql/queries'
+import Paper from '@material-ui/core/Paper'
 
 const Dashboard = (props) => {
 	const [barChartData, setBarChartData] = useState()
@@ -12,15 +13,15 @@ const Dashboard = (props) => {
 			labels: ['Work Load', 'Peer Relations', 'Impact', 'Leader Support', 'Development', 'Autonomy'],
 			datasets: [
 				{
-					label: 'Scores',
+					label: 'Category Scores',
 					data: [props.workLoad, props.peerRelations, props.impact, props.leaderSupport, props.development, props.autonomy],
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
-						'rgba(55, 92, 12, 0.6)',
-						'rgba(95, 2, 19, 0.6)',
-						'rgba(25, 19, 92, 0.6)',
-						'rgba(45, 9, 2, 0.6)',
-						'rgba(35, 192, 86, 0.6)'
+						'rgba(179, 205, 224, 0.8)',
+						'rgba(100, 151, 177, 0.8)',
+						'rgba(0, 91, 150, 0.8)',
+						'rgba(3, 57, 108, 0.8)',
+						'rgba(1, 31, 75, 0.8)',
+						'rgba(0, 25, 46, 0.8)'
 					],
 					borderWidth: 4
 				}
@@ -33,11 +34,12 @@ const Dashboard = (props) => {
 			labels: props.date,
 			datasets: [
 				{
-					label: 'Score During that Week',
+					label: 'Wellness Score',
 					data: props.label,
 					backgroundColor: [
-						'rgba(75, 192, 192, 0.6)',
+						'rgba(7, 55, 92, 0.75)'
 					],
+					borderColor: 'rgb(7, 55, 92, 0.9)',
 					borderWidth: 4
 				}
 			]
@@ -50,54 +52,84 @@ const Dashboard = (props) => {
 	}, [])
 
 	return (
-		<div className="Dashboard" style={{ margin: 'auto', padding: 'auto'}}>
-			<h1 style={{ borderRadius: 100, borderWidth: 10, borderColor: 'black' }}>Current Wellness Score: {props.wellnessScore}</h1>
-			<div style={{ float: 'right', width: '500px', }}>
-				<Bar data={barChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Topic Breakdown',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 5
-					},
-					scales: {
-						yAxes: [
-							{
-								ticks: {
-									beginAtZero: true
+		<div className="Dashboard" style={{ margin: 'auto', padding: '0%', marginRight:'17%', marginTop: '5px'}}>
+			<Paper elevation={24} square={false} style={{ display: 'inline-block', margin: '25px', padding: '20px', marginTop:'10%', marginBottom: '3%', textAlign: 'center', verticalAlign: 'middle'}}>
+				<h1 style={{color:'dimgray'}}>Current Wellness Score: {props.wellnessScore}</h1>
+			</Paper>
+			<Paper elevation={24} style={{ float: 'right', width: '500px', margin:'auto', marginTop: '5%', marginRight: '20px', padding:'25px'}}>
+				<div>
+					<Bar data={barChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Topic Breakdown',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 5
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
-			<div style={{ width: '900px' }}>
-				<Line data={lineChartData} options={{
-					responsive: true,
-					title: {
-						text: 'Weekly Wellness Score Trend',
-						display: true,
-						fontSize: 25,
-						fontStyle: 'bold'
-					},
-					layout: {
-						padding: 50
-					},
-					scales: {
-						yAxes: [
-							{
-								ticks: {
-									beginAtZero: true
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Categories'
+									}
 								}
-							}
-						]
-					}
-				}} />
-			</div>
+							]
+						}
+					}} />
+				</div>
+			</ Paper>
+			<Paper elevation={24} style={{ margin:'auto', padding:'auto', marginTop:'13%'}}>
+				<div>
+					<Line data={lineChartData} options={{
+						responsive: true,
+						title: {
+							text: 'Weekly Wellness Score Trend',
+							display: true,
+							fontSize: 25,
+							fontStyle: 'bold'
+						},
+						layout: {
+							padding: 50
+						},
+						scales: {
+							yAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Score Range'
+									},
+									ticks: {
+										beginAtZero: true
+									}
+								}
+							],
+							xAxes: [
+								{
+									scaleLabel: {
+										display: true,
+										labelString: 'Last Survey from this Week'
+									}
+								}
+							]
+						}
+					}} />
+				</div>
+			</ Paper>
 		</div>
 	)
 }
