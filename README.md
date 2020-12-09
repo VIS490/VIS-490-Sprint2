@@ -97,8 +97,9 @@ HASURA_GRAPHQL_ADMIN_SECRET = youradminsecret
 - You need add these variables in the ``Config Vars in Heroku``
 - These will enable you to make Hasura GraphQL Queries and Mutations
 - The next is to make your DB tables in Hasura
-- ``tables_ddl.pdf`` this a file with all the Tables which can be used to make the Database
-- Use the SQL file to make your tables
+- ``schema.json`` this a file with all the Tables which can be used to make the Database
+- Use the GraphQL playground with this file.  
+
 ## Run the App
 - Open the App in VSCODE or any other editor
 - Run Commands
@@ -121,7 +122,28 @@ python app.py
     - Fixing edge cases related to the Firebase API failing and ensuring that the User was notified of errors.  
 
 ## Issues Still Persist
-- Did not calculate  the average of scores via Hasura 
+- Did not calculate  the average of scores via Hasura  
+
+## Work Done by each Engineer
+- Ronak Pasricha
+  - Designed the landing page and deployed it and connected it to our application.
+  - Created and styled the team members page.
+  - Took care of the admin functionality to remove users from an admin team.
+- Vrushali Koli
+  - Took care of the user functionality to add an admin.
+  - Update overall UI for all major components.
+  - Added persistence of quiz scores to the database.
+  - Designed the conditional sign up for admin users.
+- Anshul Mistry
+  - Added functionality and UI for Google Oauth with firebase.
+  - Handled all the routing for the admin pages.
+  - Handled the conditional rendering for admin and user components. 
+  - Styled the quiz UI.
+- Brandon Rodriguez
+  - Reformatted the dashboard code to retrieve and display database information.
+  - Created UI for admin dashboard.
+  - Retrieved database information to display on the admin dashboard.  
+  
 ## Show your support
 
 Give a ⭐️ if this project helped you!
