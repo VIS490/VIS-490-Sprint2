@@ -58,7 +58,7 @@ const Profile = (props) => {
 				},
 				'where': {
 					'email':{
-					  '_eq': props.email
+						'_eq': props.email
 					}
 				}
 			}

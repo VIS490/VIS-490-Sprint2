@@ -150,9 +150,9 @@ const AverageScores = () => {
 	var average=[]
 	var averageWellnessScore
 	var averageWorkLoad, averagePeerRelations, averageImpact, averageLeaderSupport, averageDevelopment, averageAutonomy
-	var wl=[], pr=[], im=[], ls=[], dv=[], ay=[];
-	var as1=[],as2=[],as3=[],as4=[],as5=[];
-	var i,j;
+	var wl=[], pr=[], im=[], ls=[], dv=[], ay=[]
+	var as1=[],as2=[],as3=[],as4=[],as5=[]
+	var i,j
 
 	const { loading: loading1, error: error1, data: data1 } = useQuery(GET_AVERAGE_WELLNESS_SCORE, {
 		variables: { email }
@@ -160,19 +160,19 @@ const AverageScores = () => {
 
 	const { loading: loading2, error: error2, data: data2 } = useQuery(GET_AVERAGE_BAR_SCORES, {
 		variables: { email }
-    })
-    const { loading: loading3, error: error3, data: data3 } = useQuery(GET_AVERAGE_LINE, {
-        variables: { email }
-    })
+	})
+	const { loading: loading3, error: error3, data: data3 } = useQuery(GET_AVERAGE_LINE, {
+		variables: { email }
+	})
 
 	if (loading1) return <div>Loading...</div>
 	if (loading2) return <div>Loading...</div>
-    if (loading3) return <div>Loading...</div>
-	if (error1) return `Error! ${errorR.message}`
-    if (error2) return `Error! ${errorR.message}`
-    if (error3) return `Error! ${errorR.message}`
+	if (loading3) return <div>Loading...</div>
+	if (error1) return `Error! ${error1.message}`
+	if (error2) return `Error! ${error2.message}`
+	if (error3) return `Error! ${error3.message}`
 
-    for (i=0; i<Object.keys(data1['Users']).length;i++){
+	for (i=0; i<Object.keys(data1['Users']).length;i++){
 		
 		if(Object.keys(data1['Users'][i]['user_tests_rel']).length==0){
 			continue

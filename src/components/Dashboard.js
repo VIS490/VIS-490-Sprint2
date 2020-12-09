@@ -139,7 +139,7 @@ const AllScores = () => {
 	const email = currentUser.email
 	var label = []
 	var items = []
-	var i, ws, wl, pr, im, ls, dv, ay;
+	var i, ws, wl, pr, im, ls, dv, ay
 	
 	const { loading: loadingR, error: errorR, data: dataR } = useQuery(GET_LINECHART_SCORES, {
 		variables: { email }

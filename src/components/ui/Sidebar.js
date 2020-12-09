@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import { Typography } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react'
+import {makeStyles} from '@material-ui/styles'
+import {Typography} from '@material-ui/core'
+import {Link} from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 		textDecoration: 'none',
 	},
-	logout:{
+	logout: {
 		...theme.button,
 		margin: '10px 0 10px 0',
 		marginTop: '20%'
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = () => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
-	const { isAdmin } = useAuth()
+	const {isAdmin} = useAuth()
 
 	useEffect(() => {
 		if (window.location.pathname === '/' && value !== 0) {
@@ -86,33 +86,41 @@ const Sidebar = () => {
 	const user = (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
-				{<img src="../../static/companyLogo.png" alt="Vis" style={{  height:161, width:299 }}/>}
+				{<img src="../../static/companyLogo.png" alt="Vis" style={{height: 161, width: 299}}/>}
 				{/* <Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography> */}
 			</div>
 			<div className={classes.sidebarBody}>
 				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
-					<ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to="/profile" label="Profile" onClick={() => { setValue(2) }}>
+					<ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to="/profile" label="Profile" onClick={() => {
+						setValue(2)
+					}}>
 						<ListItemIcon>
-            				<SettingsIcon />
-         	 			</ListItemIcon>
+							<SettingsIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Settings</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to="/dashboard" label="Dashboard" onClick={() => { setValue(1) }}>
+					<ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to="/dashboard" label="Dashboard" onClick={() => {
+						setValue(1)
+					}}>
 						<ListItemIcon>
-            				<AssessmentIcon />
-         	 			</ListItemIcon>
+							<AssessmentIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Dashboard</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => { setValue(3) }}>
+					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => {
+						setValue(3)
+					}}>
 						<ListItemIcon>
-            				<QuestionAnswerIcon />
-         	 			</ListItemIcon>
+							<QuestionAnswerIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Survey</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
+					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => {
+						setValue(6)
+					}}>
 						<ListItemIcon>
-            				<ExitToAppIcon />
-         	 			</ListItemIcon>
+							<ExitToAppIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Logout</ListItemText>
 					</ListItem>
 				</List>
@@ -122,45 +130,57 @@ const Sidebar = () => {
 	const admin = (
 		<div className={classes.sidebar}>
 			<div className={classes.header}>
-				{<img src="../../static/companyLogo.png" alt="Vis" style={{  height:161, width:299 }}/>}
+				{<img src="../../static/companyLogo.png" alt="Vis" style={{height: 161, width: 299}}/>}
 				{/* <Typography  className={classes.name}  variant="h4"  label="Home">Vis</Typography> */}
 			</div>
 			<div className={classes.sidebarBody}>
 				<List onChange={handleChange} className={classes.sidebarBody} disablePadding>
-					<ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to="/profile" label="Profile" onClick={() => { setValue(2) }}>
+					<ListItem selected={value === 2} className={classes.listItem} divider button component={Link} to="/profile" label="Profile" onClick={() => {
+						setValue(2)
+					}}>
 						<ListItemIcon>
-            				<SettingsIcon />
-         	 			</ListItemIcon>
+							<SettingsIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Settings</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to="/dashboard" label="Dashboard" onClick={() => { setValue(1) }}>
+					<ListItem selected={value === 1} className={classes.listItem} divider button component={Link} to="/dashboard" label="Dashboard" onClick={() => {
+						setValue(1)
+					}}>
 						<ListItemIcon>
-            				<AssessmentIcon />
-         	 			</ListItemIcon>
+							<AssessmentIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Dashboard</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => { setValue(3) }}>
+					<ListItem selected={value === 3} className={classes.listItem} divider button component={Link} to="/quiz" label="Quiz" onClick={() => {
+						setValue(3)
+					}}>
 						<ListItemIcon>
-            				<QuestionAnswerIcon />
-         	 			</ListItemIcon>
+							<QuestionAnswerIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Survey</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 4} className={classes.listItem} divider button component={Link} to="/admin-dash" label="Admin Dashboard" onClick={() => { setValue(4) }}>
+					<ListItem selected={value === 4} className={classes.listItem} divider button component={Link} to="/admin-dash" label="Admin Dashboard" onClick={() => {
+						setValue(4)
+					}}>
 						<ListItemIcon>
-            				<DashboardIcon />
-         	 			</ListItemIcon>
+							<DashboardIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Admin Dashboard</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 5} className={classes.listItem} divider button component={Link} to="/team" label="Team" onClick={() => { setValue(5) }}>
+					<ListItem selected={value === 5} className={classes.listItem} divider button component={Link} to="/team" label="Team" onClick={() => {
+						setValue(5)
+					}}>
 						<ListItemIcon>
-            				<GroupIcon />
-         	 			</ListItemIcon>
+							<GroupIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Team</ListItemText>
 					</ListItem>
-					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => { setValue(6) }}>
+					<ListItem selected={value === 6} className={classes.logout} divider button component={Link} to="/" label="logout" onClick={() => {
+						setValue(6)
+					}}>
 						<ListItemIcon>
-            				<ExitToAppIcon />
-         	 			</ListItemIcon>
+							<ExitToAppIcon/>
+						</ListItemIcon>
 						<ListItemText disableTypography>Logout</ListItemText>
 					</ListItem>
 				</List>
@@ -169,7 +189,7 @@ const Sidebar = () => {
 	)
 	return (
 		<React.Fragment>
-			{isAdmin ? admin: user}
+			{isAdmin ? admin : user}
 		</React.Fragment>
 	)
 }
