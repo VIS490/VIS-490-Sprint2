@@ -112,7 +112,7 @@ python app.py
 - Firebase Integration:  
   - Our app is using email/password and google oauth from Firebase to authenticate users. Because this was private information we wanted to make sure that placing this functionality on the front-end wouldn't cause any major security concerns. We found a solution to use React env variables. 
 - Hasura Query and Mutations:  
- - The queries and mutations for our DB had to be formatted in a spceific manner to allow time for loading ad error handling. Essentially, our pages all need to make the queries/mutations set-up first, and then render ui components.
+  - The queries and mutations for our DB had to be formatted in a spceific manner to allow time for loading ad error handling. Essentially, our pages all need to make the queries/mutations set-up first, and then render ui components.
 - UI Styling for Components:  
   - We wanted to update the over all UI to have a sleek look. Material UI recieves and processes CSS rules as a javascript function. We had to read up several examples and the official documention to ensure consistenty throughout the components. 
 - Datbase Schema connections between tables:  
