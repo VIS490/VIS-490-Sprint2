@@ -3,7 +3,7 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
-> Description TODO
+> Vis is a application that allows Team leaders to have better insights on their team's mental wellbeing with surveys. The Team Leaders can then see the average of the overall Team’s mental wellbeing score keeping users anonymous.  Users can see their own past historical data as well , helping them continue to grow. Please note that this app is not  HIPAA compliant and this is a prototype 
 
 ### 🏠 [VIS Homepage](https://still-ravine-46486.herokuapp.com)
 
@@ -108,6 +108,15 @@ npm run dev
 ```sh
 python app.py
 ```
+## Issues (Obstacles)
+- Firebase Integration
+- Hasura Query and Mutations
+- UI Styling for Components
+- Datbase Schema connections between tables 
+- Signup bugs - fixing edge cases 
+
+## Issues Still Persist
+- Did not calculate  the average of scores via Hasura 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
